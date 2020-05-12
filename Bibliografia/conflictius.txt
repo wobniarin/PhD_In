@@ -1,0 +1,27 @@
+
+
+
+[3] ||, \Wind in Power: 2017 European statistics," Tech. Rep., 2018.
+xv, 1, 2
+
+
+
+
+[49] ||, \An HVDC Current Flow Controller for Multi-Terminal Grids,"
+in PCIM Eur. 2018, June 2018, Nuremberg, Ger., no. June, 2018, pp.
+5{7. 21
+
+[50] ||, \A DC Current Flow Controller for Meshed HVDC Grids," in
+2018 Int. Power Electron. Conf. (IPEC Niigata 2018 ECCE Asia),
+2018, pp. 2476{2483. 21
+
+
+[79] ||, \High power HVDC DC converters for the interconnection of
+HVDC lines with dierent line topologies," in 2014 Int. Power Elec-
+tron. Conf. (IPEC Hiroshima 2014 ECCE ASIA), may 2014, pp. 3255{
+3262. 149, 152
+
+
+[80] ||, \Comparison of modular multilevel converter based HV DC-DCconverters,"
+in 2016 18th Eur. Conf. Power Electron. Appl. (EPE'16
+ECCE Eur., 2016, pp. 1{10. 149, 152

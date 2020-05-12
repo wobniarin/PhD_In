@@ -1,0 +1,303 @@
+%\documentclass{Classe/PhDCITCEA_print}
+\documentclass{Classe/PhDCITCEA_web}
+
+\pdfinfo {/Aggregated flexibility services for distribution network operation)
+	/Creator (\'Ingrid Munn\'e Collado)
+	/Producer (\'Ingrid Munn\'e Collado)
+	/Author (ingrid.munne@citcea.upc.edu)
+	/CreationDate (D:20200512170400)  %format D:YYYYMMDDhhmmss
+	/ModDate (D:20200512170400)
+	/Subject (Aggregated flexibility services for distribution network operation)
+	/Keywords (Smart Grids, local markets, distributed energy resources, )}
+	\pdfcatalog { /PageMode (/UseOutlines)
+	/OpenAction (fitbh) }
+
+\university{Universitat Polit\`ecnica de Catalunya}
+\department{Departament d'Enginyeria El\`ectrica}
+\logouniversity{\includegraphics[width=80mm]{logotips/logo_oficial_ca.pdf}}
+\logodepartment{\includegraphics[width=80mm]{logotips/logo_citcea_h_ca.pdf}}
+
+\subject{PhD Thesis}
+% \title{Control de convertidors estatics per a l’operacio electrica renovable de sistemes de generacio en presencia de pertorbacions de xarxa}
+%\title{Local Electricity Markets in distribution power systems with distributed energy resources}
+\title{Aggregated flexibility services for distribution network operation}
+%{\large Wind turbine generator control, DC/DC converter control for DC collection, MMC converter control, MT-VSC-HVDC converter control}}
+
+% \partone{Part I. Offshore wind technology} % Comenta-ho si no hi ha parts
+% \parttwo{Part II. DC Microgrids and emulators}
+\author{\'Ingrid Munn\'e Collado}
+\advisorone{Dra. Monica Aragues Penalba}
+\advisortwo{Dr. Andreas Sumper} % Comenta la linia si nomes hi ha un director
+\affone{(UPC, Spain)}
+\afftwo{(UPC, Spain)}
+\affthree{(NTNU, Norway)}
+\afffour{(DTU, Denmark)}
+\afffive{(NTNU, Norway)}
+\affsix{(DTU, Denmark)}
+\place{Barcelona}
+\date{December 2020}
+%%Commitee
+\examinerone{Prof. XXXXXXX} 
+\examinertwo{Prof. XXXXXX}
+\examinerthree{Prof. XXXXXXX}
+\reviewerone{Prof. XXXXX}
+\reviewertwo{Prof. XXXXXXX}
+
+% Pagina de darrere el titol
+\uppertitleback{
+Universitat Polit\`ecnica de Catalunya \par
+Departament d'Enginyeria El\`ectrica \par
+Centre d'Innovaci\'o Tecnol\`ogica en Convertidors Est\`atics i Accionaments \par
+Av. Diagonal, 647. Pl. 2 \par
+08028, Barcelona \par
+\vspace{3mm}
+Copyright \textcopyright \hspace{1mm} \'Ingrid Munn\'e Collado, 2020 \par
+\vspace{3mm}
+% Impr\`es a Barcelona per CPDA, S.L. \par
+Cover design: Marta Bell\'es Petit \par
+First printing, December 2020  \par
+\vspace{3mm}
+% ISBN:
+}
+
+\pagestyle{headings}
+%\usepackage{fancyhdr}
+%\pagestyle{fancy}
+\usepackage{amssymb,booktabs,lscape,rotating}
+\usepackage{subfigure}
+\usepackage{graphicx}
+%\usepackage{url}
+\usepackage{amsmath}
+%\usepackage{showframe} %to show the book frame
+\usepackage{setspace}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{mdwmath}
+\usepackage{mdwtab}
+\usepackage{wasysym}
+\usepackage{upgreek}
+%\usepackage{txfonts} %doesn't work
+%\usepackage{endfloat} %posar figures al final
+\usepackage{tabulary}
+
+\usepackage[linesnumbered,ruled,vlined]{algorithm2e}
+\DontPrintSemicolon
+\usepackage{algorithmic}
+
+\usepackage{dblfloatfix}
+\usepackage{multirow}
+
+\usepackage{textcomp}
+\usepackage{pdfpages}
+\usepackage{gensymb}
+\usepackage{epstopdf}
+
+\usepackage{psfrag}
+\usepackage{makecell}
+%\usepackage{subfig}
+%\usepackege{tabularx}
+
+\usepackage{color}
+\usepackage{soul}
+%\usepackage{caption}
+\usepackage[figurename=Fig.]{caption}
+\usepackage{rotating}
+
+
+\usepackage{textcomp}
+\usepackage{verbatim}
+%\usepackage{lscape}
+%\usepackage{subfig}
+%\usepackage[caption=false,font=footnotesize]{subfig}
+%\usepackage{fixltx2e}
+
+\usepackage{array,booktabs}
+
+% Bibbiography style
+\usepackage{cite} % enables sort and compress for citation, e.g. [1-6]
+\bibliographystyle{IEEEtran}
+
+% Change chapter style
+%\usepackage[Lenny]{sty/fncychap} % choose from seven different chapter styles
+\newcolumntype{P}[1]{>{\centering\arraybackslash}p{#1}}
+
+%Enable url-break 
+\usepackage{hyperref}
+\usepackage{breakurl}
+
+%Figures
+\usepackage{wrapfig}
+
+\usepackage{tikz}
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{
+		\node[shape=circle,draw,inner sep=2pt] (char) {#1};}}
+
+%\usepackage{tikz}
+%\newcommand*\circled[1]{\tikz[baseline=(char.base)]{
+ %           \node[shape=circle,draw,inner sep=2pt] (char) {#1};}}
+
+%Per fer citacions literals a text en bloc \enquote{text} \blockquote{text}:
+\usepackage[autostyle]{csquotes}
+
+
+%per evitar cites de figures
+\usepackage{notoccite}
+
+%\usepackage[noadjust]{cite}
+
+\usepackage{xspace}
+\newcommand{\eq}[1]{(\ref{#1})}
+\newcommand{\fig}[1]{Fig.~\ref{#1}}
+\newcommand{\tab}[1]{Table~\ref{#1}}
+\newcommand{\ie}{{\it i.e.}\xspace}
+\newcommand{\eg}{{\it e.g.}\xspace}
+%\renewcommand{\thesubfigure}{\alph{subfigure})}% (a) -> a)
+
+\makeatletter
+\renewcommand{\thesubfigure}{\alph{subfigure}}% (a) -> a
+\renewcommand{\@thesubfigure}{\thesubfigure)\hskip\subfiglabelskip}% a -> a)
+\makeatother
+
+%\babelhyphenation[english]{Ca-ta-lu-nya, Sum-per, Ra-m\'{i}-rez}
+\hyphenation{Gir-bau Ca-ta-lu-nya non-discri-mi-na-to-ry Jay-aprakash}
+
+%Nomenclature
+\usepackage[english,noprefix,intoc]{package/nomencl}
+\usepackage{etoolbox} %to change the nomenclature grouping
+
+\makenomenclature
+\renewcommand{\nomname}{Nomenclature}
+\renewcommand{\nompreamble}{\markboth{\nomname}{\nomname}}
+%% This code creates the groups
+% -----------------------------------------
+
+%\renewcommand{\nompreamble}{\vspace{0in}}
+\renewcommand\nomgroup[1]{%
+	%	\item[\bfseries
+	\ifstrequal{#1}{I}{\vspace{10pt} \item[\textbf{Indices and Sets}]}{%
+		\ifstrequal{#1}{P}{\vspace{10pt} \item[\textbf{Optimization parameters}]}{%
+			\ifstrequal{#1}{Q}{\vspace{10pt} \item[\textbf{Parameters ADMM}]}{
+				\ifstrequal{#1}{V}{\vspace{10pt} \item[\textbf{Optimization variables}]}{
+					\ifstrequal{#1}{A}{\item[\textbf{Abbreviations}]}}{}}
+		}%
+	}
+}
+%\setlength{\nomitemsep}{-\parsep}
+%\RequirePackage{ifthen}
+
+\begin{document}
+
+%\includepdf{PortadaMatias/Front_web.pdf} %auskommentieren für print version
+\cleardoubleemptypage
+
+\selectlanguage{english}
+
+\maketitle
+%\includegraphics[width=1\textwidth]{actaqualificaciotesi2.pdf}
+
+\cleardoubleemptypage
+
+\pagenumbering{roman}
+%\include{Dedicatoria/Dedicatoria}
+
+\clearpage
+$ $
+\\$ $
+\\$ $
+\\$ $
+\\$ $
+\\$ $
+\\$ $
+\\$ $
+\\$ $
+\\$ $
+\\$ $
+\\$ $
+\\$ $
+
+\begin{Large}
+{\raggedleft
+\textit{"Oh how much is left to learn"\\ ~ \\ Ziggy Alberts\\}}
+\vspace{2cm}
+%{\raggedleft
+%	\textit{"In these bodies we will live, in these bodies we will die\\ Where you invest your love, you invest your life" \\ ~ \\ Awake my soul by Mumford and Sons \\}}
+\vspace{2cm}
+{\raggedleft
+	\textit{"Always remember the blue sky. \\ Let thoughts come and go"\\}}
+
+\vspace{2cm}
+{\raggedleft
+	\textit{"Pas a pas"\\}}
+
+\end{Large}
+\clearpage
+$~$
+$~$
+\clearpage
+$ $
+\\$ $
+\\$ $
+\\$ $
+\\$ $
+\\$ $
+\\$ $
+\\$ $
+\\$ $
+\\$ $
+\\$ $
+\\$ $
+\\$ $
+\\$ $
+\\$ $
+\begin{Large}
+	{\raggedleft
+		\textit{To S\'ilvia,\\ Joan and J\`essica\\}
+		}
+\end{Large}
+
+%\pagenumbering{roman}
+\include{Agraiments/Agraiments}
+\include{Resum/Resum}
+
+\tableofcontents
+\cleardoublepage
+\phantomsection
+
+\listoffigures
+\phantomsection
+\cleardoublepage
+
+\phantomsection
+\listoftables
+\cleardoublepage
+\markboth{\nomname}{\nomname}
+
+\phantomsection
+\printnomenclature[2cm]
+\cleardoublepage 
+
+\input{Nomenclature}
+
+%\pagenumbering{roman}
+\pagenumbering{arabic}
+\input{ChapterIntro/ChapterIntro}
+%\input{ChapterEVABM/ChapterEVABM}
+%\input{ChapterFlowBasedMarket/ChapterFlowBasedMarket} %\input{ChapterDAMM/ChapterDAMM} %energycon2016
+%\input{ChapterLFM/ChapterLFM}
+%\input{ChapterDSOOptimization/ChapterDSOOptimization}
+%\input{ChapterADMM/ChapterADMM}
+\input{Conclusions/Conclusions}
+
+% Bibliografia
+\bibliography{Bibliografia/IEEEabrv,Bibliografia/bibliografiaPhD}
+%\bibliography{Bibliografia/IEEEabrv,Bibliografia/library}
+
+
+%Appendix
+\appendix
+%\include{ChapterX/ChapterX}
+\include{apendix/publicacions}
+
+\cleardoublepage
+
+\end{document}

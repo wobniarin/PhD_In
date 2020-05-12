@@ -1,0 +1,240 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Nomenclatura																																										%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Entrades de la nomenclatura
+%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\makeindex
+% Wichtig !!!!!Wichtig !!!!!Wichtig !!!!!Wichtig !!!!!Wichtig !!!!!Wichtig !!!!!Wichtig 
+% Go to directory where tex is saved, in this case C:\Users\User\Dropbox\01_Diss\00_TEX
+% in Shell: makeindex PhD.nlo -s nomencl.ist -o PhD.nls 
+%\label{ChapterNomenclature} it doesn't work
+
+
+%Sets
+
+\nomenclature[I]{$\mathcal{I}$}{Set of prosumer sites, indexed by $i$}
+\nomenclature[I]{$\mathcal{T}$}{Set of periods/time slots in the planning horizon, indexed by $t$}
+\nomenclature[I]{$\mathcal{T}^\pm$}{Subset of periods with up (+) or down (-) regulation}
+%DSO optimization
+\nomenclature[I]{$\mathcal{K}$}{Set of non-buffered flexible loads, indexed by \textit{k}}
+\nomenclature[I]{$\mathcal{K}^{CD}$}{Subset of flexible load units of type curtailable  disconnectable}
+\nomenclature[I]{$\mathcal{K}^{SP}$}{Subset of flexible load units of type shiftable profile}
+\nomenclature[I]{$\mathcal{C}(k)$}{Set of shiftable load periods, indexed by \textit{c}. It depends on each \textit{k}}
+\nomenclature[I]{$\mathcal{G}$}{Set of distributed generators, indexed by \textit{g}}
+\nomenclature[I]{$\mathcal{G}^{i}$}{Subset of inflexible distributed generator}
+\nomenclature[I]{$\mathcal{G}^{r}$}{Subset of reducible distributed generators}
+\nomenclature[I]{$\mathcal{G}^{d}$}{Subset of disconnectable distributed generators}
+\nomenclature[I]{$\mathcal{B}^{bat}$}{Set of storage units, indexed by \textit{b}}
+
+%Site parameters
+
+\nomenclature[P]{$P_{i,t}^{buy}$}{Price at energy part for buying electricity in period $t$ in site $i$ [EUR/kWh]}
+\nomenclature[P]{$P_{i,t}^{sell}$}{Price at energy part for buying electricity in period $t$ in site $i$ [EUR/kWh]}
+%\nomenclature[P]{$P_{i,t}^{Gr}$}{Penalty cost for curtailing photovoltaic energy production [EUR/kWh] of site $i$ in period $t$}
+%\nomenclature[P]{$P_{i,t}^{Gd}$}{Penalty cost for disconnecting photovoltaic energy production [EUR/kWh] of site $i$ in period $t$}
+\nomenclature[P]{$X_{i}^{imp}$}{Maximum electricity import capacity of site $i$ per period [kWh]}
+\nomenclature[P]{$X_{i}^{exp}$}{Maximum electricity export capacity of site $i$ per period [kWh]}
+%Site variables
+\nomenclature[V]{$\chi_{i,t}^{buy}$}{Amount of electricity bought in period $t$ by site $i$ [kWh]}
+\nomenclature[V]{$\chi_{i,t}^{sell}$}{Amount of electricity sold in period $t$ by site $i$ [kWh]}
+\nomenclature[V]{$\delta_{i,t}^{buy}$}{Binary variable=1 if site $i$ is importing electricity in period $t$, else 0}
+\nomenclature[V]{$\delta_{i,t}^{sell}$}{Binary variable=1 if site $i$ is exporting electricity in period $t$, else 0}
+%DSO optimization
+\nomenclature[V]{$\delta_{b,t}^{bat}$}{Binary variable = 1 if the battery unit $b \in \mathcal{B}^{bat}$ is charging electricity during period \textit{t}, else 0}
+
+\nomenclature[P]{$W_{t}^{flex} $}{Aggregated electricity consumption in period $t$ after meeting the flexibility request [kWh]}
+\nomenclature[P]{$W_{t}^{base}$}{Aggregated baseline consumption in period $t$ [kWh]}
+\nomenclature[P]{$FR_{t}$}{Flexibility request from DSO/BRP in period $t$ [kWh]}
+\nomenclature[P]{$W_{i,t}^{l}$}{Inflexible load consumption in period $t$ in site $i$ [kWh]}
+%Flexibility variables
+
+\nomenclature[V]{$\psi_{i,t}^{G}$}{Amount of electricity produced from generating unit in period $t$ in site $i$ [kWh]}
+%\nomenclature[V]{$\psi_{i,t}^{Gd}$}{Amount of electricity produced from disconnectable generating unit in period $t$ in site $i$ [kWh]}
+\nomenclature[V]{$\sigma_{i,t}^{ch}$}{Amount of electricity charged to the battery unit in period $t$ in site $i$ [kWh]}
+\nomenclature[V]{$\sigma_{i,t}^{dis}$}{Amount of electricity discharged from the battery unit in period $t$ in site $i$ [kWh]}
+\nomenclature[V]{$\sigma_{i,t}^{soc}$}{Battery SOC of site $i$ in time step $t$ at the end of period $t$ [kWh]}
+
+
+%Parameters DSO optimization LFM
+
+\nomenclature[P]{$P^{Gr}_{g,t}$}{Price in local flexibility market contract for curtailing the reducible generator  unit $g \in \mathcal{G}^r$ during period \textit{t} [NOK/kWh]}
+\nomenclature[P]{$P^{Gd}_{g,t}$}{Price in local flexibility market contract for curtailing the disconnectable generator unit $g \in \mathcal{G}^d$ during period \textit{t} [NOK/kWh]}
+\nomenclature[P]{$P^{bat,ch}_{b,t}$}{Price to charge the battery unit $b \in \mathcal{B}^{bat}$ during period \textit{t} {[}NOK/kWh{]}}
+\nomenclature[P]{$P^{bat,dis}_{b,t}$}{Price in local flexibility market contract for discharging the battery unit $b \in \mathcal{B}^{bat}$ during period \textit{t} {[}NOK/kWh{]}}
+\nomenclature[P]{$P^{CD}_{k}$}{Price in local flexibility market contract for disconnecting the load unit $k \in \mathcal{K}^{CD}$ during period \textit{t} {[}NOK{]}}
+\nomenclature[P]{$P^{SP}_k$}{Price in local flexibility market contract for shifting the load unit $k \in \mathcal{K}^{SP}$ one period {[}NOK{]}}
+\nomenclature[P]{$W^{Gi}_{g,t}$}{Forecasted generation of inflexible generator unit \textit{g} during period \textit{t} [kWh]}
+\nomenclature[P]{$W^{Gr}_{g,t}$}{Forecasted generation of reducible generator unit \textit{g} during period \textit{t} {[}kWh{]}}
+\nomenclature[P]{$W^{Gd}_{g,t}$}{Forecasted generation of disconnectable generator unit \textit{g} during period \textit{t} {[}kWh{]}}
+%DSO optimization - flexible load parameters
+\nomenclature[P]{$W^{CD}_{k,t}$}{Curtailable load consumption forecast of load unit \textit{k} during period \textit{t} {[}kWh{]}}
+\nomenclature[P]{$W^{SP}_{k,t}$}{Shiftable load consumption forecast of load unit \textit{k} during period \textit{t} {[}kWh{]}}
+\nomenclature[P]{$N^{max}_k$}{Maximum number of disconnections for the load unit \textit{k} during the planning horizon \textit{T} {[}\#{]}}
+\nomenclature[P]{$D^{min}_k$}{Minimum time duration between two curtailments of the load unit \textit{k} {[}\# of periods{]}}
+\nomenclature[P]{$D^{max}_k$}{Maximum curtailment duration of the load unit \textit{k} {[}\# of periods{]}}
+\nomenclature[P]{$V^{start}_{k,c}$}{Start-period of forecasted consumption of the load unit $k \in \mathcal{K}^{SP}$ during shift time interval \textit{c} {[}\#{]}}
+\nomenclature[P]{$V^{end}_{k,c}$}{End-period of forecasted consumption of the load unit $k \in \mathcal{K}^{SP}$ during shift time interval \textit{c} {[}\#{]}}
+\nomenclature[P]{$T^{start}_{k,c}$}{Earliest possible start period for shifting the load unit $k \in \mathcal{K}^{SP}$ during time interval \textit{c} {[}\#{]}}
+\nomenclature[P]{$T^{end}_{k,c}$}{Latest possible end period for shifting the load unit $k \in \mathcal{K}^{SP}$ during time interval \textit{c} {[}\#{]}}
+
+
+%Parameters EV management FMS
+\nomenclature[P]{$P_t^{retailBuy}$}{Price at energy part of retail contract for buying electricity in period \textit{t} [EUR/kWh]}
+\nomenclature[P]{$P_t^{gridBuy}$}{Price at energy part of grid contract for buying electricity in period \textit{t} [EUR/kWh]}
+\nomenclature[P]{$P_t^{retailSell}$}{Price at energy part of retail contract for selling electricity in period \textit{t} [EUR/kWh]}
+\nomenclature[P]{$P_t^{gridSell}$}{Price at energy part of grid contract for selling electricity in period \textit{t} [EUR/kWh]}
+\nomenclature[P]{$X^{impCap}$}{Maximum import energy per time unit [kWh]}
+\nomenclature[P]{$X^{expCap}$}{Maximum export energy per time unit [kWh]}
+\nomenclature[P]{$N^{hour}$}{Periods per hour [$\#$]}
+\nomenclature[V]{$\zeta_{i,t}^{flex}$}{Total cost for activating flexibility in period $t$ in site $i$ [EUR]}
+\nomenclature[V]{$\zeta^{CPFlex}$}{Total cost for utilizing EV CP in the planning horizon [EUR]}
+\nomenclature[V]{$\zeta^{CPShift}$}{Cost for shifting all EV CP in the building in the planning horizon [EUR]}
+\nomenclature[V]{$\zeta^{CPNonSupplied}$}{Cost for non-supplied EV CP charging [EUR]}
+%Electric vehicle model
+\nomenclature[V]{$\theta_{v,t}^{ch}$}{Load for charging the electric vehicle in charging point $v$ in period $t$ [kWh]}
+\nomenclature[V]{$\theta_{v,t}^{es}$}{Amount of electricity supplied to the EV charging point \textit{v} in period \textit{t} [kWh]}
+\nomenclature[V]{$\theta_{v,s}^{cd}$}{Amount of demanded electricity to the EV charging point \textit{v} in session \textit{s} [kWh]}
+\nomenclature[I]{$\mathcal{V}$}{Set of electric vehicle charging points, indexed by $v$}
+\nomenclature[I]{$\mathcal{S}(v)$}{Set of electric vehicle charging sessions in charging point $v$, indexed by $s$}
+\nomenclature[P]{$P_{v}^{CPShift}$}{Price for deferring one time period one energy unit (1~kWh) of the energy demand in charging point \textit{v} [EUR/kWh]}
+\nomenclature[P]{$P_{v}^{CPNonSupplied}$}{Price for each non-supplied energy unit (1~kWh) of the expected charging demand by the end of charging session in charging point \textit{v} [EUR/kWh]}
+\nomenclature[P]{$T_{v,s}^{CPStart}$}{Arrival time of each EV in charging point \textit{v} of session \textit{s} [$\#$]}
+\nomenclature[P]{$T_{v,s}^{CPEnd}$}{Departure time of each EV in charging point \textit{v} of session \textit{s}}
+\nomenclature[P]{$W_{v,t}^{CP}$}{Baseline charging schedule of EV \textit{v} in period \textit{t} [kWh]}
+\nomenclature[P]{$CR_t$}{DSO capacity limitation request per period \textit{t} as the maximum consumption for all charging points [kWh]}
+\nomenclature[P]{$Q_v^{CPMin}$}{Minimum power of charging point \textit{v} without desconnecting it [kW]}
+\nomenclature[P]{$Q_v^{CPMax}$}{Maximum power of charging point \textit{v} [kW]}
+
+\nomenclature[A]{FR}{Flexibility request}
+\nomenclature[A]{PV}{Photovoltaic}
+\nomenclature[A]{BRP}{Balance responsible party}
+\nomenclature[A]{DSO}{Distribution system operator}
+\nomenclature[A]{TSO}{Transmission system operator}
+\nomenclature[A]{FD}{Flexibility device}
+\nomenclature[A]{PTU}{Programing time unit}
+\nomenclature[A]{SOC}{State-of-charge}
+\nomenclature[A]{ADMM}{Alternating direction method of multipliers}
+\nomenclature[A]{ALFO}{Aggregated level flexibility offer}
+\nomenclature[A]{ALFM}{Aggregated level flexibility management}
+\nomenclature[A]{LFM}{Local flexibibility market}
+\nomenclature[A]{HEMS}{Home energy management system}
+\nomenclature[A]{P2P}{Peer-to-peer}
+\nomenclature[A]{PJ}{Proximal Jacobian}
+\nomenclature[A]{CSO}{Charging station operator}
+\nomenclature[A]{CS}{Charging station}
+\nomenclature[A]{OCMP}{Open Capacity Management Protocol}
+\nomenclature[A]{OSCP}{Open Smart Charging Protocol}
+\nomenclature[A]{TOU}{Time-Of-Use}
+\nomenclature[A]{LV}{Low-voltage}
+\nomenclature[A]{MV}{Medium-voltage}
+\nomenclature[A]{ICT}{Information and communication technologies}
+\nomenclature[A]{DER}{Distributed energy resources}
+\nomenclature[A]{DG}{Distributed generation}
+\nomenclature[A]{LCOE}{Levelised cost of energy}
+\nomenclature[A]{LCOS}{Levelised cost of storage}
+\nomenclature[A]{EIT}{European Institute of Innovation and Technology}
+\nomenclature[A]{VPP}{Virtual power plant}
+\nomenclature[A]{DAWM}{Day-ahead wholesale market}
+\nomenclature[A]{DAMM}{Day-ahead micro-market}
+\nomenclature[A]{MMO}{Micro-market operator}
+\nomenclature[A]{SPP}{Single period problem}
+\nomenclature[A]{MPP}{Multi-period problem}
+\nomenclature[A]{CEC}{Citizen energy community}
+\nomenclature[A]{PDF}{Probability distribution function}
+\nomenclature[A]{PHEV}{Plug-in hybrid electric vehicle}
+\nomenclature[A]{VRE}{Variable renewable energy}
+\nomenclature[A]{AS}{Ancillary services}
+\nomenclature[A]{P2P}{Peer-to-peer}
+\nomenclature[A]{TLC}{Traffic light concept}
+\nomenclature[A]{USEF}{Universal Smart Energy Framework}
+\nomenclature[A]{TE}{Transactive energy}
+\nomenclature[A]{SGAM}{Smart grid architecture model}
+\nomenclature[A]{SW}{Social welfare}
+
+
+%Battery model
+\nomenclature[I]{$\mathcal{J}$}{Set of segments for battery SOC, indexed by $j$}
+\nomenclature[V]{$\sigma _{i,t}^{soc}$}{Battery SOC in time step $t$ in site $i$ [kWh]}
+\nomenclature[V]{$\sigma _{i,t}^{ch}$}{Battery charging energy in time step $t$ in site $i$ [kWh]}
+\nomenclature[V]{$\sigma _{i,t}^{dis}$}{Battery discharging energy in time step $t$ in site $i$ [kWh]}
+\nomenclature[V]{$\sigma _{i,t,j}^{seg,soc}$}{Amount of electricity stored in the battery segment $j$ in time step $t$ in site $i$ [kWh]}
+\nomenclature[V]{$\sigma _{i,t,j}^{seg,ch}$}{Battery charging energy in time step $t$ in segment $j$ in site $i$ [kWh]}
+\nomenclature[V]{$\sigma _{i,t,j}^{seg,dis}$}{Battery discharging energy in time step $t$ in segment $j$ in site $i$ [kWh]}
+\nomenclature[V]{$a^{inv,ch}(\cdot)$}{Battery inverter charging efficiency function [p.u.]}
+\nomenclature[V]{$a^{inv,dis}(\cdot)$}{Battery inverter discharging efficiency function [p.u.]}
+\nomenclature[V]{$\delta_{i,t}^{bat}$}{Binary variable=1 if battery of site $i$ is charged in period $t$, else 0}
+\nomenclature[P]{$Q_i^{ch}$}{Maximum battery charging energy per time unit in site $i$ [kWh]}
+\nomenclature[P]{$Q_i^{dis}$}{Maximum battery discharging energy per time unit in site $i$ [kWh]}
+\nomenclature[P]{$A_i^{bat,ch}$}{Battery charging efficiency in site $i$ [p.u.]}
+\nomenclature[P]{$A_i^{bat,dis}$}{Battery discharging efficiency in site $i$ [p.u.]}
+\nomenclature[P]{$O_i^{min}$}{Minimum battery SOC in site $i$ [kWh]}
+\nomenclature[P]{$O_i^{max}$}{Maximum battery SOC in site $i$ [kWh]}
+\nomenclature[P]{$O_{i,j}^{max}$}{Maximum battery SOC in segment $j$ in site $i$ [kWh]}
+\nomenclature[P]{$C_{i,j}$}{Marginal battery cycling ageing cost per segment $j$ in site $i$ [EUR/kWh]}
+\nomenclature[P]{$S_i^{LT}$}{Amount of time intervals in battery lifetime in site $i$ [years]}
+\nomenclature[P]{$W^{bat}_i$}{Battery voltage charging tuning factor in site $i$ [$\#$]}
+
+%ADMM parameters
+\nomenclature[Q]{$\tau^{incr}$}{Incremental parameter to accelerate penalty parameter $\rho$ [$\#$]}
+\nomenclature[Q]{$\tau^{decr}$}{Decremental parameter to decelerate penalty parameter $\rho$ [$\#$]}
+\nomenclature[Q]{$\lambda_{t}^{(k)}$}{Dual variable for constrained period $t$ in iteration $k$ [$\#$]}
+\nomenclature[Q]{$\rho^{(k)}$}{Penalty parameter in iteration $k$ [$\#$]}
+\nomenclature[Q]{$r_t^{(k)}$}{Primal error for constrained period $t$ in iteration $k$ [kWh]}
+\nomenclature[Q]{$s_t^{(k)}$}{Dual error for constrained period $t$ in iteration $k$ [kWh]}
+\nomenclature[Q]{$\gamma$}{Damping parameter [$\#$]}
+\nomenclature[Q]{$K^{i}$}{Penalty for accumulated primal error [$\#$]}
+\nomenclature[Q]{$K^{d}$}{Penalty for the dual error [$\#$]}
+\nomenclature[Q]{$\epsilon^{pri}$}{Primal error threshold [p.u.]}
+\nomenclature[Q]{$\epsilon^{dual}$}{Dual error threshold [p.u.]}
+\nomenclature[Q]{$CT^{max}$}{Maximum computation time threshold [s]}
+
+%micro-market model
+\nomenclature[I]{$\mathcal{N}$}{Set of distribution grid buses, indexed by \textit{m,n}}
+\nomenclature[I]{$\mathcal{L}$}{Set of distribution grid lines, indexed by $l$}
+\nomenclature[I]{$\mathcal{B}^c$}{Set of blocks of consumption energy, indexed by $bc$}
+\nomenclature[I]{$\mathcal{D}^c$}{Set of consumers of each node, indexed by $a$}
+\nomenclature[I]{$\mathcal{B}^g$}{Set of blocks of generation energy, indexed by $bg$}
+\nomenclature[I]{$\mathcal{D}^g$}{Set of generators of each node, indexed by $z$}
+\nomenclature[I]{$\mathcal{N}^{CCP}$}{Subset of nodes connected to the main grid, indexed by $o$}
+\nomenclature[I]{$\mathcal{N^s}$}{Set of storage units in the micro-market}
+
+
+\nomenclature[P]{$U^{lo}$}{Lower voltage module boundary [p.u.]}
+\nomenclature[P]{$U^{up}$}{Upper voltage module boundary [p.u.]}
+\nomenclature[P]{$Y_{m,n}$}{Complex admittance matrix [p.u.]}
+\nomenclature[P]{$S^{maxlin}_{m,n}$}{Apparent power from node \textit{m} to \textit{n} boundary [p.u.]}
+\nomenclature[P]{$A^{grid,up}$}{Upper voltage angle boundary [p.u.]}
+\nomenclature[P]{$A^{grid,lo}$}{Lower voltage angle boundary [p.u.]}
+\nomenclature[P]{$P^{pr,bL}_{m,bc,a}$}{Energy offer price of consumer $a$ for the energy block $bc$ in node $m$ [p.u.]}
+\nomenclature[P]{$E^{bl}_{m,bc,a}$}{Energy offer volume of consumer $a$ for the energy block $bc$ in node $m$ [p.u.]}
+\nomenclature[P]{$E^{B}_{m,a}$}{Sum of all energy blocks of consumer $a$ in node $m$ [p.u.]}
+\nomenclature[P]{$E^{bG}_{m,bg,z}$}{Energy offer volume of generator $z$ for the energy block $bg$ in node $m$ [p.u.]}
+\nomenclature[P]{$C^{bG}_{m,bg,z}$}{Energy offer cost of generator $z$ for the energy block $bg$ in node $m$ [p.u.]}
+\nomenclature[P]{$Q^{maxG}_{m,z}$}{Reactive power upper limit of generator $z$ in node $m$ [p.u.]}
+\nomenclature[P]{$Q^{maxreact,bat}_i$}{Maximum reactive power capability of battery \textit{i} [p.u.]}
+\nomenclature[P]{$C^{dis,ct}_i$}{Loss of battery \textit{i} lifespan for discharging energy considered as a constant factor [EUR/p.u.]}
+\nomenclature[P]{$C^{dev}_{t}$}{Deviation penalty to modify the matched power in the day-ahead wholesale market per period t [EUR/p.u.]}
+
+\nomenclature[V]{$\upsilon_m$}{Voltage module of node \textit{m} [p.u.]}
+\nomenclature[V]{$\alpha_m$}{Voltage angle of node \textit{m} [p.u.]}
+\nomenclature[V]{$P^{pw}_m$}{Active power leaving node \textit{m} [p.u.]}
+\nomenclature[V]{$Q^{pw}_m$}{Reactive power leaving node \textit{m} [p.u.]}
+\nomenclature[V]{$E^{mL}$}{Fraction of the energy consumption of each block matched [p.u.]}
+\nomenclature[V]{$E^{mG}$}{Fraction of the energy generation of each block matched [p.u.]}
+\nomenclature[V]{$\sigma^{reac}_{i,t}$}{Battery reactive power in time step \textit{t} in site \textit{i} [p.u.]}
+\nomenclature[V]{$P^{mat}_{o,t}$}{Matched power to exchange with the main grid [p.u.]}
+\nomenclature[V]{$Dv^{abs}_{o,t}$}{Absolute value of deviation in site \textit{o} in period \textit{t} [p.u.]}
+
+%DSO optimization variables
+\nomenclature[V]{$\chi^{Gr}_{g,t}$}{Total amount of electricity generation curtailed of reducible generator unit \textit{g}  during period \textit{t} {[}kWh{]}}
+\nomenclature[V]{$\chi^{Gd}_{g,t}$}{Total amount of electricity generation curtailed of disconnectable generator unit \textit{g} during period \textit{t} {[}kWh{]}}
+\nomenclature[V]{$\delta^G_{g,t}$}{Binary variable = 1 if curtailment of the disconnectable generator  unit \textit{g} is applied during period \textit{t}, else 0}
+\nomenclature[V]{$\delta^{start}_{k,t}$}{Binary variable = 1 if curtailment of the disconnectable load unit $k \in \mathcal{K}^{CD}$ starts during period \textit{t}, else 0}
+\nomenclature[V]{$\delta^{run}_{k,t}$}{Binary variable = 1 if curtailment of the disconnectable load unit $k \in \mathcal{K}^{CD}$ is running in time period \textit{t}, else 0}
+\nomenclature[V]{$\delta^{end}_{k,t}$}{Binary variable = 1 if curtailment of the disconnectable load unit $k \in \mathcal{K}^{CD}$ ends during period \textit{t}, else 0}
+\nomenclature[V]{$\omega_{k,t}^{SP}$}{Delivered energy to the shiftable load unit $k \in \mathcal{K}^{SP}$ during period \textit{t} {[}kWh{]}}
+\nomenclature[V]{$\rho_{k,c}^{SP}$}{Time period when the shiftable load $k \in \mathcal{K}^{SP}$ for load shift interval \textit{c} begins consuming {[}\#{]}}
+\nomenclature[V]{$\gamma_{k,t}^{SP}$}{Binary variable = 1 if the shiftable load \textit{k} begins consuming at period \textit{t}, else 0}
+
