@@ -535,6 +535,6 @@ $RECYCLE.BIN/
 *.lnk
 
 # ignore folder of PhD examples 
-*./EXAMPLES
+**/EXAMPLES
 
 # End of https://www.gitignore.io/api/git,macos,latex,python,pycharm,windows
