@@ -39,6 +39,7 @@
             hyperfigures
             ]{hyperref} 
 \usepackage[pdftex]{graphicx}
+\usepackage{tcolorbox}
 \pdfcompresslevel=9
 \usepackage{subfigure}
 \usepackage{rotating}
