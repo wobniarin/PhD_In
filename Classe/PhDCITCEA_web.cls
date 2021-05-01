@@ -39,6 +39,7 @@
             hyperfigures
             ]{hyperref} 
 \usepackage[pdftex]{graphicx}
+%\usepackage{wrapfig}
 \usepackage{tcolorbox}
 \pdfcompresslevel=9
 \usepackage{subfigure}
