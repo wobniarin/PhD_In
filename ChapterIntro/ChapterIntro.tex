@@ -5,7 +5,7 @@
 \label{chapterIntro}
 \chaptermark{Introduction}
 
-Explicar el problema al qual ens estem adreçant 
+Explicar el problema al qual ens estem adrecant 
 
 \section{Smart grids}
 
@@ -120,27 +120,82 @@ In general terms, most references that describe the trading arena as a micro mar
 The development of local markets is based on the evidence that new market models have to be detailed to enhance DER integration and deal with the intermittency of these sources. Market design rules have to be applied to characterize local markets to clarify their objective and audience. In this section, four characteristics are detailed: involved agents and stakeholders, services, and approach.
 
 \subsubsection{Involved agents and stakeholders}
-Local electricity markets have several benefits that help them achieve renewable energy targets. Several stakeholders can be involved in this new energy trend. Each of them has an interest in the evolution from the traditional grid model to the smart one. A total of eight involved agents and stakeholders are defined below, detailing their role and responsibilities within an LEM.
+Local electricity markets have several benefits that help them achieve renewable energy targets. Several stakeholders can be involved in this new energy trend. Each of them has an interest in the evolution from the traditional grid model to the smart one. A total of eight involved agents and stakeholders are defined below, detailing their role and responsibilities within an LEM. \newline
 
-\textcolor{red}{include ICONS to each agent}
+
+\begin{wrapfigure}{l}{1.4cm}
+\centering
+%\caption{A wrapped figure going nicely inside the text.}\label{wrap-fig:1}
+	\includegraphics[width=0.1\columnwidth ]{ChapterIntro/Figures/TSO.jpg}
+\end{wrapfigure} 
+
 The transmission system operator (TSO) is responsible for the operation of the transmission system and its stability [63], and this agent has the final responsibility for maintaining instantaneous generation and consumption balance. With the increase of DER and renewable energy, TSOs are playing a more active role due to the intermittent and variable character of these sources. However, even though power flows are changing more frequently, the TSO must ensure grid stability. To do so, the TSO relies on ancillary services (ASs) markets and capacity provided by large generation units, which usually are non-renewable and expensive. As there is an increase in renewable sources in the energy mix, there is also an increase in the need for flexibility and capacity. Hence, flexibility services provided by end-users and the LEC can help to achieve a cheaper operation of the TSO's activities, leading to economic savings for the TSO.
 
+\begin{wrapfigure}{l}{1.4cm}
+	\centering
+	\includegraphics[width=0.1\columnwidth ]{ChapterIntro/Figures/DSO.jpg}
+	   %\vspace*{-8cm}
+	\label{DSO}  
+\end{wrapfigure}
+
+
 The distribution system operator (DSO) is a natural or legal entity that is responsible for the operation of the distribution system, power delivery to customers, and grid maintenance. The most apparent change that distribution networks are facing today is the introduction of smart meters, enabling tariff differentiation and providing insights to end-users [64].
+In this transition towards smart grids, distribution networks are facing several challenges due to the increase in DER integration along the distribution grid. Hence, locally generated electricity provided by LECs and flexibility services provided by demand-response (DR) activities can avoid huge grid capacity investments. Avoiding grid capacity investments can be translated into economic savings for the DSO by changing its role to a more active one for managing all the resources located along its network.\\
+
+\begin{wrapfigure}{l}{1.4cm}
+	\centering
+	\includegraphics[width=0.1\columnwidth ]{ChapterIntro/Figures/Aggregator.jpg}
+	\label{Aggregator}  
+\end{wrapfigure}
+
+An aggregator or energy service company (esco) can act as an intermediary between smaller entities (such as consumers) and the market. This is a new role introduced after the deregulation of the electricity market. Aggregators can be seen as local market operators regarding energy and flexibility [45]. In terms of flexibility, usually under the concept of a flexibility operator, the aggregator gathers the flexibility provided by DR activities performed by end-users. It can then provide a portfolio based on flexibility services to the TSO, the DSO, and the BRP. An aggregator can also be its BRP, being responsible for its imbalances [63]. As a result of this collection and management of DERs, they receive economic incentives. Aggregators are nowadays seen as key actors in the smart grids concept for energy management and therefore flexibility services [65].\\
+
+\begin{wrapfigure}{l}{1.4cm}
+	\centering
+	\includegraphics[width=0.1\columnwidth ]{ChapterIntro/Figures/bill.jpg}
+	\label{retailer}  
+\end{wrapfigure}
 
 
-In this transition towards smart grids, distribution networks are facing several challenges due to the increase in DER integration along the distribution grid. Hence, locally generated electricity provided by LECs and flexibility services provided by demand-response (DR) activities can avoid huge grid capacity investments. Avoiding grid capacity investments can be translated into economic savings for the DSO by changing its role to a more active one for managing all the resources located along its network.
+Retailers are existing commercial entities that buy electrical energy from their associated BRP or directly from the market for their customers, assuming BRP responsibilities [63]. Within a local electricity market, retailers can broaden their portfolio by including demand-side management (DSM), allowing end-users to receive an incentive for changing their consumption pattern. Retailers can then find a way to compensate for the intermittency of DERs. Furthermore, they can reduce their balancing costs by optimizing their portfolio. \\
 
-An aggregator or energy service company (esco) can act as an intermediary between smaller entities (such as consumers) and the market. This is a new role introduced after the deregulation of the electricity market. Aggregators can be seen as local market operators regarding energy and flexibility [45]. In terms of flexibility, usually under the concept of a flexibility operator, the aggregator gathers the flexibility provided by DR activities performed by end-users. It can then provide a portfolio based on flexibility services to the TSO, the DSO, and the BRP. An aggregator can also be its BRP, being responsible for its imbalances [63]. As a result of this collection and management of DERs, they receive economic incentives. Aggregators are nowadays seen as key actors in the smart grids concept for energy management and therefore flexibility services [65].
+\begin{wrapfigure}{l}{1.4cm}
+	\centering
+	\includegraphics[width=0.1\columnwidth ]{ChapterIntro/Figures/BRP.jpg}
+	\label{BRP}  
+\end{wrapfigure}
 
-Retailers are existing commercial entities that buy electrical energy from their associated BRP or directly from the market for their customers, assuming BRP responsibilities [63]. Within a local electricity market, retailers can broaden their portfolio by including demand-side management (DSM), allowing end-users to receive an incentive for changing their consumption pattern. Retailers can then find a way to compensate for the intermittency of DERs. Furthermore, they can reduce their balancing costs by optimizing their portfolio.
+A balance responsible party (BRP) is a market entity (wholesale supplier, retailer, etc.) that takes up the responsibility to maintain a continuous balance between the energy demand of its customers and the energy bought in the wholesale market or produced directly [66]. A BRP assumes this role by creating a portfolio based on generation and consumption that can be self-provided or exchanged with other BRPs. The goal of BRPs is to minimize the costs of power imbalances whereas aggregators and consumers seek profit maximization [41]. In addition, they are responsible for balancing demand and supply for a certain metering point. They have to pay penalties for the deviation from their energy forecasting after the energy has been delivered to end consumers. By participating in local and micro markets by providing energy and flexibility services, they can achieve economic savings due to their interaction with aggregators and therefore prosumers. The physical process of generating and consuming electricity is still managed by generators and consumers [67], respectively, and the final responsibility lies with the TSO. Hence, they can be considered administrative entities that are needed within an energy market to ensure this balance.\\
 
-A balance responsible party (BRP) is a market entity (wholesale supplier, retailer, etc.) that takes up the responsibility to maintain a continuous balance between the energy demand of its customers and the energy bought in the wholesale market or produced directly [66]. A BRP assumes this role by creating a portfolio based on generation and consumption that can be self-provided or exchanged with other BRPs. The goal of BRPs is to minimize the costs of power imbalances whereas aggregators and consumers seek profit maximization [41]. In addition, they are responsible for balancing demand and supply for a certain metering point. They have to pay penalties for the deviation from their energy forecasting after the energy has been delivered to end consumers. By participating in local and micro markets by providing energy and flexibility services, they can achieve economic savings due to their interaction with aggregators and therefore prosumers. The physical process of generating and consuming electricity is still managed by generators and consumers [67], respectively, and the final responsibility lies with the TSO. Hence, they can be considered administrative entities that are needed within an energy market to ensure this balance.
 
-Prosumers are considered to be active energy consumers that both consume and produce electricity. According to [24], there are four types of prosumers: residential prosumers, citizen-led energy cooperatives, commercial prosumers, and public entities. They consume part of the electricity they have produced by means of the DERs they own and sell the excess to the grid, but they have the capability to buy power from the grid when they require it. They participate actively in energy transition by investing in PV panels or community distributed storage, and so they are evolving from a passive role to a more active role, taking care also of their energy consumption. They are the main energy and flexibility services providers by means of the aggregator figure. As a result, they get incomes for these activities. As stated in [64], end-users are unaware of the current market structure and have no interest in the market model limitations. However, the current market structure and electricity grid structure present several difficulties for allowing prosumers to buy and sell energy from anyone in the system. Regulatory changes are needed to empower prosumers by creating new services for them. Regarding prosumers and consumers, the concept of active consumers is implanted within the local electricity market terminology. Active consumers are considered to be a group of jointly acting customers who consume, store or sell electricity generated on their premises, including through aggregators, or participate in DSM, DR or energy-efficiency schemes provided that these activities do not constitute their primary activity.
+\begin{wrapfigure}{l}{1.4cm}
+	\centering
+	\includegraphics[width=0.1\columnwidth ]{ChapterIntro/Figures/Prosumer.jpg}
+	\label{Prosumer}  
+\end{wrapfigure}
 
-Electricity markets are trading places where energy is sold and bought. They are based on two approaches: over-the-counter or bilateral contracts and a pool-based mechanism, which matches the offers and bids and clears the market. Electricity markets are managed by the market operator, which can be different depending on the electricity market itself (day-ahead market [DAM], intraday, forwards, etc.).
+Prosumers are considered to be active energy consumers that both consume and produce electricity. According to [24], there are four types of prosumers: residential prosumers, citizen-led energy cooperatives, commercial prosumers, and public entities. They consume part of the electricity they have produced by means of the DERs they own and sell the excess to the grid, but they have the capability to buy power from the grid when they require it. They participate actively in energy transition by investing in PV panels or community distributed storage, and so they are evolving from a passive role to a more active role, taking care also of their energy consumption. They are the main energy and flexibility services providers by means of the aggregator figure. As a result, they get incomes for these activities. As stated in [64], end-users are unaware of the current market structure and have no interest in the market model limitations. However, the current market structure and electricity grid structure present several difficulties for allowing prosumers to buy and sell energy from anyone in the system. Regulatory changes are needed to empower prosumers by creating new services for them. Regarding prosumers and consumers, the concept of active consumers is implanted within the local electricity market terminology. Active consumers are considered to be a group of jointly acting customers who consume, store or sell electricity generated on their premises, including through aggregators, or participate in DSM, DR or energy-efficiency schemes provided that these activities do not constitute their primary activity.\\
 
-Generating companies, the so-called gencos or producers, are entities that produce and sell electrical energy [68]. They inject the produced energy into the electrical grid, but also they play a key role in energy supply security [64]. At present, by increasing DERs along the electrical grid, more variability and intermittency has been introduced to the system. However, gencos should guarantee the security of supply regardless of the generation technology. Once all involved agents have been described, the main benefits for each of them in local market participation can be highlighted. Table 2.3 details the main advantages that local market participation can bring to each local market stakeholder. It can be seen that all benefits can be translated into economic value, becoming an incentive or a saving, depending on each local market agent.
+\begin{wrapfigure}{l}{1.4cm}
+	\centering
+	\includegraphics[width=0.1\columnwidth ]{ChapterIntro/Figures/ElectricityMarket.jpg}
+	\label{Electricity Market}  
+\end{wrapfigure}
+
+
+Electricity markets are trading places where energy is sold and bought. They are based on two approaches: over-the-counter or bilateral contracts and a pool-based mechanism, which matches the offers and bids and clears the market. Electricity markets are managed by the market operator, which can be different depending on the electricity market itself (day-ahead market [DAM], intraday, forwards, etc.).\\
+
+
+\begin{wrapfigure}{l}{1.4cm}
+	\centering
+	\includegraphics[width=0.1\columnwidth ]{ChapterIntro/Figures/Gencos.jpg}
+	\label{gencos}  
+\end{wrapfigure}
+
+
+Generating companies, the so-called gencos or producers, are entities that produce and sell electrical energy [68]. They inject the produced energy into the electrical grid, but also they play a key role in energy supply security [64]. At present, by increasing DERs along the electrical grid, more variability and intermittency has been introduced to the system. However, gencos should guarantee the security of supply regardless of the generation technology. Once all involved agents have been described, the main benefits for each of them in local market participation can be highlighted. 
+
+Table 2.3 details the main advantages that local market participation can bring to each local market stakeholder. It can be seen that all benefits can be translated into economic value, becoming an incentive or a saving, depending on each local market agent.
 
 \textcolor{red}{INCLUDE TABLE 2.3 BOOK CHAPTER 2}
 
@@ -163,7 +218,7 @@ required. The two approaches are consumer-centric within the LEC and have three 
 \end{enumerate}
 
 
-\textcolor{red}{Include figure 2.7}
+
 The user should notice that, depending on the market design in terms of approach, a different form of offering and clearing algorithm will be applied [62]. These two approaches can be seen as extreme approaches. As well as using centralized and P2P approaches in electricity products trading, other end-user focused approaches, such as prosumer-to-interconnected microgrids or prosumer-to-islanded microgrids, as stated in [69], can also be used. However, these other local and micro market approaches are out of the scope of this book.
 
 \subsubsection{Centralized (Pool-Based) Approach}
@@ -199,7 +254,14 @@ This new market aims to coordinate the energy exchanges between local and micro 
 Storage and community energy storage (CES) are key elements in local and micro energy markets to achieve the optimal operation of the energy market and DERs located within the LEC [58, 61, 83, 85, 94, 95]. Storage can be understood as units that are controlled by the local market operator to maximize the social welfare of the LEC [58]. Results in [83] indicate that LECs with CES have greater local market efficiency. 
 The scheme in Figure 2.8 exemplifies how an LEM can work. The LEC is represented by the grouping of different prosumers. This LEC can trade locally by means of an LEM operated by a local market operator or the aggregator. The LEM schedules the local resources depending on their market time horizon, usually the day-ahead. Then, if there is a surplus or a lack of energy resources based on the LEC's resources, the LEM can interact with the day-ahead wholesale market or intraday market to trade the energy needs.
 
-\textcolor{red}{Include figure 2.8}
+
+\begin{figure}[]
+	\centering
+	\includegraphics[width=0.4\columnwidth ]{ChapterIntro/Figures/Figure2.8.jpg}
+	   %\vspace*{-8cm}
+		\caption{Figure2.8}  
+\end{figure}
+
 
 \subsubsection{Flexibility}
 Flexibility can be understood as DR or DSM activities, the so-called demand-side participation. As DERs are installed along the distribution grid, there is a need for end-user flexibility to maximize DER integration and their profitability. In addition, high flexibility is required to deal with the uncertainty of renewable generation and variability on the demand-side. An electric flexibility service can be defined as a power adjustment sustained at a given moment for a given duration from a specific location within the network [96]. Flexibility activities reflect the possibility of modifying generation and/or consumption patterns in reaction to an external signal (price or activation) to contribute to the power system stability cost-effectively [63]. DR is considered to be the tool that will be used to achieve energy efficiency and intermittent RES goals, and where customers will 
@@ -214,7 +276,12 @@ high, but they do not change their consumption pattern. This leads to temporary 
 
 To sum up the characteristics of DSM and DR, Figure 2.9 collects the different tools under the ideas of DSM and DR. Here, DR is considered to be a type of DSM where a temporary reduction or increase in energy consumption is performed by the end-user. Energy efficiency is also grouped under DSM. In this case, energy efficiency covers all the measures or investments performed to achieve lower energy consumption.
 
-\textcolor{red}{Include figure 2.9}
+\begin{figure}[]
+	\centering
+	\includegraphics[width=0.4\columnwidth ]{ChapterIntro/Figures/DRDSM_BW.jpg}
+	   %\vspace*{-8cm}
+		\caption{Demand-Response and Demand-Side Management classification}  
+\end{figure}
 
 There are two types of DR: dispatchable and non-dispatchable. According to [98], dispatchable DR (DDR) refers to 'planned changes in consumption that the customer agrees to make in response to a requirement from someone other than the customer. It includes direct load control of customer appliances and a variety of wholesale programs offered by RTOs/ISOs that compensate participants who reduce demand when directed for either reliability or economic reasons'. For that reason, DDR can be considered as the participant giving
 the control of the loads to the utility, who is in charge of its management depending on the needs. Hence, dispatchable DR can be understood as direct control classical incentive-based programs in the DR classification defined in [97].
@@ -228,13 +295,24 @@ A new framework to create markets for flexibility services has been defined in [
 by means of diverse markets. The aggregator can then also offer services as a supplier and assume BRP responsibilities [100]. Eurelectric states in [66] that there is a need for a new agent in the system, the flexibility operator and flexibility platform, which aggregates and coordinates the activation of flexible loads located along the distribution network. This market platform should facilitate coordination between the TSO and DSO, and minimize the cost of flexibility market participation. However, the impact of flexibility load participation in the market has to be analysed because it can lead to congestion in the distribution grid [103]. The role of aggregators in DR programs is relevant in involving end-users in smart grid transition and providing ancillary services to system operators, both the TSO and the DSO [65].
 Also in [64], four potential customers are identified (Figure 2.10): the prosumer, the BRP, the DSO, and the TSO, managed by the aggregator as a central entity. Up to now, local markets for flexibility services have been mainly based on a centralized approach (Table 2.3).
 
-\textcolor{red}{figure 2.10} 
+\begin{figure}[]
+	\centering
+	\includegraphics[width=0.4\columnwidth ]{ChapterIntro/Figures/Figure2.10.jpg}
+	   %\vspace*{-8cm}
+		\caption{Figure 2.10}  
+\label{figure210}
+\end{figure}
 
 The market models proposed in [64, 100] do not have an effect on the energy supply chain. They respect the European liberalized energy market model, but change the roles of the involved agents (Section 2.6.1) for these new services to be provided. The aggregator establishes a smart contract with the prosumer, optimizing the flexibility value in its portfolio and selling this flexibility to the stakeholder with the highest need for this service who is also willing to pay the highest price for it. It should be taken into account that here the role of the aggregator can be developed by a supplier or by an independent aggregator. In any case, they can take BRP responsibility or not.
 Recently, several associations, such as Eurelectric, Groupement Européen des entreprises et Organismes de Distribution d'Energie (GEODE), the European Distribution System Operators Association for Smart Grids (EDSO for Smart Grids), and the European Federation of Local Energy Companies (CEDEC), have produced a report focused on the development of flexibility services for the DSO [47]. This report highlights the need for an improved regulatory framework that rewards the use of flexibility and also takes into account the evolving role of the DSO as an active system operator and neutral market facilitator. DSOs should be able to decide on the best solution to face challenges, either by activating flexibility services or by network reinforcement.
 Figure 2.11 shows the entire supply chain with flexibility services integrated. At the top of the figure, the tophick line represents the energy flow from the generation plant to the transmission network, the distribution network and arriving at the consumers. Prosumers can also inject their small-scale generated power into the distribution network if regulation allows them to do that. As can be seen in the figure, the energy supply chain remains unalterable with the integration of flexibility services.
 
-\textcolor{red}{figure 2.11}
+\begin{figure}[]
+	\centering
+	\includegraphics[width=0.4\columnwidth ]{ChapterIntro/Figures/Figure2.11.jpg}
+	   %\vspace*{-8cm}
+		\caption{Figure 2.11}  
+\end{figure}
 
 The line in the middle, indicated by , represents the flexibility flow. The aggregator settles a smart contract with the prosumer. This contract states the terms and conditions of the contracted flexibility services. Hence, the aggregator collects all the smart contracts, optimizes the flexibility assets portfolio, and then offers this flexibility to different stakeholders: the DSO, the BRP, and the TSO by means of the BRP. 
 Lastly, the line at the bottom of the figure, indicated by , represents the economic flow between the different agents of the smart grid that combine energy and flexibility flows. The economical flow takes into account that the energy is sold and bought on electricity markets. The BRP is the entity responsible for the imbalances that are paid after the actual delivery. As a result, retailers, by means of the energy bill, are paid for the energy delivery to end-users. Furthermore, the BRP applies the imbalance payment to the final bill that the end-user is disbursing.
