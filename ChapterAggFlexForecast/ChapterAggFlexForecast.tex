@@ -3,35 +3,582 @@
 \chaptermark{Aggregated Flexibility Forecast}
 
 \section{Introduction}
-RESEARCH QUESTION: Feina que estic fent a DTU 
-\subsection{Use cases/Business models for flexibility services and flexibility forecast}
-\subsection{Literature review on flexibility forecast}
-\subsection{Contribution}
-\begin{itemize}
-\item non-intrusive approach 
-\item less data required (15 kHz for NILM algorithms). Here we can work with 1 minute data 
-\item no submetering (only main smart meter data) 
-\item total aggregated load forecast 
-\item from the total load forecast, we forecast the flexibility UP and flex DOWN, as well as the INFLEXIBLE load 
-\item flexible capacity band (power band) forecast
-\end{itemize}
+% Que es la flexibilitat i com ens podem beneficiar d'ella
+Flexibility in smart grids has become a key element to enhance the integration of renewable energy sources  that  are  variable and  with some  natural  uncertainty  associated  to  them \cite{Ulbig2015, Goutte2019}. Furthermore, the increase in electricity consumption in specific time periods can lead to network operation problems such as congestions \cite{CEDEC2018, LaurA.Nieto-MartinJ.BunnD.Vicente-Pastor2019}. One way of activating flexibility is by Demand-Side Management (DSM), incentivizing the consumption through electricity price signals, allowing a paradigm shift where consumption follows generation partially \cite{Strbac2008}. Another way is by aggregators providing flexibility services to the Distribution System Operator (DSO) \cite{MUNNE-COLLADO2019}, the Balance Responsible Party (BRP) or retailers under a Local Flexibility Market (LFM) \cite{Olivella-Rosell2018, Heinrich2020}. Thus, aggregators must directly control the end-user's assets to increase or decrease the electricity consumption at specific time periods. For this purpose, aggregators should know the potential flexibility out of the total load. 
 
-\section{Algorithms proposed}
-\begin{itemize}
-\item Hidden Markov Model 
-\item combinatorial optimization
-\item Factorial hidden markov model? 
-\end{itemize}
+\subsection{Literature review}
+% Que s'ha fet fins ara quan parlem de flexibility forecast
+Several works in the literature have investigated different approaches for providing flexibility in the electrical network to DSOs, BRPs, or retailers, highlighting the feasibility and the advantages of these services \cite{Huber2020, Bodal2017, Gorria2013, Pinto2017,Lucas2019, Yue2020}. There are mainly three ways of carrying out this flexibility forecast, that is by means of individual forecast at each household through a Home Energy Management System (HEMS) \cite{Pinto2017}, individual forecast by asset type \cite{Huber2020}, or by providing an aggregated forecast of the portfolios' flexibility \cite{Bodal2017}. Flexibility can be forecast aggregately by modeling the aggregated electricity demand of a group of domestic users signed up to an incentive-based DSM program \cite{Gorria2013}. Another approach, and certainly one of the most common, is Non-Intrusive Load Metering (NILM) to obtain the flexibility value from residential users, as implemented in  \cite{Lucas2019, Yue2020}. %Nonetheless, this research focuses on distribution networks, from MV to LV feeders, under the control and operation of DSOs. Besides, BRPs or retailers may also require flexibility to reduce the imbalances between generation and demand in their portfolios, and hence, penalties.
+%Limitacions del que s'ha fet fins ara   
+There is still room for improvement in terms of flexibility modeling and forecasting due to limitations: (i) The existing flexibility forecast models assume known network topology and all the information regarding the flexible assets at each of the households \cite{Pinto2017, Gorria2013}. However, the current regulation states that aggregators and DSOs must be different entities \cite{Guldbaek2017, BEUC2018, EuropeanParliament2019}, complicating the implementation of such services due to the lack of network-related data sharing. (ii) Aggregators might not have access to asset-specific data due to data storage, information availability limitations, or data privacy and protection such as GDPR \cite{GDPR1, GDPR2}. (iii) Forecasting at each individual household and then aggregating can lead to computation times longer than the operation times required for providing flexibility services \cite{Olivella2020}. These differences on levels of information, business model interests as well as conflicting objectives among DSOs and aggregators are also pointed out by \cite{Heinrich2020}. The reviewed literature shows a research gap on how flexibility can be defined and estimated, avoiding the use of asset-specific data and providing probabilistic forecast to tackle the uncertainty associated with demand-side flexibility.
 
-\section{Methodology}
-\subsection{Datasets}
-\subsubsection{Synthetic Data - Load Profile Generator}
-\subsubsection{Real Data - Pecan Street Dataport}
+Kernel Density Estimation (KDE) methods are commonly used for obtaining predictive distributions of a specific signal, being commonly parametrized with a mean-variance model when data do not follow a parametric distribution. This approach also allows to be implemented online, considering the evolution of the data density function as soon as new data points enter the model, allowing this approach to be used for probabilistic forecast. KDE for renewable energy forecasting has been implemented in literature \cite{Shi2020}, being mainly applied to wind energy forecast \cite{Pinson2009}. In \cite{Shi2020}, a conditional KDE is implemented to forecast solar and wind energy generation, using an adaptive bandwidth with the aim of minimizing the associated error. Recent research has shown an increase of the use of this approach on load forecasting \cite{Wang2019, Haben2016}. In \cite{Wang2019}, KDE is used to calculate the medium term probabilistic load consumption forecast, for energy planning. Until now, KDE has only been focused on a single asset-type data and mainly for planning purposes, being the implementation of KDE for aggregated flexibility forecast for portfolio operation not considered yet.
 
-\section{Load Categorization and Flexibility definition}
-\subsection{Mathematical formulation}
-\subsection{Simulation}
+% què presentem nosaltres?? 
+This paper presents a methodology for estimating the flexibility by means of Online KDE, employing Gaussian kernels, which are parameterized with a mean-variance model. Accordingly, the relevant parameters of the kernels are tracked with a Recursive Maximum Likelihood estimation method. Recursivity and on-line learning approaches outlined here allow the time-adaptivity of the model, and potential application to real test cases. This methodology provides the aggregator with a tool to estimate the flexibility availability probability, as well as its conditional value, in a short period of time, for operation purposes, without the need of computing HEMS optimization algorithms for each household. Furthermore, in this approach no particular forecasting models for each asset type are needed, since the estimation is done in an aggregated level, only using metering and submetering data, assuming that the flexibility signal is known. An additional advantage is that asset-specific data such as driving patterns or battery state of charge, among others, are not needed, which are usually not available. This is because the presented methodology is generalist and asset-independent. Hence, this approach is useful for decision-making objectives in an aggregated approach as a first stage of the flexibility provision.
 
-\section{Results}
-\section{Discussion}
-\section{Conclusions}
+\subsection{Contribution and organisation of the paper}
+
+The contributions of this paper are (i) the development of a framework based on hierarchical modeling to characterize and predict the aggregated flexibility within a flexibility portfolio; (ii) a probabilistic forecast formulation of the aggregated flexibility based on Online Learning, using Kernel Density Estimation and Recursive Maximum Likelihood; (iii) a flexibility forecast approach that does not require network topology information; and (iv) a flexibility estimation that is applicable to different flexible assets, and does not require specific information of them. 
+
+The rest of the paper is organized as follows: Section \ref{Sect:ProblemStatement} introduces the definition of flexibility and the modeling approach. Section \ref{Sect:FlexModeling} describes the two-level hierarchy chosen for the flexibility modeling and the mathematical formulation. Section \ref{Sect:CaseStudy} presents a case study of the aggregated flexibility forecast under a real dataset, while Section \ref{sect:Results} discusses the obtained results under the case study. Finally, Section \ref{Sect:Conclusions} concludes on the results.
+
+\section{Aggregated Flexibility Estimation}\label{Sect:ProblemStatement}
+\subsection{Flexibility Framework}
+Flexibility can be understood, according to IRENA \cite{IRENA2018}, as the capability of a power system to cope with the variability and uncertainty that Variable Renewable Energy (VRE) generation introduces into the system in different timescales, avoiding curtailment of VRE and reliably supplying all the demanded energy to customers.  
+However, flexibility in the power system can be provided from different perspectives. From the consumer point of view, flexibility is meant to be the modification of generation and consumption patterns, employing DSM, in reaction to an external signal such as a change in price, to provide a service within the energy system \cite{OfficeofGasandElectricityMarketsOfgem2015}. From the Transmission System Operator (TSO) perspective, it is understood as the capability of the power system to cope with the short and mid-term variability of renewable generation and demand so that the system is kept in balance \cite{Profumo2016}. Lastly, flexibility services for the DSO are related to the capability of the distribution network to cope with located short-term congestion of feeders, and also for distribution grid balancing purposes \cite{Minniti_2018, Khatami2018}. 
+
+Hence, firstly, flexibility can be defined by determining the provider of this flexibility and the final user of these services. Based on that, flexibility can therefore be formulated under a market-oriented approach or under a system-oriented approach. From the market-oriented perspective, the most common definition of flexibility is determining operating points of flexibility, as defined in \cite{Olivella-Rosell2018}, or by specifying an upward and downward flexibility band, as stated in \cite{Soares2017}. Another approach for calculating the flexibility from the market perspective is modeling the elasticity between price and demand \cite{Gorria2013}, linking the price with the flexibility activation, represented as a consumption increase or decrease. From the system-oriented approach, flexibility has mainly been defined as a multiperiod and time-constrained vector, without an associated price to it, as described in \cite{Pinto2017}. 
+
+\subsection{Problem Statement}
+By considering all the previous definitions and the main objective of this study, flexibility is defined and formulated as (i) aggregated, by jointly considering a group or a portfolio of users represented by an aggregator, with no available information neither in terms of the electrical network layout nor the location of the flexible assets; (ii) consumption approach, since flexibility is modeled considering only those flexible sources that consume energy, being prosumption out of the scope at this stage; (iii) short-term horizon, since flexibility will be forecast in a day-ahead basis, in time periods that may range from 15 minutes to 1 hour; and lastly (iv) system-oriented, being the output of this algorithm the energy value, defined as positive and in energy units [kWh], for operation and short-term decision-making purposes for DSOs and BRPs, with no associated price or cost. 
+
+\subsection{Approaches for Flexibility Aggregation}
+With the aim of characterizing and modeling flexibility based on an aggregated portfolio with different sources of flexible consumption, bottom-up and top-down approaches are used. Instead of modeling and forecasting each type of flexibility source, the aggregated flexibility value is predicted. Figure \ref{fig:bottom_up} shows the bottom-up approach used to obtain the initial dataset to model the aggregated flexibility value. By means of this approach, the signal obtained will be later used to characterize the flexibility signal and predict its value. In this model, three different sources of flexibility are considered based on submetering data: Electric Water Boilers (EWB), Space Heaters (SH), and Electric Vehicles (EV). The aggregated flexibility value can be obtained by adding them up by type and user, which will be the input data for the flexibility characterization and modeling.
+
+\begin{figure}[]
+\centerline{\includegraphics[width=0.8\columnwidth]{ChapterAggFlexForecast/Figures/BUAP.pdf}}
+\caption{Bottom-up approach for flexibility modeling}
+\label{fig:bottom_up}
+\end{figure}
+
+The second stage considers the aggregated flexibility from the bottom-up approach as input data. Then, the modeling of the flexibility signal is defined by employing a two-level hierarchical model and top-down approach, as shown in Figure \ref{fig:top_down}. The first level of the hierarchy characterizes the flexibility signal. In this context, the signal is transformed and modeled as a Bernoulli distribution, characterizing the flexibility signal into two different values based on a chosen threshold; flexibility available (1) and flexibility not available (0). By doing that, one can first know whether there is flexibility available in the portfolio before quantifying the available amount under the second level of the hierarchy. 
+
+\begin{figure}[]
+\centerline{\includegraphics[width=0.6\columnwidth]{ChapterAggFlexForecast/Figures/TPAP.pdf}}
+\caption{Top-down approach for flexibility characterization and modeling.}
+\label{fig:top_down}
+\end{figure}
+
+\section{Flexibility Modeling} \label{Sect:FlexModeling}
+
+\textcolor{red}{\subsection{Benchmark definition}}
+
+\textcolor{red}{Include here information about the two different benchmarks I have defined}
+
+\subsection{Hierarchical Model Formulation}
+The hierarchical model shown in Figure \ref{fig:top_down} has two different levels, being level~1 the characterization of whether there is flexibility available or not, represented by the random variable $X$, and level 2 the value of the available flexibility given the prior condition of availability, defined as a random variable $Y$. This yields
+\begin{subequations}
+\begin{align} 
+\label{eq:hierarchicalpierre}
+  & X \sim \mathcal{B}(p) \\
+  & Y|X=1 \sim \mathcal{F}
+\end{align}
+\end{subequations}
+
+In the first level of the hierarchy, the output value is either 0 or 1, following a Bernoulli distribution $X \sim \mathcal{B}(p)$ with associated probability $p$. The second level of the hierarchy aims to obtain the flexibility value assuming available flexibility or given that $X=1$. These data follow an unknown distribution named $\mathcal{F}$, which we will eventually approximate and track with Kernel Density Estimation (KDE). Consequently, the output of the model is obtained by combining the results of the two levels of the hierarchical model, as follows
+
+\begin{equation} \label{eq:bernoulli}
+  \mathbb{E}[Y] = \mathbb{E}[Y|X=1] \,  P[X=1]
+\end{equation}
+where the expected available flexibility at a specific time period is a result of multiplying the probability that flexibility is available (Level 1), times the expected value of flexibility given that the first condition is met (Level 2). The Root Mean Squared Error (RMSE) and the Mean Average Error (MAE) are chosen here as scores to evaluate the performance of the final outcome. The performance scores are calculated  at the end of the validation set, based on \cite{Hyndman2021}.
+
+\subsection{Level 1:Bernoulli Modeling for Flexibility Characterization}\label{sect:Level1}
+Given the overview of the hierarchy, the first level is modeled according to a Bernoulli distribution $X \sim \mathcal{B}(p)$. This first level encodes the aggregated flexibility value into a binary signal, given a predefined threshold according to the characteristics of the flexible assets portfolio. Then, the random variable $X$  of the model can take a binary output either $k=0$ or $k=1$, with the associated probability $p$.
+
+\begin{equation}
+  P[X = k] =
+  \begin{cases} 
+    p     & \text{if $k = 1$}, \\
+    1 - p & \text{if $k = 0$}.
+  \end{cases}
+\end{equation}
+
+
+In order to determine the probability value $p$ at a specific time period in this first level of the hierarchy, we implemented a climatology model. This approach considers the flexibility binary states previous to that specific time and for a given month, resulting in the average value for $p$. The output of the model is then the average probability value,  $\overline{p}_{m,t}$,  for a time $t \in T$, for a day $d \in D$ and month $m \in M$, $p_{m,t} \in [0,1]$ and calculated as 
+
+\begin{equation}
+    \overline{p}_{m,t} = \frac{1}{D} \ \mathlarger{\sum_{d=1}^{D}} X_{d,m,t} \hspace{30pt} \forall m \in M, \ \forall t \in T
+\end{equation}
+
+This approach also provides valuable information for the input data required under the second level of the hierarchy (Figure \ref{fig:top_down}). In this case, the values lower than the threshold are removed from the dataset, obtaining the input data for Level 2. Accordingly, the resulting data and distribution are modeled according to an online and adaptive bandwidth KDE by means of Recursive Maximum Likelihood estimation.
+
+
+\subsubsection{Model evaluation}
+
+In order to evaluate the accuracy of a probabilistic prediction based on binary outcomes, we consider the Brier Score (BS). This evaluation method can be generally outlined as follows
+
+\begin{equation}
+    BS = \frac{1}{N} \sum_{t=1}^{N} (\overline{p}_{t} - o_{t})^2
+\end{equation}
+
+
+where $N$ is the total number of observations under the case study, $\bar{p}_{t}$ is the probability of the outcome to be 1, obtained at time $t$, and $o_{t}$ the binary outcome at time $t$.
+\subsection{Level 2: Online KDE for Flexibility Value Forecast}
+% How we describe density 
+Given that flexibility is available from the previous level of the hierarchy, the problem is now outlined by using a KDE, where a Gaussian Mixture Model (GMM) \cite{Silverman1986} of the observed data point is produced. Therefore, it is updated and adapted online based on new data samples fed into the model, similar to the approach outlined in \cite{Kristan2010,Pinson2012}. Formally, KDEs can be defined as
+\begin{equation}
+    f_{t}(y)= \frac{1}{n_{\lambda}} \ \sum_{i=1}^{t} \lambda^{t-i} \ \mathlarger{K}\left(\frac{y - y_{i}}{h_{t}}\right) 
+\end{equation}
+
+where $n_{\lambda} = \frac{1}{1-\lambda}$ is known as the equivalent window size and defines the number of observations used to calculate the updated flexibility value. The weight or forgetting factor can be defined as $\lambda$, being associated with that kernel. Accordingly, $h_{t}$ refers to the bandwidth of the kernel at time period $t$, $y$ is the vector of values where the function is evaluated, and $y_{i}$ is the measurement at time $t$, on which the kernel is going to be centered. Lastly, $\mathlarger{K}\left(\frac{y - y_{i}}{h_{t}}\right)$ is in this case a normalized Gaussian Kernel that can be formulated as
+
+\begin{equation}
+ \mathlarger{K}\left(\frac{y - y_{i}}{h_{t}}\right) = \frac{1}{h_{t} \sqrt{2 \pi}} \exp{\left(-\frac{1}{2}\left(\frac{y - y_{i}}{h_{t}}\right)^2\right) }
+\end{equation}
+
+
+Since the main objective of this approach is to adapt the resulting distribution as long as a new data point is fed into the model, an online learning approach is used. As a consequence, the kernel has to be updated at each time step in order to fit the new sample included in the model.
+
+A uniform and normalized distribution is chosen as initial condition to start the recursive approach, and can be formulated as
+
+\begin{equation}
+    f_{t_{0}}(y) = \frac{1}{f_{max}}
+\end{equation}
+
+where $f_{max}$ is the maximum expected flexibility, considering all the available historical data at the beginning of the study. Hence, the kernel is updated at each time period by means of the following recursive formula 
+\begin{equation} \label{eq:recursive_formula}
+    f_{t}(y) = \lambda\ f_{t-1}(y) + (1-\lambda) \: \mathlarger{K}\left(\frac{y - y_{i}}{h_{t}}\right) \\
+\end{equation}
+
+which relies on the previous resulting distribution, together with the new data sample $y_{i}$ at time $t$ and associated KDE, $\mathlarger{K}\left(\frac{y - y_{i}}{h_{t}}\right)$. This methodology ensures that at each time step the normalized kernel properties are maintained since
+
+\begin{equation}
+  \int_{y} \mathlarger{K}\left(\frac{y - y_{i}}{h_{t}}\right) \, dy = 1 \\  
+\end{equation}
+
+\begin{equation}
+  \int_{y} f_{t}(y) \, dy = 1  \quad \forall t \in T \\  
+\end{equation}
+
+There are two parameters to estimate in this model, being the forgetting factor $\lambda$ and the kernel bandwidth for each time period ${h}_{t}$. The forgetting factor $\lambda$ is a real constant parameter in the range between 0 and 1, $\lambda\ \in\ (0,1]$. This value is estimated by means of cross-validation techniques, whereas the kernel bandwidth is estimated by means of Recursive Maximum Likelihood, since it can be formulated to be time-adaptive, with good overall performance. 
+
+
+\subsubsection{Recursive Maximum Likelihood for bandwidth estimation}
+
+Let ${h}_{t}, \ t=1,...,T$ be the kernel bandwidth for a given time period $t$ of T time steps. This parameter is now estimated, $\hat{h}_{t}$, using a recursive approach, maximizing the likelihood, also known as Recursive Maximum Likelihood (RML). For convenience, the problem is formulated instead as a minimization problem, minimizing the log-likelihood, approach also implemented in \cite{Pinson2009, Pinson_Madsen_2012}. Hence, $\hat{h}_{t}$ is going to get the value at where the objective function is at its minimum for each time period $t$, at a given point $y_i$. This yields
+
+\begin{equation}
+    \hat{h}_{t} = \argmin_{h_{t}} \mathlarger{S}_t (h_{t}) 
+\end{equation} 
+
+In this case, the objective function $S_t(h_{t})$ to be minimized at each time period is a function of $h_{t}$, and it can be formulated as follows 
+
+\begin{equation}
+    \mathlarger{S}_t (h_{t}) = -\frac{1}{n_{\lambda}}\ \sum_{i=1}^{t} \ \lambda^{t-i} \ \ln f_t(y_i)
+\end{equation}
+
+\begin{equation}
+    \mathlarger{S}_t (h_{t}) = \lambda \ \mathlarger{S}_{t-1}(h_{t}) - (1-\lambda) \  \ln f_t(y_i)
+\end{equation}
+
+We define a recursive estimation procedure for calculating $\hat{h}_{t}$. In this case, we implement a Newton-Raphson step to express the estimation of $\hat{h}_{t}$, defined as $\hat{h}_t \in \mathbb{R}^+$, as a function of the previous estimation. 
+The bandwidth of the estimated kernel must be positive, since the flexibility value is defined positive according to Section \ref{Sect:ProblemStatement}. However, the mathematical formulation of the model can lead to negative bandwidths. Hence, a logarithmic transformation is included in the model to ensure that the bandwidth is always positive. The new parameter defined is $\tilde{h}_t \in \mathbb{R}$. This yields
+
+\begin{equation}
+    \tilde{h}_t = \tilde{h}_{t-1} - \frac{ \nabla_h \ \mathlarger{S}_t (\hat{h}_{t-1}) }{\nabla^2_h \ \mathlarger{S}_t (\hat{h}_{t-1})}
+\end{equation}
+
+\begin{equation}
+    \hat{h}_t = e^{\tilde{h}_t}
+\end{equation}
+
+To compute the estimated value for $\hat{h}_{t}$, we calculate the derivative terms $ \nabla_h \ \mathlarger{S}_t (\hat{h}_{t})$ and $\nabla^2_h \ \mathlarger{S}_t (\hat{h}_{t})$ which can be expressed as
+\begin{equation}
+     \nabla_h \ \mathlarger{S}_t (\hat{h}_{t}) =  \lambda\underbrace{\nabla_h \ \mathlarger{S}_{t-1} (\hat{h}_{t})}_{\text{= 0, optimal state}} - \frac{1}{n_{\lambda}} \frac{\nabla f_t (y)}{f_t (y)}
+\end{equation}
+
+Where the first term is equal to 0, since we assume that we were under the optimal state at $t-1$. This gives the formal solution
+
+\begin{equation}
+     \nabla_h \ \mathlarger{S}_t (\hat{h}_{t}) =  (\lambda - 1) \ \mathlarger{U}_t
+\end{equation}
+
+Where $U_t$ is defined as the information vector
+
+\begin{equation}
+     U_t =  \frac{\nabla _h \, f_t (y)}{f_t (y)}
+\end{equation}
+
+In which the numerator can be outlined as follows
+\begin{equation}
+    \nabla_{h}\, f_t (y) = \lambda \ \nabla_{h}\,f_{t-1}(y) + (1-\lambda) \ \left(\frac{(y - y_{i})^2}{\hat{h}_{t}^2} - 1\right) \cdot \mathlarger{K}\left(\frac{y - y_{i}}{\hat{h}_{t}}\right)
+\end{equation}
+
+
+Accordingly, the term $\nabla^2_h \ \mathlarger{S}_t (\hat{h}_{t})$ can be written as 
+
+\begin{equation}
+    \nabla^2_h \ \mathlarger{S}_t (\hat{h}_{t}) = \lambda \ \nabla^2_h \ \mathlarger{S}_{t-1} (\hat{h}_{t}) - \frac{1}{n_{\lambda}} \frac{d}{dh_{t}} \left(\frac{\nabla_h f_t (y)}{f_t (y)}\right)
+\end{equation}
+\begin{equation}
+      \nabla^2_h \ \mathlarger{S}_t (\hat{h}_{t}) = \lambda \nabla^2_h \ \mathlarger{S}_{t-1} (\hat{h}_t) - \frac{1}{n_{\lambda}} \frac{\overbrace{\nabla^2_h f_t (y) \cdot f_t (y)}^{\text{$\approx$ 0}} - \nabla_h f_t (y) \cdot \nabla_h f_t (y) }{f_t (y) ^2}
+\end{equation}
+
+The first and over-braced term can be neglected according to equations (28) and (29) in \cite{Pinson_Madsen_2012}. There, we assume that $f_t$ is almost linear in the close vicinity of $\hat{h}_t$ for a given $t \in T$. Thus, it can be outlined as 
+
+\begin{equation}
+    \frac{\nabla^2_h f_t (y) \cdot f_t (y)}{f_t (y)^2} \ll \frac{- \nabla_h f_t (y) \cdot \nabla_h f_t (y) }{f_t (y) ^2}
+\end{equation}
+
+Hence, it can be translated into 
+
+\begin{equation}
+    \frac{\nabla^2_h f_t (y)}{f_t (y)} \ll \frac{- \nabla_h f_t (y)^2 }{f_t (y) ^2}
+\end{equation}
+
+As a result,
+
+\begin{equation}
+\frac{d}{dh} \left(\frac{\nabla_h f_t (y)}{f_t (y)}\right) \simeq  \frac{- \nabla_h f_t (y) \cdot \nabla f_t (y) }{f_t (y) ^2}    
+\end{equation}
+\begin{equation}
+\frac{d}{dh} \left(\frac{\nabla_h f_t (y)}{f_t (y)}\right) \simeq  - \left(\frac{\nabla f_t (y)}{f_t (y)} \right)^2  
+\end{equation}
+
+Hence, this allows a formal solution to be found as 
+
+\begin{equation}
+    \nabla^2_h \ \mathlarger{S}_t (\hat{h}_{t}) = \lambda \ \nabla^2_h \ \mathlarger{S}_{t-1} (\hat{h}_t) + (1-\lambda) \left(\frac{\nabla_h f_t (y)}{f_t (y)} \right)^2  
+\end{equation}
+\begin{equation}
+     \nabla^2_h \ \mathlarger{S}_t (\hat{h}_{t}) = \lambda \ \nabla^2_h \ \mathlarger{S}_{t-1} (\hat{h}_t) + (1-\lambda) \ \mathlarger{U}_t^2
+\end{equation}
+
+This formulation can be implemented in different time-scales, being for example a Single Model for the hourly flexibility estimation, created at the initial time period and recursively updated at each time period $t \in T$. Another implementation could be a multiple hourly model, defined as Hourly Model, where the flexibility estimation in each hour is characterized by a density function, and updated at that specific hourly time period $t \in T$ for each day. Both approaches are implemented and analyzed based on the case study data in Section \ref{sect:Results}.
+
+The setup used in this section can be found in Algorithm \ref{alg:RML_algorithm}. There, the previously defined formulation is structured together with the required input data, as well as the mathematical formulation in a generalized approach. It is worth to consider a number of particularities in the following algorithm to ensure the good performance of the code for all data points. A lower bound has been included in the model by means of a tolerance value.  This is done to avoid discontinuities in the calculation of the information vector (line 4 in Algorithm~\ref{alg:RML_algorithm}) when the read data point $y_{i}$ is closer to the tails of the approximated distribution. However, for the sake of clarity, this is not include in the Algorithm formulation, but can be found in the code source. Both terms $\nabla_h \, \mathlarger{S}_t (\hat{h}_{t})$ and $\nabla^2_h \ \mathlarger{S}_t (\hat{h}_{t})$ are considered as a function of $h_{t}$. These functions are evaluated at each time period $t \in T$ at a vector of specific data points $y$ defined at $t_0$. Nevertheless, in order to update the estimated value of the bandwidth $\hat{h}_t$, $\nabla_h \, \mathlarger{S}_t (\hat{h}_{t})$ and $\nabla^2_h \ \mathlarger{S}_t (\hat{h}_{t})$ have to be evaluated and hence interpolated in a new data point, being in this case $y_i$ (lines 6 and 7). Finally, the if-statement in line 8 considers a warm-start initialization, represented as $t_{ws}$.
+
+\begin{algorithm}[]
+\caption{Online KDE using Recursive Maximum Likelihood}
+\begin{spacing}{1.7}
+\hspace*{\algorithmicindent} \textbf{Input data} $Y|X=1 \sim \mathcal{F}$ 
+\begin{algorithmic}[1] \label{alg:RML_algorithm}
+%\STATE     $f_{t}(y)= \frac{1}{n_{\lambda}} \ \sum_{i=1}^{t} \lambda^{t-i} \
+%\mathlarger{K}\left(\frac{y - y_{i}}{h_{t}}\right) $
+%\STATE $\mathlarger{K}\left(\frac{y - y_{i}}{h_{t}}\right) = \frac{1}{h_{t} \sqrt{2 \pi}} \exp{\left(-\frac{1}{2}\left(\frac{y - y_{i}}{h_{t}}\right)^2\right) }$
+\STATE at $t_{0}$ $\rightarrow$ \: $f_{t_{0}}(y) = \frac{1}{f_{max}}, \: df_{t_{0}}(y) = 0, \: \nabla^2_h \mathlarger{S}_{t_{0}}(y) = \frac{1}{f_{max}},\: \tilde{h}_{t_{0}} = -1$ \\ %initialization of fy, initialization of dfy, initialization of hessian S, initialization of hh (h_tilde) 
+%\STATE \hspace{40pt} $\hat{h}_{t_{0}} = e^{\tilde{h}_{t_{0}}}$ \\ %initialization of hy (h_hat)
+\FOR { $ \forall\ t\ \in T $} 
+     \STATE $y_i$: read input data point at time $t$ 
+     \STATE $U_t = \frac{\nabla_h \, f_t (y)}{f_t (y)}$\\ %update information vector
+     \STATE $\nabla_h \, \mathlarger{S}_t (\hat{h}_{t-1}) =  (\lambda - 1) \ \mathlarger{U}_t$ \\ %gradient update\\
+     \STATE \text{$\nabla_h \, \mathlarger{S}_t(\hat{h}_{t-1},\ y_i)$: \ retrieve the value through linear interpolation of $\nabla_h \mathlarger{S}_t(\hat{h}_{t})$ } \\ \hspace{75pt} and $y$ in the read data point $y_i$\\
+     \STATE \text{$\nabla^2_h \, \mathlarger{S}_t(\hat{h}_{t-1},\ y_i)$: \ retrieve the value by linear interpolation of $\nabla^2_h \mathlarger{S}_t(\hat{h}_{t})$} \\ \hspace{75pt} and $y$ in the read data point $y_i$\\
+     %\STATE \text{$\nabla_h \mathlarger{S}_t(\tilde{h}_{t-1},\ y_i)$, $\nabla^2_h \mathlarger{S}_t(\tilde{h}_{t-1},\ y_i)$: \ retrieve the values through linear interpolation} \\  \hspace{145pt} of $\nabla_h \mathlarger{S}_t(\tilde{h}_{t})$ and $\nabla^2_h \mathlarger{S}_t(\tilde{h}_{t})$ and $y$ in a \\ \hspace{145pt} new data point $y_i$\\
+          \IF {$t\geq t_{ws}$}  % warm start implementation
+                \STATE $\tilde{h}_t = \tilde{h}_{t-1} - \frac{ \nabla_h \ \mathlarger{S}_t (\hat{h}_{t-1},\ y_i) }{\nabla^2_h \ \mathlarger{S}_t (\hat{h}_{t-1},\ y_i)}$
+        \ENDIF 
+     \STATE $\hat{h}_t = e^{(\tilde{h}_{t})}$ %compute hy based on hh (np.exp)\\
+     \STATE  $f_{t}(y) = \lambda\ f_{t-1}(y) + (1-\lambda) \: \mathlarger{K}\left(\frac{y - y_{i}}{\hat{h}_{t}}\right)$ \\ %Recursive formula for fy \\
+     \STATE $\nabla_h \, f_t (y) = \lambda \ \nabla_h \,f_{t-1}(y) + (1-\lambda) \ \left(\frac{(y - y_{i})^2}{\hat{h}_{t}^2} - 1\right) \cdot \mathlarger{K}\left(\frac{y - y_{i}}{\hat{h}_{t}}\right) $ \\ %Recursive formula for dfy\\
+     \STATE $\nabla^2_h \ \mathlarger{S}_t (\hat{h}_{t}) = \lambda \ \nabla^2_h \ \mathlarger{S}_{t-1} (\hat{h}_t) + (1-\lambda) \ \mathlarger{U}_t^2$\\ %Recursive formula for  hessian\\
+\ENDFOR
+\end{algorithmic} 
+\end{spacing}
+\end{algorithm}
+\subsubsection{Model evaluation}
+This approach has the forgetting factor or time decay $\lambda$ as a hyper-parameter to be tuned. The choice of an optimal value for $\lambda$ is implemented by using a cross-validation technique. In this case, the last three months of data are used as a validation set to validate the optimal value of the forgetting factor, out of the 6000 available hourly data points of flexible consumption under the second level of the hierarchy. For the evaluation of the probabilistic forecast, in this case a density distribution, we follow the approach of a log-likelihood score (LS). For a given predictive density distribution $f_{t}(y)$ and corresponding measured available flexibility value, written as $y_{i+1}$, the score can be formulated as
+
+\begin{equation}
+    LS_{t} = - \ln \left(f_{t}(y_{i+1})\right)
+\end{equation}
+
+Accordingly, the LS value can be averaged over the evaluation set, given by 
+
+\begin{equation}
+    LS = - \frac{1}{N_{CV}} \ \sum_{t=1}^{N_{CV}} \ln \left(f_{t}(y_{i+1})\right)
+\end{equation}
+
+where $N_{CV}$ represents the number of data points considered under the validation set.
+The optimal value of the forgetting factor $\lambda$ is chosen as that which minimizes the log-likelihood score  over the validation set. 
+
+\section{Case Study} \label{Sect:CaseStudy}
+The data used in this paper have been obtained from the Dataport Pecan Street Inc. dataset, collected from real households in Austin, Texas, the USA \cite{PecanStreetInc}. This dataset contains appliance-level energy consumption data from 25 households during one year of metering and sub-metering in 2018, providing the dataset in different granularity. Table \ref{table:dataport_austin} shows an overview of the dataset used for the model.
+
+\begin{table}[]
+\centering
+\caption{Dataport dataset overview: Austin, Texas}
+\label{table:dataport_austin}
+\resizebox{0.6\textwidth}{!}{%
+\begin{tabular}{|l|l|}
+\hline
+\textbf{Element}                           & \textbf{Description} \\ \hline
+\textit{\textbf{Number of users}}          & 25                   \\ \hline
+\textit{\textbf{Location}}                 & Austin, Texas (USA)  \\ \hline
+\textit{\textbf{Types of flexible assets}} & PV, ESS, EV, SH, EWB \\ \hline
+\textit{\textbf{Data granularity}}         & 1 min - 5 min - 15 min        \\ \hline
+\textit{\textbf{\# users with PV panels}}  & 9 (36\%)             \\ \hline
+\textit{\textbf{\# users with ESS}}        & 0 (0\%)              \\ \hline
+\textit{\textbf{\# users with SH}}         & 0 (0\%)              \\ \hline
+\textit{\textbf{\# users with EWB}}        & 5 (20\%)             \\ \hline
+\textit{\textbf{\# users with EV}}         & 4 (16\%)             \\ \hline
+\end{tabular}%
+}
+\end{table}
+
+The final dataset has been defined considering the following particularities: (i) Specific types of flexible loads and renewable generation features have been chosen, constituting the dataset: Photo-voltaic panels $PV$, Energy Storage Systems $ESS$, Electric Water Boilers $EWB$, Space Heaters $SH$, and Electric Vehicles $EV,$ being the energy of each of them measured in kWh and aggregated according to the bottom-up approach shown in Figure \ref{fig:bottom_up}; (ii) The total, the flexible and the inflexible load signals are then formulated as an aggregation of the flexible assets for each user $i$, at a given time $t$, and also considering the net load $Net$ available in the raw dataset. This can be formulated as follows 
+\begin{subequations}
+\begin{align} 
+  & Total_{t} = \sum_{i=1}^{N} (Net_{i,t} - ESS_{i,t} - PV_{i,t}) \\
+  & Flex_{t} = \sum_{i=1}^{N} (EWB_{i,t} +  SH_{i,t} + EV_{i,t}) \\
+  & Inflex_{t} = Total_{t} - Flex_{t}
+\end{align}
+\end{subequations}
+
+Figure \ref{fig:agg_load} displays a sample of the aggregated total, flexible and inflexible load of the dataset used in the case study, over an arbitrarily chosen episode of one week. 
+
+\begin{figure}[]
+\centerline{\includegraphics[width=0.8\columnwidth]{ChapterAggFlexForecast/Figures/total_flex_inflex_FINAL_cropped.png}}
+\caption{Aggregated total, flexible and inflexible loads}
+\label{fig:agg_load}
+\end{figure}
+
+Open-access datasets with real-world data containing metering and submetering measurements are not generally accessible. As a result, the available dataset has some limitations such as that there are not any users with SH. This can be understood as a limitation of the model but also as a representation of a real dataset, where not all end-users have flexible assets, and where SH are not commonly used.  Likewise, having only one year of data and a portfolio of 25 users can lead to shortcomings in the flexibility modeling. PV generation and ESS are not defined as flexible loads but as flexible prosumption, and are not considered into the flexibility forecast at this stage of the research, because these assets are defined as generation or generation/consumption signals. Hence, it can lead to a misunderstanding of the signal itself based on the definition of flexibility considered in Section \ref{Sect:ProblemStatement}. 
+
+
+\section{Results} \label{sect:Results} 
+This section presents the results obtained after applying the hierarchical model described in Section \ref{Sect:FlexModeling} to the case study presented in Section \ref{Sect:CaseStudy}. Section \ref{Sect:ResultsLevel1} corresponds to the output of the first level of the hierarchy: the flexibility availability forecast. Sections \ref{Sect:ResultsLevel2SingleModel} and \ref{Sect:ResultsLevel224hModel} show the output of the second level of the hierarchy: the flexibility value estimation through two different approaches. In Section \ref{Sect:ResultsLevel2SingleModel} a Single Model is created at the first instant and updated for each time period of the time horizon considered. In Section \ref{Sect:ResultsLevel224hModel}, a model is created for each time period of the day, Hourly Model, and updated daily. In section \ref{Sect:ResultsFinalOutcome}, the first and second level of the hierarchy are combined to obtain the expected flexibility value. All data preparation, processing and model simulations were carried out using a desktop unit, with an Intel Core i7-10510U quad-core CPU @  1.8-4.9~GHz with 16 GB RAM.
+
+\subsection{Flexibility Availability Forecast: Hierarchy Level~1} \label{Sect:ResultsLevel1}
+In the first level of the hierarchy, the defined threshold for encoding the dataset has been $0.20$ kWh, resulting in a dataset with one year of data encoded within binary outputs 0-1. Based on that, the climatology model has been computed and evaluated. 
+Figure \ref{fig:LEVEL1-P_YEAR} shows the probability value of having available flexibility, represented by the binary output $k=1$, for a given time period $t$ under the first level of the hierarchical model. For the sake of simplicity, we have stratified the probability value based on seasonality. Results show that, regardless of the season, afternoon and evening time periods from 14:00 until 21:00 is where the greatest probability of available flexibility is provided, following similar patterns. Despite this, it can also be seen that there are differences in specific time periods and seasons, being fall the season with the lowest flexibility availability until 6:00 in the morning. At the same time, fall is the season where the highest flexibility availability is seen in the afternoon, and at the same time achieving greater values earlier in the afternoon, compared to the other seasons.   
+
+\begin{figure}[]
+\centerline{\includegraphics[width=0.8\columnwidth]{ChapterAggFlexForecast/Figures/probability_season_final_cropped.png}}
+\caption{Available flexibility. Probability value based on season and time period}
+\label{fig:LEVEL1-P_YEAR}
+\end{figure}
+
+The Brier Score (BS) is formulated as $\in \mathbb{R}^+ [0,1]$, assuming 0 as the perfect forecast and 1 the worst forecast, and it is considered as the evaluation method for the model developed under the first level of the hierarchy. Table \ref{tab:level1-scores} provides an overview of the results, where the BS obtained is $0.196$. That means that the probabilistic forecast calculated by this methodology can be considered as accurate enough. Furthermore, the computational time for which this algorithm computes the probabilities for one year of data is less than one minute, considering this algorithm fast enough for operational purposes where flexibility must be estimated. 
+
+\begin{table}[]
+\centering
+\caption{Results of model evaluation procedure for the climatology model in the first level of the hierarchy, using the Brier Score (BS) as a performance score.}
+\label{tab:level1-scores}
+\resizebox{0.7\textwidth}{!}{%
+\begin{tabular}{c|c|c|}
+\cline{2-3}
+ &
+  \textbf{\begin{tabular}[c]{@{}c@{}}BS {[}-{]}\end{tabular}} &
+  \textbf{\begin{tabular}[c]{@{}c@{}}Processing time {[}s{]}\end{tabular}} \\ \hline
+\multicolumn{1}{|l|}{\textbf{Level 1 - Single Model}} & 0.196
+   & 53.31   \\ \hline
+\end{tabular}%
+}
+\end{table}
+
+\subsection{Flexibility Value Estimation: Hierarchy Level 2 - Single Model}\label{Sect:ResultsLevel2SingleModel} 
+
+Under the second level of the hierarchy, the data used are those that ensure that flexibility is available, meaning that the first condition of the model is met. In this case, a single model is created at the beginning of the case study which is being updated at each time period of the time horizon considered under study. The dataset has been split into train and test, using the last three months as a validation of the model. The Grid-Search method has been used to determine the optimal value of the hyper-parameter $\lambda$, being the one that results in the minimum value of the LS.  Based on the results obtained in the training phase, the optimal value of lambda, $\lambda^{*}$, has been $0.997$. This parameter has then been introduced as a fixed parameter under the test set, in order to validate the model and test that the resulting model is not overfitted. Table \ref{tab:train-test-score} shows the resulting scores under the train and validation sets. This optimal forgetting factor of $\lambda^{*} = 0.997$ informs that the equivalent window size for estimating the conditional flexibility value at $t+1$ is equal to 333.33 time periods, in this case, hours. This value is significant to show that implementing recursive maximum likelihood estimation methods allows the forgetting factor to consider enough previous time periods to adapt to slow variations in the time horizon of study. On the contrary, this value could imply that it cannot compensate extreme flexibility values in specific time periods. However, in this case the performance of the LS score does not show any sign of it, and hence the consideration of a greater number of previous observations results in a better likelihood score. 
+Figures \ref{fig:conditional_density_16_09} and \ref{fig:conditional_density_31_12} show the resulting flexibility value distribution for a given time period. These figures reveal the probability for a specific flexibility value in kWh under a specific period of time. One can see how at each time period the resulting distribution function evolves, according to the recursive formulation presented in Section \ref{Sect:FlexModeling}. The resulting conditional flexibility shows that there are two peaks where the probability is higher, compared to the other values, being them around 0.53~kWh and 3.51 kWh. 
+
+
+\begin{table}[]
+\centering
+\caption{Results of the cross validation procedure for hyperparameter definition for the Single Model in the second level of the hierarchy, using the log-likelihood score (LS) as a performance score.}
+\label{tab:train-test-score}
+\resizebox{0.5\textwidth}{!}{%
+\begin{tabular}{c|c|c|}
+\cline{2-3}
+                                                                                                          & \textbf{Train set} & \textbf{Validation set} \\ \hline
+\multicolumn{1}{|c|}{\textbf{\begin{tabular}[c]{@{}c@{}}LS \\ ($\lambda^{*}$ = 0.997)\end{tabular}}} & 1.87          &    2.04               \\ \hline
+\end{tabular}%
+}
+\end{table}
+
+%\begin{figure}[]
+%     \centering
+%     \begin{subfigure}[]{}
+%         \centering
+%         \includegraphics[width=\textwidth]{ChapterAggFlexForecast/Figures/finaldensity_corrected_1_20180916_1700_v2.png}
+%         \caption{16/09/2018 17:00}
+%         \label{fig:conditional_density_16_09}
+%     \end{subfigure}
+%     \begin{subfigure}[]{}
+%         \centering
+%         \includegraphics[width=\textwidth]{ChapterAggFlexForecast/Figures/finaldensity_corrected_1_20181231_23_v2.png}
+%         \caption{31/12/2018 23:00}
+%         \label{fig:conditional_density_31_12}
+%     \end{subfigure}
+%    \caption{Single Model - Flexibility Value conditional densities at specific time periods}
+%    \label{fig:conditional_densities_L1}
+%\end{figure}
+
+
+
+\begin{figure}
+\centering     %%% not \center
+\subfigure[16/09/2018 17:00]{\label{fig:conditional_density_16_09}\includegraphics[width=60mm]{ChapterAggFlexForecast/Figures/finaldensity_corrected_1_20180916_1700_v2.png}}
+\subfigure[31/12/2018 23:00]{\label{fig:conditional_density_31_12}\includegraphics[width=60mm]{ChapterAggFlexForecast/Figures/finaldensity_corrected_1_20181231_23_v2.png}}
+\caption{Single Model - Flexibility Value conditional densities at specific time periods}
+\label{fig:conditional_densities_L1}
+\end{figure}
+
+
+\subsection{Flexibility Value Estimation: Hierarchy Level 2 - Hourly Model}  \label{Sect:ResultsLevel224hModel}
+
+One can use the same approach for estimating flexibility, creating a model for each time period, in this case for every hour, instead of using a single model that is updated at each time period, as developed in the previous section. Then, this model could show differences in the density function for each time period of the day, since it is updated every day at that given time when a new observation is introduced into the model. According to the mathematical formulation, there is only a single forgetting factor $\lambda$ to be considered in each model. However, this approach considers 24 models, one for each hour of the day. To assess the possibility of considering a single $\lambda$ forgetting factor for all models, Grid-Search technique is implemented, considering a wide range of forgetting factors. The first set of analyses confirmed that the behaviour of the forgetting factor is the same for each hourly model, as seen in Figure \ref{fig:L2_M2_LS}. Interestingly, this analysis revealed that, in some hours of the day, the forgetting factor plays a key-role in the resulting score. This can be seen for example in the early morning between 4:00 and 7:00, whereas in the afternoon there is not such influence in the resulting overall score.  
+
+\begin{figure}[]
+\centerline{\includegraphics[width=0.8\columnwidth]{ChapterAggFlexForecast/Figures/L2M2_LS_v3.png}}
+\caption{Training set scores for each time period using different $\lambda$ forgetting factors}
+\label{fig:L2_M2_LS}
+\end{figure}
+
+The model presented here shows slightly different results, in terms of the value of the forgetting factor $\lambda$ as well as the resulting density functions. The minimum LS obtained under the train set provides the optimal forgetting factor of $\lambda^* = 0.96$, being the LS score of 1.75 in this case (Table \ref{tab:train-test-score-L2M2}). 
+
+\begin{table}[]
+\centering
+\caption{Results of the cross validation procedure for hyperparameter definition for the Hourly Model in the second level of the hierarchy, using LS as a performance score.}
+\label{tab:train-test-score-L2M2}
+\resizebox{0.5\textwidth}{!}{%
+\begin{tabular}{c|c|c|}
+\cline{2-3}                                             
+& \textbf{Train set} & \textbf{Validation set} \\ \hline
+\multicolumn{1}{|c|}{\textbf{\begin{tabular}[c]{@{}c@{}}LS\\ ($\lambda^{*}$ = 0.96)\end{tabular}}} & 1.75          &   2.00                \\ \hline
+\end{tabular}%
+}
+\end{table}
+
+In order to validate the model, this parameter is fixed under the validation set, and the LS score is calculated again, being in this case of 2.00. One could argue that the forgetting factor value $\lambda^{*}$ could be too low for a forgetting factor, since it will overwrite previous density distribution faster than values closer to 1. However, this approach provides a density function for each hour of a day, and hence it is updated daily when new data are fed into the model. An optimal forgetting factor of $\lambda^* = 0.96$ considers an effective number of observation of 25 data points, being the equivalent of 25 days in memory to compute the following day. Figures \ref{fig:L2-M2_20180630} and \ref{fig:fig:L2-M2_20181231} show a significant difference in the resulting density function for a given time of the day and a given day, being in both cases a wider range of flexibility available around 17:00 than at 00:00. 
+
+
+%\begin{figure}[!h]
+%     \centering
+%     \begin{subfigure}[b]{}
+%         \centering
+%         \includegraphics[width=\textwidth]{ChapterAggFlexForecast/Figures/L2_M2_densities_00-12-17_20180630_lambda096.png}
+%         \caption{30/06/2018}
+%         \label{fig:L2-M2_20180630}
+%     \end{subfigure}
+%     \begin{subfigure}[b]{}
+%         \centering
+%         \includegraphics[width=\textwidth]{ChapterAggFlexForecast/Figures/L2_M2_densities_00-12-17_20181231_lambda096.png}
+%         \caption{31/12/2018}
+%         \label{fig:L2-M2_20181231}
+%     \end{subfigure}
+%    \caption{Hourly Model - Flexibility value conditional densities at specific time periods}
+%    \label{fig:conditional_densities_L2}
+%\end{figure}
+
+
+\begin{figure}
+\centering    
+\subfigure[30/06/2018]{\label{fig:L2-M2_20180630}\includegraphics[width=60mm]{ChapterAggFlexForecast/Figures/L2_M2_densities_00-12-17_20180630_lambda096.png}}
+\subfigure[31/12/2018]{\label{fig:L2-M2_20181231}\includegraphics[width=60mm]{ChapterAggFlexForecast/Figures/L2_M2_densities_00-12-17_20181231_lambda096.png}}
+\caption{Hourly Model - Flexibility value conditional densities at specific time periods}
+\label{fig:conditional_densities_L2}
+\end{figure}
+
+
+The initial hypotheses that the hourly model would perform better in terms of summarized performance is validated. However, when comparing the two different approaches, the Hourly Model obtains only slightly better results. The performance score (LS) is 6.85\% lower under the train set. Besides, when evaluating the model under the validation set under the optimal value of the forgetting factor, the score is almost equal for both approaches, obtaining an improvement of 2\%. In terms of computational resources, both models are fast. The Single Model performs approximately a 29\% faster than the model containing 24 hourly density functions. The reason being is that the latter needs more parameters and spends more resources on storing the density functions, derivatives and hessian values for each model.  It is plausible that, in both models, the estimated densities show greater roughness than the expected by using KDE approaches, which could be improved as a further research by means of regularization or roughness penalization applied to splines (Figures \ref{fig:conditional_density_16_09}, \ref{fig:conditional_density_31_12}, \ref{fig:L2-M2_20180630}, \ref{fig:L2-M2_20181231}).
+As a conclusion for the calculation of the conditional density, the choice between the Single Model and the Hourly Model can be made according to the final objective of the conditional density. In cases where the time period at which flexibility could be provided is known, for example, the possibility of EV fleet portfolios, a model for each period could offer better results than a single one updated throughout all time periods. 
+
+\begin{table}[]
+\centering
+\caption{Results overview between the two models developed under level~2 of the hierarchical model for conditional flexibility estimation.}
+\label{tab:level2-scores}
+\resizebox{1\textwidth}{!}{%
+\begin{tabular}{c|c|c|c|}
+\cline{2-4}
+ &
+  \textbf{\begin{tabular}[c]{@{}l@{}}LS train {[}-{]}\end{tabular}} &
+  \textbf{\begin{tabular}[c]{@{}l@{}}LS validation {[}-{]}\end{tabular}} &
+  \textbf{\begin{tabular}[c]{@{}l@{}}Processing Time {[}s{]}\end{tabular}} \\ \hline
+\multicolumn{1}{|l|}{\textbf{Level 2 - Single Model}} &
+  1.87 &
+  2.04 &
+  0.97
+   \\ \hline
+\multicolumn{1}{|l|}{\textbf{Level 2 - Hourly Model}} &
+  1.75 &
+  2.00 &
+  1.36
+   \\ \hline
+\end{tabular}%
+}
+\end{table}
+
+\subsection{Final Outcome: Combination of Level 1 and Level 2}  \label{Sect:ResultsFinalOutcome} 
+The final outcome of this methodology is the expected flexibility value as a combination of the two-level hierarchical model, as follows
+
+\begin{equation}
+  \mathbb{E}[Y] = \mathbb{E}[Y|X=1] \,  P[X=1]
+\end{equation}
+
+where the final value, meaning the flexibility forecast is represented as the probability of the flexibility to be available, $ P[X=1]$,  times the expected value of the conditional probability, represented as $\mathbb{E}[Y|X=1]$. Figures \ref{fig:final_outcome_M1} and \ref{fig:final_outcome_M2} illustrate the final time-series flexibility forecast for both the Single Model and the Hourly Model, compared against the real measurement over an arbitrary week of the case study.
+
+%\begin{figure}[]
+%     \centering
+%     \begin{subfigure}[]{}
+%         \centering
+%         \includegraphics[width=\textwidth]{ChapterAggFlexForecast/Figures/final_forecast_M1_final_v2.png}
+%         \caption{Single Model}
+%         \label{fig:final_outcome_M1}
+%     \end{subfigure}
+%     \begin{subfigure}[]{}
+%         \centering
+%         \includegraphics[width=\textwidth]{ChapterAggFlexForecast/Figures/final_forecast_M2_final.png}
+%         \caption{Hourly Model}
+%         \label{fig:final_outcome_M2}
+%     \end{subfigure}
+%    \caption{Time-series of flexibility consumption under the case study, considering both measurements and predictions, over an arbitrarily chosen episode of one week.}
+%    \label{fig:conditional_densities_2}
+%\end{figure}
+
+
+\begin{figure}
+\centering    
+\subfigure[30/06/2018]{\label{fig:final_outcome_M1}\includegraphics[width=60mm]{ChapterAggFlexForecast/Figures/final_forecast_M1_final_v2.png}}
+\subfigure[31/12/2018]{\label{final_outcome_M2}\includegraphics[width=60mm]{ChapterAggFlexForecast/Figures/final_forecast_M2_final.png}}
+\caption{Hourly Model - Flexibility value conditional densities at specific time periods}
+\label{fig:conditional_densities_2}
+\end{figure}
+
+
+
+The combination of Level 1 and Level 2 using the Single Model based on a single density function updated at each time period $t \in T$, results in a RMSE value of 1.82 kWh. In the case of using the Hourly Model based on 24 density functions for each hour of the day, the final RMSE obtained is 1.68 kWh. An overview of the RMSE and MAE scores obtained for the flexibility final outcome is shown in Table \ref{tab:final_scores}. Results prove that, in both cases, this approach performs significantly better against a benchmark modeled with a Simple Exponential Smoothing (SES) approach which formulation is outlined in \cite{Hyndman2021}, as shown in Tables \ref{tab:final_scores_improv_M1} and  \ref{tab:final_scores_improv_M2}. 
+Besides, the final flexibility outcome provides a better performance when combining both levels of the hierarchy by means of the Hourly Model, assessing its performance with the RMSE and MAE scores. 
+
+\begin{table}[]
+\centering
+\caption{Results of the final flexibility forecast outcome combining the two levels of the hierarchy. Results are for SES, and RML KDE for the Single Model and the Hourly Model.}
+\label{tab:final_scores}
+\resizebox{0.6\textwidth}{!}{%
+\begin{tabular}{l|l|l|}
+\cline{2-3}
+ & \textbf{\begin{tabular}[c]{@{}l@{}}RMSE {[}kWh{]}\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}MAE {[}kWh{]}\end{tabular}} \\ \hline
+\multicolumn{1}{|l|}{\textbf{SES Benchmark}}   & 2.83 & 2.04 \\ \hline
+\multicolumn{1}{|l|}{\textbf{Single Model}} & 1.82 & 0.99 \\ \hline
+\multicolumn{1}{|l|}{\textbf{Hourly Model}}    & 1.68 & 0.92  \\ \hline
+\end{tabular}%
+}
+\end{table}
+ 
+\begin{table}[]
+\centering
+\caption{Performance overview for the final flexibility outcome using Level 2 - Single Model as conditional flexibility, against the benchmark. Performance is evaluated with RMSE and MAE criteria.}
+\label{tab:final_scores_improv_M1}
+\resizebox{0.95\textwidth}{!}{%
+\begin{tabular}{c|c|c|c|}
+\cline{2-4}
+                                              & \textbf{SES Benchmark} & \textbf{Level 1 / Single Model} & \textbf{Improvement {[}\%{]}} \\ \hline
+\multicolumn{1}{|l|}{\textbf{RMSE {[}kWh{]}}} & 2.83                     & 1.82                       & 35.69                         \\ \hline
+\multicolumn{1}{|l|}{\textbf{MAE {[}kWh{]}}}  & 2.04                     & 0.99                       & 51.47                         \\ \hline
+\end{tabular}%
+}
+\end{table}
+
+
+\begin{table}[]
+\centering
+\caption{Performance overview for the final flexibility outcome using Level 2 - Hourly Model as conditional flexibility, against the benchmark. Performance is evaluated with RMSE and MAE criteria.}
+\label{tab:final_scores_improv_M2}
+\resizebox{0.95\textwidth}{!}{%
+\begin{tabular}{c|c|c|c|}
+\cline{2-4}
+                                              & \textbf{SES Benchmark} & \textbf{Level 1 / Hourly Model} & \textbf{Improvement {[}\%{]}} \\ \hline
+\multicolumn{1}{|l|}{\textbf{RMSE {[}kWh{]}}} & 2.83                     & 1.68                       & 40.63                         \\ \hline
+\multicolumn{1}{|l|}{\textbf{MAE {[}kWh{]}}}  & 2.04                     & 0.92                       & 54.90                         \\ \hline
+\end{tabular}%
+}
+\end{table}
+
+\section{Conclusions} \label{Sect:Conclusions}
+This paper proposes a new aggregated flexibility forecast model based on a hierarchical formulation and an online adaptive bandwidth Kernel Density Estimation approach based on Recursive Maximum Likelihood. Probabilistic densities of flexibility estimation have been explicitly formulated under this approach. Results based on a real dataset case study show that it is possible to approximate and track an unknown distribution under an online framework. This approach provides a fast tool for obtaining a probabilistic forecast of the flexibility availability and its value. Furthermore, by implementing a probabilistic forecast, one can manage the uncertainty given by the nature of the demand-side flexible assets. 
+It quantifies the flexibility available within the portfolio without the need of creating a specific model for each asset-type, while at the same time avoiding the storage of a large amount of user data, which is sometimes difficult to obtain due to data privacy or third-parties contracts. 
+This model estimates the aggregated available flexibility with low computation resources and input data compared to individual approaches as HEMS optimization in terms of computational burdens. It uses aggregated data, and the number of users or assets does not affect the flexibility forecast algorithm computation time. However, when this approach for estimating flexibility is to be implemented, it will require scheduling the specific assets needed to activate this flexibility, allowing this to be done at a later stage and using optimization techniques at household level. To further this research, the implementation of this novel formulation should be based not only on flexible consumption but also considering generation from PV and prosumption from ESS, eventually increasing the aggregated flexibility that can be provided. Datasets including different and a larger amount of flexible assets could be helpful to replicate and scale up the approach presented in this paper. Further approaches such as regularization or roughness penalization applied to splines could be included in the model.
+
+\section{Data Availability}
+The case study related data cannot be shared due to license restrictions. Nevertheless, the code and a different data sample regarding the Online Recursive Maximum Likelihood Kernel Density Estimation approach implemented in this article can be found at \url{http://dx.doi.org/10.17632/t92mmtm4gs.1}, hosted at Mendeley Data \cite{Munne-collado_dataset} for the sake of reproducibility of the results.
