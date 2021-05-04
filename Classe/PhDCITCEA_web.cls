@@ -17,6 +17,8 @@
 
 % Used packages
 \usepackage{amsmath,amssymb}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
 \usepackage{booktabs}
 \usepackage[spanish,catalan,english]{babel}
 \usepackage[latin1]{inputenc}
