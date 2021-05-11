@@ -47,6 +47,7 @@
 \usepackage{subfigure}
 \usepackage{rotating}
 \usepackage{multirow}
+\usepackage{steinmetz}
 
 %\usepackage[a4,center,cam,odd,axes]{crop} % for the print version
 %\usepackage[a4,center]{crop} % for the print version
