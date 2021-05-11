@@ -25,17 +25,159 @@ OPENADR - USEF?
 
 
 \section{Mathematical formulation for Flexibility request calculation}
-\begin{itemize}
-	\item OPF (Python)
-\end{itemize}
+The problem to solve is mainly an AC-OPF, considering as the objective function the minimization of the total flexibility costs, but also considering the distribution network. In the following subsections the objective function is detailed, as well as all the restrictions related to AC-OPF. 
+This AC-OPF formulation is based  on the polar Power-Voltage formulation XXXX. This formulation represents complex quantities in polar form and explicitly uses sines and cosines in the power flow constraints. However, in this case the objective function as well as some of the nodal power balance and the power at buses is adapted to the objective of the flexibility provision for DSOs.
 
-\section{Methodology}
-\subsection{Datasets - Network Data}
-\subsection{Mathematical formulation}
-\subsection{Simulation}
+This chapter will consider the notation for complex magnitudes such as voltage at each of the buses, $\underline{V}_{i,t}$. The polar formulation of this variable can be hence outlined as follows
+
+\begin{equation}
+\underline{V}_{i,t} = V_{i,t} \phase{\theta_{i,t}}
+\end{equation}
+
+where $V_{i,t}$ represents the module and $\theta_{i,t}$ the angle in rad. In the case of the Line Admittance, $\underline{Y}_{ik}$, the physical representation of the line admittance can be formulated as
+
+\begin{equation}
+\underline{Y}_{ik} = G_{ik} + jB_{ik}
+\end{equation}
+
+where $G_{ik}$ is the conductance of the line, measured in XXX, and $B_{ik}$ is the susceptance in XXX. $\underline{Y}_{ik}$ can also be formulated as a Line Admittance Matrix, $[Y]$, an $L x N$ matrix, where $L$ is the number of lines and $N$ the number of nodes. 
+
+The apparent power of the line, $\underline{S}_{i,t}$ can be decomposed into active and reactive power by the following equation 
+
+\begin{equation}
+\underline{S}_{i,t} = P_{i,t} + jQ_{i,t}
+\end{equation}
+
+
+%\subsection{Objective Function}
+The objective function is to minimize the total flexibility costs function. This function is based on the price accorded between the FO and the DSO for period $t \in T$, $C_{t}^{flexDSO}$ and the total active power injected by the flexibility resource, $\phi_{i,t}^{ACT}$ .
+
+\begin{equation*}
+\!\min_{P_{i,t}, Q_{i,t}, \theta_{i,t}}  \qquad \sum_{t}^{T} \left( \sum_{i}^{N} C_t^{flexDSO} \cdot \phi_{i,t}^{ACT} \right)  
+\end{equation*}
+
+%\subsection{Constraints}
+The constrains listed below ensure the compliance of the AC Power Flow equations and a correct system operation.
+The AC power flow equations describe the power system network operating point in steady state and are based on complex phasor representation of voltage-current relationship at each node. The active $P_{i,t}$ and reactive $Q_{i,t}$ power flow node balance at node $i \in K$ in period  $t \in T$, are formulated below Eq. XXXX and Eq. XXX. Then, Eq. XXX details the mathematical conversion to express  $\theta_{i,k,t}$ from the voltage angle at each node.
+
+\begin{subequations}
+\begin{align*}
+& P_{i,t} = V_{i,t} \sum_{k=1}^{N} V_{k} (G_{i,k} \cos(\theta_{i,k}) + (B_{i,k} \sin(\theta_{i,k})) \qquad \forall i,\forall t  \\ 
+& Q_{i,t} = V_{i,t} \sum_{k=1}^{N} V_{k} (G_{i,k} \sin(\theta_{i,k}) - (B_{i,k} \cos(\theta_{i,k})) \qquad \forall i,\forall t \\
+& \theta_{ik,t} = \theta_{i,t} - \theta_{k,t} \quad   \qquad  \forall t \\
+& P_{i,t} = P_{i,t}^{G} - P_{i,t}^{D}  \quad   \qquad  \forall t  \\
+& Q_{i,t} = Q_{i,t}^{G} - Q_{i,t}^{D}  \quad   \qquad  \forall t  
+\end{align*}
+\end{subequations}
+
+
+Since the pilot-site is considering sources connected at each node of the grid, the total active power at node $i \in K$ in period $t \in T$, $P_{i,t}$, considers the active power generated, the active power demanded and the active power injected by the flexibility source Eq. XXXXX. Regarding the reactive power, Eq. XXXX also considers the reactive power generated at node  $i \in K$ in period $t \in T$ the reactive power consumed at node $i \in K$ in period $t \in T$ and the reactive power consumed or injected by the flexibility source.
+Hence, from the admittance equations, it is possible to calculate the apparent flow injected depending on the voltages at all the grid nodes Eq. XXXXX. Consider that the underscore means that the parameter or variable is a complex number. Whether the variable or the parameter is not written with an underscore, a real value is considered.
+
+The line flow constraints follow the $\pi$-model of the grid, since both the longitudinal impedance and the transversal capacitance of the line have to be considered in the case of MV networks and AC-OPF. For the sake of clarity, the $\pi$-model is shown in \ref{fig:pimodel}. Each line of the distribution network is limited to the maximum allowed line current, $I_{l}^{MAX}$
+
+\begin{figure}[]
+	\centering
+	\includegraphics[width=0.7\columnwidth ]{ChapterOPF_DSO/Figures/pimodel2.pdf}
+	   %\vspace*{-8cm}
+		\caption{$\pi$-model of the network}
+	\label{fig:pimodel}  
+\end{figure}
+
+\begin{subequations}
+\begin{align*}
+& \underline{S}_{ik} = \underline{V}_{i} \cdot \underline{I}_{ik}^{*} = \underline{V}_{i} \left[ \frac{\underline{V}_{i} - \underline{V}_{k}}{\underline{z}_{ik}} + \underline{V}_{i} \; \underline{y}_{ik_1} \right]   \qquad  \forall t  \\
+& \underline{S}_{ki} = \underline{V}_{k} \cdot \underline{I}_{ki}^{*} = \underline{V}_{k} \left[ \frac{\underline{V}_{k} - \underline{V}_{i}}{\underline{z}_{ik}} + \underline{V}_{k} \;  \underline{y}_{ik_2} \right]   \qquad  \forall t  
+\end{align*}
+\end{subequations}
+
+The parameters $\underline{y}_{ik_1}$,  $\underline{z}_{ik}$ and $B_{i,k}$
+
+The flexibility sources have both the possibility to inject or consume active power, according to up-regulation or down-regulation commands, to mitigate congestions along the distribution grid. Hence, each source is connected to a node $i \in K$, and each node will have an upper and lower active power limitation, $-P_{i,t}^{flex,MIN}$ and $P_{i,t}^{flex,MAX}$  in time period $t \in T$.
+
+Reactive Power bounds by the flexibility source
+The flexibility sources connected at node $i \in K$, are able to inject or provide reactive power, $\phi_{i,t}^{REA}$. Hence, this variable is restricted between $-Q_{i,t}^{flex,MIN}$ and $-Q_{i,t}^{flex,MAX}$.
+
+\begin{subequations}
+\begin{align*}
+&  0 \leq P_{i,t}^{G} \leq P_{i,t}^{G,MAX}  \quad   \qquad  \forall t  \\
+&  - Q_{i,t}^{G,MAX} \leq Q_{i,t}^{G} \leq Q_{i,t}^{G,MAX}  \quad   \qquad  \forall t \\
+\end{align*}
+\end{subequations}
+
+\textcolor{red}{Review this paragraph}
+The apparent power limitation S is not considered in this mathematical formulation. The active and reactive power limitations are considered as technology free. That means that the total amount of reactive and reactive power in each node is limited, but not considering each technology itself. Hence, some sources can provide $\phi_{i,t}^{ACT}$ like PV and  batteries and, other sources provide $\phi_{i,t}^{REA}$ like DR and EV. The DSO does not consider the technology itself and its capacity limitations. The FO is the entity  responsible for that. 
+
+\begin{subequations}
+\begin{align*}
+&  S_{ik,t} \leq S_{ik,t}^{MAX}  \quad   \qquad  \forall t  \\
+&  S_{ki,t} \leq S_{ki,t}^{MAX}  \quad   \qquad  \forall t  \\ 
+\end{align*}
+\end{subequations}
+
+In the AC-OPF algorithm, the nodal voltage is restricted by an upper limit and a lower bound to guarantee the correct operation of the system. In the flexibility requests calculation algorithm, the DSO contracts the flexibility services to prevent and mitigate congestions along the distribution grid. Hence, the DSO aims to minimize the congestion risks throughout the day, which can vary. For this reason, the voltage upper and lower bounds parameters consider also the time period $t \in T$, resulting in the following parameters, $V_{i,t}^{MIN}$ and $V_{i,t}^{MAX}$. These parameters will be provided by the DSO based on the level of risk they want to assume on congestions along the network.
+
+\begin{equation*}
+V_{i,t}^{MIN} \leq V_{i,t} \leq V_{i,t}^{MAX}  \quad   \qquad  \forall t 
+\end{equation*}
+
+To improve the solvability of the problem, the voltage angle constraint is included in this model. The voltage angle at node $i \in K$, at time $t \in T$, $\theta_{i,t}$, is limited between the minimum value and the maximum,$\theta_{i,t}^{MIN}$ and $\theta_{i,t}^{MAX}$, respectively.
+
+\begin{equation*}
+ \theta_{i,t}^{MIN} \leq \theta_{i,t}  \leq \theta_{i,t}^{MAX} \quad   \qquad  \forall t 
+\end{equation*}
+
+
+\begin{subequations}
+\begin{alignat}{2}
+&\!\min_{P_{i,t}, Q_{i,t}, \theta_{i,t}}  &\qquad& \sum_{t}^{T} \left( \sum_{i}^{N} C_t^{flexDSO} \cdot \phi_{i,t}^{ACT} \right) \label{eq:optProb}\\ 
+&\phantom{Mi} \text{s.t.} &      & P_{i,t} = V_{i,t} \sum_{k=1}^{N} V_{k} (G_{i,k} \cos(\theta_{i,k}) + (B_{i,k} \sin(\theta_{i,k})) \qquad \forall i,\forall t \label{eq:activepowernodalbalance} \\ 
+&				   &      & Q_{i,t} = V_{i,t} \sum_{k=1}^{N} V_{k} (G_{i,k} \sin(\theta_{i,k}) - (B_{i,k} \cos(\theta_{i,k})) \qquad \forall i,\forall t \label{eq:reactivepowernodalbalance} \\
+&                  &      & \theta_{ik,t} = \theta_{i,t} - \theta_{k,t} \quad   \qquad  \forall t  \label{eq:voltageangle} \\
+&                  &      & P_{i,t} = P_{i,t}^{G} - P_{i,t}^{D}  \quad   \qquad  \forall t  \label{eq:Pi} \\
+&                  &      & Q_{i,t} = Q_{i,t}^{G} - Q_{i,t}^{D}  \quad   \qquad  \forall t  \label{eq:Qi} \\
+&                  &      & \underline{S}_{ik} = \underline{V}_{i} \cdot \underline{I}_{ik}^{*} = \underline{V}_{i} \left[ \frac{\underline{V}_{i} - \underline{V}_{k}}{\underline{z}_{ik}} + \underline{V}_{i} \; \underline{y}_{ik_1} \right]   \qquad  \forall t  \label{eq:apparentflowlineik} \\
+&                  &      & \underline{S}_{ki} = \underline{V}_{k} \cdot \underline{I}_{ki}^{*} = \underline{V}_{k} \left[ \frac{\underline{V}_{k} - \underline{V}_{i}}{\underline{z}_{ik}} + \underline{V}_{k} \;  \underline{y}_{ik_2} \right]   \qquad  \forall t  \label{eq:apparentflowlineki} \\
+&                  &      &  S_{ik,t} \leq S_{ik,t}^{MAX}  \quad   \qquad  \forall t  \label{eq:Siklimit} \\
+&                  &      &  S_{ki,t} \leq S_{ki,t}^{MAX}  \quad   \qquad  \forall t  \label{eq:Skilimit} \\ 
+&                  &      &  0 \leq P_{i,t}^{G} \leq P_{i,t}^{G,MAX}  \quad   \qquad  \forall t  \label{eq:genactivepower} \\
+&                  &      &  - Q_{i,t}^{G,MAX} \leq Q_{i,t}^{G} \leq Q_{i,t}^{G,MAX}  \quad   \qquad  \forall t \label{eq:genreactivepower} \\
+&                  &      &  V_{i,t}^{MIN} \leq V_{i,t} \leq V_{i,t}^{MAX}  \quad   \qquad  \forall t \label{eq:voltagelimit} \\
+&                  &      & \theta_{i,t}^{MIN} \leq \theta_{i,t}  \leq \theta_{i,t}^{MAX} \quad   \qquad  \forall t  \label{eq:voltageangle}
+\end{alignat}
+\end{subequations}
+
+\section{Implementation}
+
+In the AC-OPF formulation presented in Section XXX, . The execution of the Flexibility Request Calculation based on the AC-OPF formulation is shown in Algorithm XXX. 
+
+
+\begin{algorithm}[]
+\caption{Flexibility Request Calculation. AC-OPF}
+\begin{spacing}{1.7}
+\KwData{this text}
+\KwResult{this text}
+\begin{algorithmic}[1] \label{alg:FR_ACOPF}
+\STATE at $t_{0}$ $\rightarrow$ \: $f_{t_{0}}(y) = \frac{1}{f_{max}}, \: df_{t_{0}}(y) = 0, \: \nabla^2_h \mathlarger{S}_{t_{0}}(y) = \frac{1}{f_{max}},\: \tilde{h}_{t_{0}} = -1$ \\ %initialization of fy, initialization of dfy, initialization of hessian S, initialization of hh (h_tilde) 
+\FOR { $ \forall\ t\ \in T $} 
+     \STATE $y_i$: read input data point at time $t$ 
+     \STATE $U_t = \frac{\nabla_h \, f_t (y)}{f_t (y)}$\\ %update information vector
+     \STATE $\nabla_h \, \mathlarger{S}_t (\hat{h}_{t-1}) =  (\lambda - 1) \ \mathlarger{U}_t$ \\ %gradient update\\
+     \IF {$t\geq t_{ws}$}  % warm start implementation
+     \STATE $\tilde{h}_t = \tilde{h}_{t-1} - \frac{ \nabla_h \ \mathlarger{S}_t (\hat{h}_{t-1},\ y_i) }{\nabla^2_h \ \mathlarger{S}_t (\hat{h}_{t-1},\ y_i)}$
+     \ENDIF 
+     \STATE $\hat{h}_t = e^{(\tilde{h}_{t})}$ %compute hy based on hh (np.exp)\\
+     \STATE  $f_{t}(y) = \lambda\ f_{t-1}(y) + (1-\lambda) \: \mathlarger{K}\left(\frac{y - y_{i}}{\hat{h}_{t}}\right)$ \\ %Recursive formula for fy \\
+\ENDFOR
+\end{algorithmic} 
+\end{spacing}
+\end{algorithm}
+
+
+\subsection{Case Study:}
 
 \section{Results}
-\section{Discussion}
+
 \section{Conclusions}
 
 
