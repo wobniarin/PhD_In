@@ -174,15 +174,23 @@ First printing, June 2021  \par
 % -----------------------------------------
 
 %\renewcommand{\nompreamble}{\vspace{0in}}
+%\renewcommand\nomgroup[1]{%
+%	%	\item[\bfseries
+%	\ifstrequal{#1}{I}{\vspace{10pt} \item[\textbf{Indices and Sets}]}{%
+%		\ifstrequal{#1}{P}{\vspace{10pt} \item[\textbf{Optimization parameters}]}{%
+%			\ifstrequal{#1}{Q}{\vspace{10pt} \item[\textbf{Parameters ADMM}]}{
+%				\ifstrequal{#1}{V}{\vspace{10pt} \item[\textbf{Optimization variables}]}{
+%					\ifstrequal{#1}{A}{\item[\textbf{Abbreviations}]}}{}}
+%		}%
+%	}
+%}
 \renewcommand\nomgroup[1]{%
 	%	\item[\bfseries
-	\ifstrequal{#1}{I}{\vspace{10pt} \item[\textbf{Indices and Sets}]}{%
-		\ifstrequal{#1}{P}{\vspace{10pt} \item[\textbf{Optimization parameters}]}{%
-			\ifstrequal{#1}{Q}{\vspace{10pt} \item[\textbf{Parameters ADMM}]}{
-				\ifstrequal{#1}{V}{\vspace{10pt} \item[\textbf{Optimization variables}]}{
+	\ifstrequal{#1}{I}{\vspace{10pt} \item[\textbf{Sets and Indices}]}{%
+		\ifstrequal{#1}{P}{\vspace{10pt} \item[\textbf{Parameters}]}{%
+			\ifstrequal{#1}{V}{\vspace{10pt} \item[\textbf{Variables}]}{
 					\ifstrequal{#1}{A}{\item[\textbf{Abbreviations}]}}{}}
-		}%
-	}
+		}
 }
 %\setlength{\nomitemsep}{-\parsep}
 %\RequirePackage{ifthen}
@@ -282,7 +290,6 @@ $ $
 \input{ChapterAggFlexForecast/ChapterAggFlexForecast}
 \input{ChapterOPF_DSO/ChapterOPF_DSO} 
 \input{ChapterLCA/ChapterLCA}
-%\input{ChapterIntegrationDSOAgg/ChapterIntegrationDSOAgg}
 \input{Conclusions/Conclusions}
 
 % Bibliografia
