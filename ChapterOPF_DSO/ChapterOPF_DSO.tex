@@ -34,15 +34,39 @@ This chapter will consider the notation for complex magnitudes such as voltage a
 \underline{V}_{i,t} = V_{i,t} \phase{\theta_{i,t}}
 \end{equation}
 
-where $V_{i,t}$ represents the module and $\theta_{i,t}$ the angle in rad. In the case of the Line Admittance, $\underline{Y}_{ik}$, the physical representation of the line admittance can be formulated as
+where $V_{i,t}$ represents the module and $\theta_{i,t}$ the angle in rad. In the case of the Bus Admittance, $\underline{Y}_{ik}$, the physical representation of the line admittance can be formulated as
 
 \begin{equation}
 \underline{Y}_{ik} = G_{ik} + jB_{ik}
 \end{equation}
 
-where $G_{ik}$ is the conductance of the line, measured in XXX, and $B_{ik}$ is the susceptance in XXX. $\underline{Y}_{ik}$ can also be formulated as a Line Admittance Matrix, $[Y]$, an $L x N$ matrix, where $L$ is the number of lines and $N$ the number of nodes. 
+where $G_{ik}$ is the conductance of the line and $B_{ik}$ is the susceptance, both measured in siemens $[\omega^{-1}]$. $\underline{Y}_{ik}$ can also be formulated as a Line Admittance Matrix, $[Y]_{bus}$, an $N x N$ matrix, where $N$ is the number of nodes. This matrix composed by all the nodal admittance of the various buses. It explains the topology and the admittance of the network. It is a symmetric matrix and the way to obtain the elements of this matrix follow the criteria listed below:
 
-The apparent power of the line, $\underline{S}_{i,t}$ can be decomposed into active,$P_{i,t}$, and reactive power $Q_{i,t}$ by the following equation 
+\begin{subequations}
+\begin{align*}
+& \underline{Y}_{bus_ii}= y_sh,i + \sum_k y_{ik} \\
+& \underline{Y}_{bus_ij} = - \sum y_{ij}
+\end{align*}
+\end{subequations}
+
+Where $i$ and $j$ are buses of the network, and $k$ are all the buses connected to bus $i$. For the sake of simplicity, we will consider $[Y]_{bus}$ as $[Y]$, being each of the elements in the matrix the i-j element a complex number $\underline{Y}_{bus_ij}$. In the case of distribution networks, being it the case of study in this chapter, the equivalent network scheme in order to obtain the line admittances is based on the $\pi$-model, shown in Figure \ref{fig:pimodel}. This equivalent scheme considers both the series impedance, $z_{ik}$, and the shunt admittance $y_{ik_1}$ and $y_{ik_2}$ 
+
+\begin{figure}[]
+	\centering
+	\includegraphics[width=0.7\columnwidth ]{ChapterOPF_DSO/Figures/pimodel2.pdf}
+	   %\vspace*{-8cm}
+		\caption{$\pi$-model of the network}
+	\label{fig:pimodel}  
+\end{figure}
+
+In all cases, the relationship between the nodal admittance matrix  $[Y]_{bus}$ and the nodal impedance matrix  $[Z]_{bus}$ is maintained following the following equation 
+
+\begin{equation}
+[Y]_{bus} = [Z]_{bus}^{-1}
+\end{equation}
+
+
+The apparent power of the line, $\underline{S}_{i,t}$, measured in VA, can be decomposed into active,$P_{i,t}$ in W, and reactive power $Q_{i,t}$ in var, by the following equation 
 
 \begin{equation}
 \underline{S}_{i,t} = P_{i,t} + jQ_{i,t}
@@ -76,18 +100,11 @@ Hence, from the admittance equations, it is possible to calculate the apparent f
 
 The line flow constraints follow the $\pi$-model of the grid, since both the longitudinal impedance and the transversal capacitance of the line have to be considered in the case of MV networks and AC-OPF. For the sake of clarity, the $\pi$-model is shown in \ref{fig:pimodel}. Each line of the distribution network is limited to the maximum allowed line current, $I_{l}^{MAX}$
 
-\begin{figure}[]
-	\centering
-	\includegraphics[width=0.7\columnwidth ]{ChapterOPF_DSO/Figures/pimodel2.pdf}
-	   %\vspace*{-8cm}
-		\caption{$\pi$-model of the network}
-	\label{fig:pimodel}  
-\end{figure}
 
 \begin{subequations}
 \begin{align*}
-& \underline{S}_{ik} = \underline{V}_{i} \cdot \underline{I}_{ik}^{*} = \underline{V}_{i} \left[ \frac{\underline{V}_{i} - \underline{V}_{k}}{\underline{z}_{ik}} + \underline{V}_{i} \; \underline{y}_{ik_1} \right]   \qquad  \forall t  \\
-& \underline{S}_{ki} = \underline{V}_{k} \cdot \underline{I}_{ki}^{*} = \underline{V}_{k} \left[ \frac{\underline{V}_{k} - \underline{V}_{i}}{\underline{z}_{ik}} + \underline{V}_{k} \;  \underline{y}_{ik_2} \right]   \qquad  \forall t  
+& \underline{S}_{ik} = \underline{V}_{i} \cdot \underline{I}_{ik}^{*} = \underline{V}_{i} \left[ \frac{\underline{V}_{i} - \underline{V}_{k}}{\underline{z}_{ik}} + \underline{V}_{i} \; \underline{y}_{ik_1} \right]^{*}   \qquad  \forall t  \\
+& \underline{S}_{ki} = \underline{V}_{k} \cdot \underline{I}_{ki}^{*} = \underline{V}_{k} \left[ \frac{\underline{V}_{k} - \underline{V}_{i}}{\underline{z}_{ik}} + \underline{V}_{k} \;  \underline{y}_{ik_2} \right]^{*}   \qquad  \forall t  
 \end{align*}
 \end{subequations}
 
@@ -136,8 +153,8 @@ To improve the solvability of the problem, the voltage angle constraint is inclu
 &                  &      & \theta_{ik,t} = \theta_{i,t} - \theta_{k,t} \quad   \qquad  \forall t  \label{eq:voltageangle} \\
 &                  &      & P_{i,t} = P_{i,t}^{G} - P_{i,t}^{D}  \quad   \qquad  \forall t  \label{eq:Pi} \\
 &                  &      & Q_{i,t} = Q_{i,t}^{G} - Q_{i,t}^{D}  \quad   \qquad  \forall t  \label{eq:Qi} \\
-&                  &      & \underline{S}_{ik} = \underline{V}_{i} \cdot \underline{I}_{ik}^{*} = \underline{V}_{i} \left[ \frac{\underline{V}_{i} - \underline{V}_{k}}{\underline{z}_{ik}} + \underline{V}_{i} \; \underline{y}_{ik_1} \right]   \qquad  \forall t  \label{eq:apparentflowlineik} \\
-&                  &      & \underline{S}_{ki} = \underline{V}_{k} \cdot \underline{I}_{ki}^{*} = \underline{V}_{k} \left[ \frac{\underline{V}_{k} - \underline{V}_{i}}{\underline{z}_{ik}} + \underline{V}_{k} \;  \underline{y}_{ik_2} \right]   \qquad  \forall t  \label{eq:apparentflowlineki} \\
+&                  &      & \underline{S}_{ik} = \underline{V}_{i} \cdot \underline{I}_{ik}^{*} = \underline{V}_{i} \left[ \frac{\underline{V}_{i} - \underline{V}_{k}}{\underline{z}_{ik}} + \underline{V}_{i} \; \underline{y}_{ik_1} \right]^{*}   \qquad  \forall t  \label{eq:apparentflowlineik} \\
+&                  &      & \underline{S}_{ki} = \underline{V}_{k} \cdot \underline{I}_{ki}^{*} = \underline{V}_{k} \left[ \frac{\underline{V}_{k} - \underline{V}_{i}}{\underline{z}_{ik}} + \underline{V}_{k} \;  \underline{y}_{ik_2} \right]^{*}   \qquad  \forall t  \label{eq:apparentflowlineki} \\
 &                  &      &  S_{ik,t} \leq S_{ik,t}^{MAX}  \quad   \qquad  \forall t  \label{eq:Siklimit} \\
 &                  &      &  S_{ki,t} \leq S_{ki,t}^{MAX}  \quad   \qquad  \forall t  \label{eq:Skilimit} \\ 
 &                  &      &  0 \leq P_{i,t}^{G} \leq P_{i,t}^{G,MAX}  \quad   \qquad  \forall t  \label{eq:genactivepower} \\
@@ -152,26 +169,82 @@ To improve the solvability of the problem, the voltage angle constraint is inclu
 In the AC-OPF formulation presented in Section XXX, . The execution of the Flexibility Request Calculation based on the AC-OPF formulation is shown in Algorithm XXX. 
 
 
-\begin{algorithm}[]
-\caption{Flexibility Request Calculation. AC-OPF}
-\begin{spacing}{1.7}
-\KwData{this text}
-\KwResult{this text}
-\begin{algorithmic}[1] \label{alg:FR_ACOPF}
-\STATE at $t_{0}$ $\rightarrow$ \: $f_{t_{0}}(y) = \frac{1}{f_{max}}, \: df_{t_{0}}(y) = 0, \: \nabla^2_h \mathlarger{S}_{t_{0}}(y) = \frac{1}{f_{max}},\: \tilde{h}_{t_{0}} = -1$ \\ %initialization of fy, initialization of dfy, initialization of hessian S, initialization of hh (h_tilde) 
-\FOR { $ \forall\ t\ \in T $} 
-     \STATE $y_i$: read input data point at time $t$ 
-     \STATE $U_t = \frac{\nabla_h \, f_t (y)}{f_t (y)}$\\ %update information vector
-     \STATE $\nabla_h \, \mathlarger{S}_t (\hat{h}_{t-1}) =  (\lambda - 1) \ \mathlarger{U}_t$ \\ %gradient update\\
-     \IF {$t\geq t_{ws}$}  % warm start implementation
-     \STATE $\tilde{h}_t = \tilde{h}_{t-1} - \frac{ \nabla_h \ \mathlarger{S}_t (\hat{h}_{t-1},\ y_i) }{\nabla^2_h \ \mathlarger{S}_t (\hat{h}_{t-1},\ y_i)}$
-     \ENDIF 
-     \STATE $\hat{h}_t = e^{(\tilde{h}_{t})}$ %compute hy based on hh (np.exp)\\
-     \STATE  $f_{t}(y) = \lambda\ f_{t-1}(y) + (1-\lambda) \: \mathlarger{K}\left(\frac{y - y_{i}}{\hat{h}_{t}}\right)$ \\ %Recursive formula for fy \\
-\ENDFOR
-\end{algorithmic} 
-\end{spacing}
+%\begin{algorithm}[]
+%	\SetAlgoLined
+%\caption{Flexibility Request Calculation. AC-OPF}
+%\begin{spacing}{1.7}
+%\KwData{this text}
+%\KwResult{this text}
+%\begin{algorithmic}[1] \label{alg:FR_ACOPF}
+%\STATE at $t_{0}$ $\rightarrow$ \: $f_{t_{0}}(y) = \frac{1}{f_{max}}, \: df_{t_{0}}(y) = 0, \: \nabla^2_h \mathlarger{S}_{t_{0}}(y) = \frac{1}{f_{max}},\: \tilde{h}_{t_{0}} = -1$ \\ %initialization of fy, initialization of dfy, initialization of hessian S, initialization of hh (h_tilde) 
+%\FOR { $ \forall\ t\ \in T $} 
+%     \STATE $y_i$: read input data point at time $t$ 
+%     \STATE $U_t = \frac{\nabla_h \, f_t (y)}{f_t (y)}$\\ %update information vector
+%     \STATE $\nabla_h \, \mathlarger{S}_t (\hat{h}_{t-1}) =  (\lambda - 1) \ \mathlarger{U}_t$ \\ %gradient update\\
+%     \IF {$t\geq t_{ws}$}  % warm start implementation
+%     \STATE $\tilde{h}_t = \tilde{h}_{t-1} - \frac{ \nabla_h \ \mathlarger{S}_t (\hat{h}_{t-1},\ y_i) }{\nabla^2_h \ \mathlarger{S}_t (\hat{h}_{t-1},\ y_i)}$
+%     \ENDIF 
+%     \STATE $\hat{h}_t = e^{(\tilde{h}_{t})}$ %compute hy based on hh (np.exp)\\
+%     \STATE  $f_{t}(y) = \lambda\ f_{t-1}(y) + (1-\lambda) \: \mathlarger{K}\left(\frac{y - y_{i}}{\hat{h}_{t}}\right)$ \\ %Recursive formula for fy \\
+%\ENDFOR
+%\end{algorithmic} 
+%\end{spacing}
+%\end{algorithm}
+
+
+
+\begin{algorithm}
+	\SetAlgoLined
+	\KwIn{Network layout, load forecast for $D+1$ at time $t$, $P_{i,t}$, network parameters $z_{ik}$,$y_{ik}$}
+	\KwResult{$\phi_{i,t}, i, t$}
+	
+	Compute $[Y]_{bus}$ and $[Z]_{bus}$ \\
+	Initialize: $[\underline{V}],[\underline{I}]$ at $t_0$ \\
+	\eIf{$\|r_t^{(k)}\|_2 > 0.05\|FR_t\|_2$}{
+			\textcolor{red}{explicar algoritme aqui d optimitzacio}\\			
+			Fast update: $\rho^{(k+1)}$ according to \eqref{eq:rho_update_1}\;
+			Update $\lambda_{t}^{(k+1)}:=\lambda_{t}^{k}+\gamma \rho^{(k+1)} r_t^{(k+1)},$ $\forall t \in \mathcal{T}^{\pm}$\;
+		}{
+			Soft update: $\lambda_{t}^{(k+1)}$ according to \eqref{eq:dual_update_2}
+		}	
+	Send Flexibility Request $\phi_{i,t}, i, t$ to Aggregator
+	\caption{Flexibility Request Calculation. AC-OPF}
+	\label{alg:centralized}
+	
 \end{algorithm}
+
+
+
+%\begin{algorithm} %\small
+%	\SetAlgoLined
+%	Initialize: $x_{i}^{(0)}, \lambda_{t}^{(0)}, \rho^{(0)}>0 $ \;
+%	\KwIn{$K^i, K^d, \epsilon^{pri}, \epsilon^{dual}, \tau^{incr}, \tau^{decr}, CT^{max}, k^{max}, W^{flex}$}
+%	%	\KwData{this text}
+%	%	\KwResult{how to write algorithm with \LaTeX2e }
+%	
+%	\While{$\epsilon^{pri}>\|r_t^k\|_2$ and $\epsilon^{dual}>\|s_t^k\|_2$}{
+%		\For{i=1,2,...,I}
+%		{
+%			($x_i$ is updated \textbf{concurrently})\;
+%			$x_{i}^{(k+1)}$ := $\underset{x_i}{\text{argmin}}$ $\mathcal{L}_{\rho}(x_i, {x_j^k}_{j\neq i},\lambda_{t}^{k},\rho^{(k+1)}) + \dfrac{1}{2} \| (x_{i} - x_{i}^{(k)} ) \|^2_{P_{i}}$\;
+%			s.t. \text{Site $i$ constraints:} (\ref{eq:electricityBalance})\eqref{eq:import_cap}\eqref{eq:export_cap}\eqref{eq:eb_binary_var}
+%		}
+%		{
+%			Update dual and penalty variables \;	
+%		}
+%		\eIf{$\|r_t^{(k)}\|_2 > 0.05\|FR_t\|_2$}{
+%			Fast update: $\rho^{(k+1)}$ according to \eqref{eq:rho_update_1}\;
+%			Update $\lambda_{t}^{(k+1)}:=\lambda_{t}^{k}+\gamma \rho^{(k+1)} r_t^{(k+1)},$ $\forall t \in \mathcal{T}^{\pm}$\;
+%		}{
+%			Soft update: $\lambda_{t}^{(k+1)}$ according to \eqref{eq:dual_update_2}
+%		}{
+%			Update $\|r_t^{(k)}\|_2$, $\|s_t^{(k)}\|_2$, $k=k+1$
+%		}
+%	}
+%	\caption{Two-steps Fast-PJ-ADMM for optimal flexibility provision.}
+%	%\caption{Optimal Exchange Fast-PJ-ADMM for flexibility trading}
+%	\label{alg:ADMM}
+%\end{algorithm}
 
 
 \subsection{Case Study:}
