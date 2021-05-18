@@ -4,36 +4,70 @@
 
 \section{Introduction}
 
+The dynamics of the power system are changing towards a new model where large generators on the HV side of the grid are being replaced by smaller generation units placed at the MV and LV side of the grid. This increase of penetration by DG will have a significant impact on how the distribution network operates. At the distribution level, technically speaking, distributed generation will make arise some new challenges and, in some cases, problems already solved will rise again. 
 
-\begin{figure}[]
+This chapter aims to develop an optimization tool for calculating the value and location of the flexibility request that a DSO needs for operating the distribution network and avoid or mitigate network congestions, focused on problems $(i)$ and $(ii)$. This is objective $(iv)$ of the thesis research, according to Figure \ref{fig:chapter_obj_iv}. 
+
+\begin{figure}[h!]
 	\centering
-	\includegraphics[width=0.7\columnwidth ]{ChapterOPF_DSO/Figures/phd_intro_iv.pdf}
+	\includegraphics[width=0.6\columnwidth ]{ChapterOPF_DSO/Figures/phd_intro_iv.pdf}
 	   %\vspace*{-8cm}
 		\caption{Chapter objective based on the PhD scope}
 	\label{fig:chapter_obj_iv}  
 \end{figure}
 
+The most common problems caused by the high penetration of distributed and renewable generation can be classified into four main categories as done in XXXX. Figure XXX provides an overview of the location of these potential problems in a arbitrary distribution network:  
 
-RESEARCH QUESTION: INCLOURE FEINA DEL PAPER DEL CIRED
+\begin{itemize}
+\item Overload and losses of feeders and transformers. 
+\item Risk of overvoltage.
+\item Power quality disturbances.
+\item Incorrect operation of protection elements. 
+\end{itemize}
+
+Based on previous references XXXX, the two main potential problems under the distribution network operation are $(i)$ \textbf{overload} and  $(ii)$ \textbf{overvoltage}. 
+
+
+\subsection{Risk of overload/overcurrents}
+Overloads or commonly also known as overcurrents are those situations where the current circulating through one of the electrical components is higher than the nominal value. This can cause either the damage of the electrical component if the situation happens for a short period of time, or the component failure if the current limit is overly exceeded. However, in many cases, protection elements would trigger and interrupt the service so as to guarantee the correct performance of the component. 
+If we consider the current scenario of energy transition with a high penetration of DERs, the risk of overcurrent is mainly caused by the increase of the electricity consumption in a network that has not been reinforced since its construction, and the increase of DERs and electrical appliances such as space heaters, electric vehicles and electric water boilers. In the latter case, the electricity in injected usually at MV and LV levels. In this scenario, overloads can happen when the overall resulting power flow downstream the distributed generator point exceeds the value upstream, under the hyphoteses that no other generation sources are providing energy. This is also related to the feeder capacity limits under normal operation schemes. The scenario where a feeder capacity has been working at its 40-50\% capacity before the integration of capacity generation would have a wider range to allocate these resources than those feeders that in normal operation are at its 90-95 \% of the total capacity. Furthermore, the length of the feeder should be also taken into consideration, since at the beginning of the power line the electricity to be distributed must be equal to the sum of all loads, whereas at the end of the feeder only the remaining has to be provided. Hence, the feeder capacity is also related to the length, structure and connected loads. 
+Despite the disadvantages and challenges of DERs in distribution networks, it is a fact that DERs can help reduce the losses in the electricity system, since generation is now closer to the consumption points. However, it should be considered that under the case of an excess of generation, reverse flows in MV and LV lines can increase the power losses of the overall system. 
+
+\subsection{Risk of overvoltage}
+The second most common risk in active distribution grids are overvoltages. This situation takes place when the voltage value at one or more of the buses exceeds the nominal value. As in the case of overloads, if the overvoltage is too high, this can lead to the damage of the electrical components and the electric loads connected to that bus. 
+For many years, voltage magnitude variations have been a common concern for system operators being the case of undervoltages. This problem is caused by the associated impedance in the distribution lines leading to an excessive voltage droop, but it does not cause any damage to the network components.  
+
+With the increase of DERs integration, utilities have registered an increase of overvoltage cases at the point of common copuling (PCC) of DERs units, and as a result have set up limits on the maximum size of a distributed generator \cite{Kennedy2014}. The reason being is that these grid-connected distributed generators unit do not explicitly regulate voltage, most commonly regulating the real power output. One of the mitigation schemes for overvoltages is the previously mentioned one, stablishing restrictions on the distributed generator size and location, under the expansion and planning process of the network. However, with the aim of enhancing the integration of DERs, this could lead to a lack of fairness for end-users who are willing to install DERs at a household or LV-MV level. Another mitigation scheme is the combination of DERs with storage units, avoiding the risk of overvoltage by using the battery to manage the energy surplus. Lastly, demand-side management techniques and flexibility can help the mitigation of overvoltages in active distribution networks. 
+
+\section{Demand-side flexibility for congestion management}
+As mentioned in the previous section, the use of demand-side flexibility, managed by aggregators, can help distribution network operators avoid or mitigate congestions. 
+
+%RESEARCH QUESTION: INCLOURE FEINA DEL PAPER DEL CIRED
 
 \textcolor{red}{The idea here is to use the demand forecast as well as the network congestion input to compute and calculate the flexibility request that the DSO requires for solving the congestion located in a specific point of the network}
 \textcolor{red}{This service does not interact with the aggregator and we do not consider the interaction between the agents (S5.3) BD4OPEM}
 
-\begin{itemize}
-\item NUVVE Congestion management
-\item pilot estabanell INVADE - BD4OPEM 
-\item altres pilots
-\end{itemize}
+%\begin{itemize}
+%\item NUVVE Congestion management
+%\item pilot estabanell INVADE - BD4OPEM 
+%\item altres pilots
+%\end{itemize}
 
-\subsection{Use cases/Business models for congestion management}
-incloure aqui diagrama interaccio de l INVADE-CIRED
-Possibilitat d incloure els use cases que estem fent pel BD4OPEM 
+\subsection{System interaction}
 
-\subsection{Standards and protocols for flexibility provision between aggregators and DSOs}
-OPENADR - USEF? 
-\subsection{Literature review on congestion management tools - OPF}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1\columnwidth ]{ChapterOPF_DSO/Figures/INTERACTION.png}
+	   %\vspace*{-8cm}
+		\caption{Flexibility request interaction}
+	\label{fig:pimodel}  
+\end{figure}
+
+%\subsection{Standards and protocols for flexibility provision between aggregators and DSOs}
+%OPENADR - USEF? 
+%\subsection{Literature review on congestion management tools - OPF}
+%\subsection{Contribution}
 \subsection{Contribution}
-
 
 \section{Mathematical formulation for Flexibility request calculation}
 The problem to solve is mainly an AC-OPF, considering as the objective function the minimization of the total flexibility costs, but also considering the distribution network. In the following subsections the objective function is detailed, as well as all the restrictions related to AC-OPF. 
