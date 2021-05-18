@@ -5,12 +5,12 @@
 \label{chapterIntro}
 \chaptermark{Introduction}
 
-The current society is facing a challenge in order to mitigate the effects of the climate change. With the objective of keeping global temperature rise below 2 degrees Celsius as stated in the Paris Agreement XXXX, the whole energy system is called to an action: transform a mainly fossil-based electricity generation scenario to one that is carbon-neutral, mainly based on renewables energy sources (RES). The challenge is even greater, since it is expected that the electricity consumption will increase from a 20\% to 40\% by 2050, according to \cite{IRENA2018}. This can be observed in Figure \ref{fig:scenarios}, where the scenario by 2050 expects the 85\% of the electricity supply to be covered by renewables. This chapter aims to provide an overview of the current state of the electricity system and their agents, so as to highlight the main shortcomings, challenges and opportunities for the implementation of the energy transition roadmap. The following pages cover the regulation related to DSOs and smart grids, the technical aspects of DERs and ICT technologies, the role of demand-side and end-user's awareness, and lastly the role of new business agents and services that can help DSOs to become key agents in the development of smart grids and achievement of the decarbonization objectives for 2050. 
+The current society is facing a challenge to mitigate the effects of climate change. To keep global temperature rise below 2 degrees Celsius as stated in the Paris Agreement \cite{UnitedNations2015}, the whole energy system is called to an action: transform a mainly fossil-based electricity generation scenario to one that is carbon-neutral, mainly based on renewables energy sources (RES). The challenge is even greater, since it is expected that the electricity consumption will increase from a 20\% to 40\% by 2050, according to \cite{IRENA2018}. This can be observed in Figure \ref{fig:scenarios}, where the scenario by 2050 expects the 85\% of the electricity supply to be covered by renewables. This chapter aims to provide an overview of the current state of the electricity system and their agents, so as to highlight the main shortcomings, challenges and opportunities for the implementation of the energy transition roadmap. The following pages cover the regulation related to DSOs and smart grids, the technical aspects of DERs and ICT technologies, the role of demand-side and end-user's awareness, and lastly the role of new business agents and services that can help DSOs to become key agents in the development of smart grids and achievement of the decarbonization objectives for 2050. 
 
 
-\begin{figure}[]
+\begin{figure}[h]
 	\centering 
-	\includegraphics[width=0.8\columnwidth ]{ChapterIntro/Figures/irena_scenarios.png}
+	\includegraphics[width=1\columnwidth ]{ChapterIntro/Figures/irena_scenarios.png}
 	   %\vspace*{-8cm}
 		\caption{Renewable Energy Sources penetration scenario. Extracted from \cite{IRENA2018}}  
 		\label{fig:scenarios}
@@ -24,7 +24,7 @@ The physical infrastructure of the electricity network is composed by generators
 
 \begin{figure}[h]
 	\centering 
-	\includegraphics[width=0.8\columnwidth ]{ChapterIntro/Figures/ree.png}
+	\includegraphics[width=1\columnwidth ]{ChapterIntro/Figures/ree.png}
 	   %\vspace*{-8cm}
 		\caption{Electricity network scheme. Extracted from XXX}  
 		\label{fig:ree}
@@ -32,7 +32,7 @@ The physical infrastructure of the electricity network is composed by generators
 
 Generators are the main agents feeding the grid downstream. Large generators can produce a range from 6 kW to 20 kV [XXX], to then increase the voltage up to 200 kV in order to connect to the high voltage (HV) tramission lines. The transmission network is the responsible for the electricity transportation over long distances, and it is done at HV level. By doing this, the transmission losses are lower while using a cheaper infrastructure. The tranmission network voltage level usually ranges from 200 kV to 1000 kV [XXX], and both generators and HV-MV transformers are the main elements connected to it. Due to their critical position in the system, connecting generation and consumption sides, transmission grids are meshed to avoid collapsing when there is any failure in on of the lines. On top of that, this layout allows the distribution of the loads through different tramission lines with the objective of reducing losses and avoiding congestions. Transmission networks are operated by the so-called Transmission System Operators (TSO). Similarly, distribution networks are responsible for the energy distribution and transportation for shorter distances. One could consider a distribution grid when its voltage levels are either medium-voltage (MV) and low-voltage (LV). By definition, the voltage levels considered for distribution networks are: 132 kV, 66 kV, 45 kV, 30 kV, 20 kV, 10 kV, 6 kV, 3 kV, 1 kV, 400 V and 230 V [xxxx]. 
 
-Differently as seen in the transmission system, the assets connected at distribution level are mainly loads ranging from industrial loads, connected at MV, to residential loads, most usually connected at the LV level. However, generation units can also be connected  at the distribution level, usually only considering renewable sources. The configuration layout of distribution networks is commonly not redundant, meaning that they do not usually use meshed configurations. As a result, these networks are not as redundant as the transmission system. Hence, this could lead to problems when DERs are connected to MV or LV connection points, leading to congestions  in distribution networks that were not expected when the network was implemented. Distribution networks are managed by Distribution System Operators (DSO), who connect consumers, install electricity meters and communicate the end-user consumption to energy suppliers or retailers [XXX]. 
+Differently as seen in the transmission system, the assets connected at distribution level are mainly loads ranging from industrial loads, connected at MV, to residential loads, most usually connected at the LV level. However, generation units can also be connected  at the distribution level, usually only considering renewable sources. The configuration layout of distribution networks is commonly not redundant, meaning that they do not usually use meshed configurations. As a result, these networks are not as redundant as the transmission system. Hence, this could lead to problems when DERs are connected to MV or LV connection points, leading to congestions  in distribution networks that were not expected when the network was implemented. Distribution networks are managed by Distribution System Operators (DSO), who connect consumers, install electricity meters and communicate the end-user consumption to energy suppliers or retailers [XXX]. An overview of the previously mentioned elements is shown in Figure \ref{fig:networkscheme}. 
 
 
 \begin{figure}[h]
@@ -40,12 +40,14 @@ Differently as seen in the transmission system, the assets connected at distribu
 	\includegraphics[width=0.8\columnwidth ]{ChapterIntro/Figures/ELECTRICITY_SYSTEM.jpg}
 	   %\vspace*{-8cm}
 		\caption{Electricity network scheme. Extracted from XXX}  
-		\label{fig:ree}
+		\label{fig:networkscheme}
 \end{figure}
 
 %\subsection{Smart Grids}
 
-Despite the scenarios where renewables are the main source for electricity production, it is a fact that large power plants placements are more difficult to find XXX, leading to newer technologies to allocate renewable sources in places where a larger power output can be obtained, and less concern by end-users in terms of environmental and visual impact of them, such as off-shore wind turbines XXXX, connected to the transmission network. At the same time, as electricity demand on grids increased due to the electrification of appliances, distribution system operators (DSOs) started to face congestions in their networks, and hence utilities started to find solutions for managing these peak loads, usually located in specific time periods.  This combined to the implementation of smart meters so utilities could encourage customers to switch consumption from peak to non-peak hours, and the need for monitoring and controlling the operation of the distribution network enhanced the development of smart grids. Traditionally, electric power systems have been centralizsed structures organized into generation, transmission and distribution, placing end-users and the endpoint of the supply chain. This was an unidirectional structure where electricity generated by large power plants was transported by means of transmission and distribution networks, to be delivered to end-users. Despite, the emergence of the social awareness of the environmental impact of the end-users consumption, the increase of the electricity prices, as well as the emergence of the so-called distributed energy resources (DERs), such as small-scale PV installations (mainly rooftop), storage systems, electric vehicles (EVs) and smart home appliances are transforming the end-users into active participants in the power system. The increasing penetration of these decentralized resources, as well as the emergence of new market agents like prosumers, aggregators and active consumers, are pushing the electricity system to include innovation in their business models, creating the paradigm of smart grids (Figure \ref{fig:IRENA-DSO}). 
+Despite the scenarios where renewables are the main source for electricity production, it is a fact that large power plants placements are more difficult to find XXX, leading to newer technologies to allocate renewable sources in places where a larger power output can be obtained, and less concern by end-users in terms of environmental and visual impact of them, such as off-shore wind turbines XXXX, connected to the transmission network. At the same time, as electricity demand on grids increased due to the electrification of appliances, distribution system operators (DSOs) started to face congestions in their networks, and hence utilities started to find solutions for managing these peak loads, usually located in specific time periods.  This combined to the implementation of smart meters so utilities could encourage customers to switch consumption from peak to non-peak hours, and the need for monitoring and controlling the operation of the distribution network enhanced the development of smart grids. Traditionally, electric power systems have been centralizsed structures organized into generation, transmission and distribution, placing end-users and the endpoint of the supply chain. This was an unidirectional structure where electricity generated by large power plants was transported by means of transmission and distribution networks, to be delivered to end-users. 
+
+Furthermore, the emergence of the social awareness of the environmental impact of the end-users consumption, the increase of the electricity prices, as well as the emergence of the so-called distributed energy resources (DERs), such as small-scale PV installations (mainly rooftop), storage systems, electric vehicles (EVs) and smart home appliances are transforming the end-users into active participants in the power system. The increasing penetration of these decentralized resources, as well as the emergence of new market agents like prosumers, aggregators and active consumers, are pushing the electricity system to include innovation in their business models, creating the paradigm of smart grids (Figure \ref{fig:IRENA-DSO}). According to \cite{EuropeanParliamentSG}, smart grids can be defined as:
 
 \begin{figure}[h]
 	\centering 
@@ -56,7 +58,7 @@ Despite the scenarios where renewables are the main source for electricity produ
 \end{figure}
 
 
-According to \cite{EuropeanParliamentSG}, smart grids can be defined as:
+
 
 \begin{tcolorbox}
 \textit{"an electricity network that can integrate in a cost efficient manner the behaviour and actions of all users connected to it, including generators, consumers and those that both generate and consume, in order to ensure an economically efficient and sustainable power system with low losses and high levels of quality, security of supply and safety".} 
@@ -113,20 +115,32 @@ promote the energy transition. In terms of market design there is a group of mar
 \section{Flexibility as a service for the energy transition}
 Power system flexibility will play a key role in the energy transition and the next generation electric grid, and some of the main outcomes of implementing flexibility are the possibility to replace fossil fuel generators with clean and renewable energy sources; increase reliability and resilience against disruptive events; improve performance and reduce cost of new and existing assets and achieve the scenario where a low carbon economy is possible. 
 
-In general terms, flexibility can be defined as \textit{"the ability of a power system to reliably and cost-effectively manage the variability and uncertainty of demand and supply accross all relevant timescales", defined by the International Smart Grid Action Network (ISGAN)} \cite{Hillberg2019}. Traditionally, these variations from the demand side have been overcome by means of fuel-based flexible large generators such as carbon and gas turbine; and pumped hydro power plants, which were forces to be able to provide flexibility. Those changes in the demand-side where mainly from changes in the load consumption based on consumer behavior.
+In general terms, flexibility can be defined as follows, according to the International Smart Grid Action Network (ISGAN)\cite{Hillberg2019}.
+
+\begin{tcolorbox}
+\textit{"The ability of a power system to reliably and cost-effectively manage the variability and uncertainty of demand and supply accross all relevant timescales."}
+\end{tcolorbox} 
+
+Traditionally, these variations from the demand side have been overcome by means of fuel-based flexible large generators such as carbon and gas turbine; and pumped hydro power plants, which were forces to be able to provide flexibility. Those changes in the demand-side where mainly from changes in the load consumption based on consumer behavior.
 Some of these requirements for large generators are still considered in the new regulation under the Clean Energy Package and Grid Codes \cite{validzic2017clean}. However, most of the requisites are not mandatory for smaller generator units, and with the new paradigm where there is a reduction in the number of synchronous generators and more difficulties to forecast demand and generation, the remanining generator units might not be able to handle the flexibility required to keep the grid consumption and generation balance. This will suppose an increased need for flexibility \cite{Xu2019}. Besides, the increasing penetration of DERs into the MV and LV grid will suppose some challenges in terms of network operation, which will need to be addressed by the DSOs by means of active management and flexibility activation to avoid grid reinforcement. For these reasons, flexibility markets are being recognized in the e-Directive \cite{Directive2019944} as a key element to support a safer and more efficient use of the already existing grids.
 According to the same institution, flexibility will enable all stakeholder and elements of the grid considering generators, consumers/end-users, storage and infrastructure to be active participants in the energy system, also enabling the cost-efficient development of RES and more resilient power systems \cite{Hillberg2019}.  
 
 \begin{figure}[h]
 	\centering 
-	\includegraphics[width=0.8\columnwidth ]{ChapterIntro/Figures/flex_load_shifting.png}
+	\includegraphics[width=1\columnwidth ]{ChapterIntro/Figures/flex_load_shifting.png}
 	   %\vspace*{-8cm}
 		\caption{Flexibility effects on electricity consumption. Extracted from \cite{Hillberg2019}}  
 		\label{fig:load_shifting}
 \end{figure}
 
 
-Due to the increase of electricity consumption and DERs integration in the last 10 years, the consumer behavior patterns have been broadly studied \cite{ZHOU201773,TORRITI2014265}, showing that the electricity consumption is focused at specific time periods, such as noon and in the evening. With the implementation of DERs and the increase of the electricity consumption, there is a possibility to include flexibility in power systems by achieving the paradigm where consumption follows the generation curve only partially. That could lead to implement flexibility in the demand-side by shifting the consumption of some assets or the production of some small scale generators or storage systems to other time periods, as seen in Figure \ref{fig:load_shifting}. Demand-side flexibility can be defined as \textit{"The ability of a customer or prosumer to deviate from its normal electricity consumption or production profile, in response wo price signals or market incentives"} \cite{EuropeanSmartGridsTaskForceExpertGroup32019}. Demand-side flexibility is based on load, demand-side generation and demand-side storage. The Universal Smart Energy Framework (USEF) defined a wide range of services that could be provided to network operators, retailers, balancing parties thanks to demand-side flexibility under demand-side management. An overview of the flexibility products can be seen in Figure \ref{fig:DSF}. 
+Due to the increase of electricity consumption and DERs integration in the last 10 years, the consumer behavior patterns have been broadly studied \cite{ZHOU201773,TORRITI2014265}, showing that the electricity consumption is focused at specific time periods, such as noon and in the evening. With the implementation of DERs and the increase of the electricity consumption, there is a possibility to include flexibility in power systems by achieving the paradigm where consumption follows the generation curve only partially. That could lead to implement flexibility in the demand-side by shifting the consumption of some assets or the production of some small scale generators or storage systems to other time periods, as seen in Figure \ref{fig:load_shifting}. Demand-side flexibility can be defined as follows, accordint to \cite{EuropeanSmartGridsTaskForceExpertGroup32019}.  
+
+\begin{tcolorbox}
+\textit{"The ability of a customer or prosumer to deviate from its normal electricity consumption or production profile, in response wo price signals or market incentives"} 
+\end{tcolorbox}
+
+Demand-side flexibility is based on load, demand-side generation and demand-side storage. The Universal Smart Energy Framework (USEF) defined a wide range of services that could be provided to network operators, retailers, balancing parties thanks to demand-side flexibility under demand-side management. An overview of the flexibility products can be seen in Figure \ref{fig:DSF}. 
 
 \begin{figure}[h]
 	\centering 
