@@ -25,18 +25,18 @@ In summary, the integration of flexibility into the current power system is alre
 \section{Contributions}
 The contributions of this PhD research are focused on the ecosystem that covers the flexibility supply chain, with the demand-side as the flexibility provider, the aggregator as the flexibility third-party manager, the DSO as the flexibility end-user, the electricity market that has to allocate this new service, and the environment, since flexibility should be a tool for achieving the energy transition objectives for 2030 and 2050. The major contributions of this thesis are summarized as follows:  
 \begin{itemize}
-\item Chapter 2 \textit{Providing flexibility in a local market:} 
+\item Chapter 2 \textit{Local market services and products for active network management:} 
 	\begin{enumerate}
 		\item Development of a comprehensive reference guide on the overall local energy markets for energy and flexibility.
 		\item Definition of a common baseline for understanding the differences between the surrounding concepts around local energy markets such as micro markets, energy provision, flexibility provision, centralised approaches and peer-to-peer market structures.  
 	\end{enumerate}
-\item Chapter 3 \textit{Flexibility services:} 
+\item Chapter 3 \textit{Framework definition and mathematical formulation of flexibility services:} 
 	\begin{enumerate}
 		\item Analysis of the current state of the art in flexibility definition in terms of approach, end-user , time horizon and final use of this flexibility. 
 		\item Analysis of the current EU guidelines on flexibility provision, activation and billing. 
 		\item Proposal of a generalised framework for defining flexibility based on the previously cited objectives. 
 	\end{enumerate}
-\item Chapter 4 \textit{Aggregated flexibility forecast}: 
+\item Chapter 4 \textit{Demand-side flexibility forecast. An aggregated approach for aggregators:} 
 	\begin{enumerate}
 		\item Analysis of the time series structure of the flexibility signal, so as to know the main characteristics and particularities when developing forecast algorithms for time-series data. 
 		\item Analysis of the different algorithms for time-series, developing a benchmark model for flexibility forecast using the climatology model and the single exponential smoothing. 
@@ -45,13 +45,13 @@ The contributions of this PhD research are focused on the ecosystem that covers 
 		\item Proposal of a flexibility forecast approach that does not require network topology information
 		\item Proposal of a flexibility estimation that is applicable to different flexible assets, and does not require specific information of them. 
 	\end{enumerate}
-\item Chapter 5 \textit{AC-Optimal Power Flow for congestion management in MV distribution networks}: 
+\item Chapter 5 \textit{Flexibility-based AC-Optimal Power Flow for active network management in distribution grids}: 
 	\begin{enumerate}
 		\item Analysis of the flexibility costs models for DSOs for the success of flexibility services for DSOs. 
 		\item Formulation of a congestion management optimization problem based on the AC-OPF formulation for calculating the flexibility request of a DSO.
 		\item Definition of the communications scheme between the DSO and aggregator for exchanging the information and matching the flexibility request and the flexibility forecast between a bilateral agreement.
 	\end{enumerate}
-\item Chapter 6 \textit{The potential role of flexibility for sustainable energy transition}: 
+\item Chapter 6 \textit{The potential role of flexibility for a sustainable energy transition}: 
 	\begin{enumerate}
 		\item Analysis of the life-cycle assessment methodology, the lack of implementation in power systems and the benefits of considering a holistic approach for achieving a sustainable energy tranisiton. 
 		\item Development of a new LCA approach for assessing the environmental impact of electricity production in a peak-hourly based, instead of the general approaches that calculate average values, and do not consider the effect of the technologies used to cover peak hours. 
@@ -68,31 +68,31 @@ The presence of flexibility in the distribution network is already a reality, an
 Considering the research developed in each of the chapters of this manuscript, the potential research areas based on the accomplished achievements of the present thesis are described below: 
 
 \begin{itemize}
-\item Chapter 2 \textit{Providing flexibility in a local market:} 
+\item Chapter 2 \textit{Local market services and products for active network management:} 
 	\begin{enumerate}
 		\item Analyse the current regulation for local energy and flexibility 
 		\item Include the state-of-the art of blockchain in local energy communities. 
 		\item Analyse the role of CO$_2$ markets in local markets to assess the impact on the wholesale market prices and the energy transition. 
 	\end{enumerate}
-\item Chapter 3 \textit{Flexibility services:} 
+\item Chapter 3 \textit{Framework definition and mathematical formulation of flexibility services:} 
 	\begin{enumerate}
 		\item Develop a flexibility model for specific flexible-assets such as EVs or Electric Water Boilers, to quantify the flexibility that can be provided considering the intrinsec nature of the asset. 
 	\end{enumerate}
-\item Chapter 4 \textit{Aggregated flexibility forecast}: 
+\item Chapter 4 \textit{Demand-side flexibility forecast: An aggregated approach for aggregators:} 
 	\begin{enumerate}
 		\item Develop a logistic model for level 1 of the hierarchy to increase the overall performance of the algorithm. 
 		\item Test the model performance by using datasets with a larger aggregated portfolio with single flexible assets-type, to assess the generalization of the algorithm.
 		\item Implementation of the model into a business model with a control group, to develop the entire data pipeline, covering from the data collection to the re-training of the model thanks to the online learning approach.  
 		\item Improve the model by including a hierarchical top-down approach where the location of the asset could be derived. 
 	\end{enumerate}
-\item Chapter 5 \textit{AC-Optimal Power Flow for congestion management in MV distribution networks}: 
+\item Chapter 5 \textit{Flexibility-based AC-Optimal Power Flow for active network management in distribution grids:} 
 	\begin{enumerate}
 		\item Integrate the algorithm with the already existing python libraries such as \textit{Pandapower} or \textit{Open-DSOPF} for a faster and easier network creation. 
 		\item Improve the algorithm to reduce computational time and improve the solvability by linearizing the AC-OPF power flow constraints, and compare with other solvers. 
 		\item Develop a study case with the integration of the whole flexibility supply chain by means of a bilateral contract or a local flexibility market. 
 		\item Develop a flexibility costs model for the DSO, assessing the importance that activating flexibility should be cheaper that grid reinforcement. 
 	\end{enumerate}
-\item Chapter 6 \textit{The potential role of flexibility for sustainable energy transition}: 
+\item Chapter 6 \textit{The potential role of flexibility for a sustainable energy transition:} 
 	\begin{enumerate}
 		\item Develop a Consequential LCA method to compare the consequences of implementing flexibility in countries with a low peak-hour LCA environmental impact
 		\item Include the environmental impact of energy storage into the model. 

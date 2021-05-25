@@ -1,14 +1,13 @@
-\chapter{OPF for Congestion management in MV distribution networks}
+\chapter{Flexibility-based AC-Optimal Power Flow for active network management in distribution grids}
 \label{ChapterOPFDSO}
 \chaptermark{Optimal Power Flow for Distribution System Operators}
 
 \section{Introduction}
 
-The dynamics of the power system are changing towards a new model where large generators on the HV side of the grid are being replaced by smaller generation units placed at the MV and LV side of the grid. This increase of penetration by DG will have a significant impact on how the distribution network operates. At the distribution level, technically speaking, distributed generation will make arise some new challenges and, in some cases, problems already solved will rise again. 
+The dynamics of the power system are changing towards a new model where large generators on the high-voltage side of the network are being replaced by smaller generation units placed at the medium-voltage and low-voltage side of the grid. This increase of penetration by DERs will have a significant impact on how the distribution network operates. At the distribution level, distributed energy resources will make arise some new challenges and, in some cases, problems already solved will rise again. As a result, the increasing number of DERs placed alongside the medium-voltage  and low-voltage distribution networks leads to the need of flexibility services for the DSO. 
+This chapter aims to develop an optimization tool for calculating the value and location of the flexibility request that a DSO needs for operating the distribution network and avoid or mitigate network congestions, corresponding to objective $(iv)$ of the thesis research, according to Figure \ref{fig:chapter_obj_iv}. 
 
-This chapter aims to develop an optimization tool for calculating the value and location of the flexibility request that a DSO needs for operating the distribution network and avoid or mitigate network congestions, focused on problems $(i)$ and $(ii)$. This is objective $(iv)$ of the thesis research, according to Figure \ref{fig:chapter_obj_iv}. 
-
-\begin{figure}[h!]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=0.6\columnwidth ]{ChapterOPF_DSO/Figures/phd_intro_iv.pdf}
 	   %\vspace*{-8cm}
@@ -16,7 +15,9 @@ This chapter aims to develop an optimization tool for calculating the value and 
 	\label{fig:chapter_obj_iv}  
 \end{figure}
 
-The most common problems caused by the high penetration of distributed and renewable generation can be classified into four main categories as done in XXXX. Figure XXX provides an overview of the location of these potential problems in a arbitrary distribution network:  
+These flexibility services could be provided by several resources, from different nature, including centralized energy storage, distributed energy storage, electric vehicles, PV panels, or Flexible Loads such as water boilers or space heaters [3]. The aggregator gathers the flexibility from customers to provide flexibility services to different stakeholders, like energy suppliers, Balance Responsible Parties (BRP), TSO, DSO and final consumers (\cite{USEFFoundation2015a, Olivella2018}). Then, the aggregator acts as a single entity when engaging in power system markets or selling services to the system operators \cite{BURGER2017}. Under the context of smart grids and flexibility services in place, distribution system operators could benefit by activating flexibility in distribution grids \cite{USEFFoundation2015a, spiliotis2016demand, esmat2016conf, hashemi2016}. DSOs could compensate grid congestions during high consumption or production periods, reducing their networks stress. At the same time, DSO can increase their renewable generation hosting capacity by using behind-the-meter flexibility during peak production periods. 
+
+The most common problems caused by the high penetration of distributed and renewable generation can be classified into four main categories. Figure XXX provides an overview of the location of these potential problems in a arbitrary distribution network:  
 
 \begin{itemize}
 \item Overload and losses of feeders and transformers. 
@@ -28,12 +29,12 @@ The most common problems caused by the high penetration of distributed and renew
 Based on previous references XXXX, the two main potential problems under the distribution network operation are $(i)$ \textbf{overload} and  $(ii)$ \textbf{overvoltage}. 
 
 
-\subsection{Risk of overload/overcurrents}
+\subsection{Risk of overload/overcurrents - congestion management}
 Overloads or commonly also known as overcurrents are those situations where the current circulating through one of the electrical components is higher than the nominal value. This can cause either the damage of the electrical component if the situation happens for a short period of time, or the component failure if the current limit is overly exceeded. However, in many cases, protection elements would trigger and interrupt the service so as to guarantee the correct performance of the component. 
 If we consider the current scenario of energy transition with a high penetration of DERs, the risk of overcurrent is mainly caused by the increase of the electricity consumption in a network that has not been reinforced since its construction, and the increase of DERs and electrical appliances such as space heaters, electric vehicles and electric water boilers. In the latter case, the electricity in injected usually at MV and LV levels. In this scenario, overloads can happen when the overall resulting power flow downstream the distributed generator point exceeds the value upstream, under the hyphoteses that no other generation sources are providing energy. This is also related to the feeder capacity limits under normal operation schemes. The scenario where a feeder capacity has been working at its 40-50\% capacity before the integration of capacity generation would have a wider range to allocate these resources than those feeders that in normal operation are at its 90-95 \% of the total capacity. Furthermore, the length of the feeder should be also taken into consideration, since at the beginning of the power line the electricity to be distributed must be equal to the sum of all loads, whereas at the end of the feeder only the remaining has to be provided. Hence, the feeder capacity is also related to the length, structure and connected loads. 
 Despite the disadvantages and challenges of DERs in distribution networks, it is a fact that DERs can help reduce the losses in the electricity system, since generation is now closer to the consumption points. However, it should be considered that under the case of an excess of generation, reverse flows in MV and LV lines can increase the power losses of the overall system. 
 
-\subsection{Risk of overvoltage}
+\subsection{Risk of overvoltage - voltage control}
 The second most common risk in active distribution grids are overvoltages. This situation takes place when the voltage value at one or more of the buses exceeds the nominal value. As in the case of overloads, if the overvoltage is too high, this can lead to the damage of the electrical components and the electric loads connected to that bus. 
 For many years, voltage magnitude variations have been a common concern for system operators being the case of undervoltages. This problem is caused by the associated impedance in the distribution lines leading to an excessive voltage droop, but it does not cause any damage to the network components.  
 
@@ -54,6 +55,7 @@ As mentioned in the previous section, the use of demand-side flexibility, manage
 %\end{itemize}
 
 \subsection{System interaction}
+The DSO is responsible for calculating their Flexibility Requests (FR) for congestion management purposes. On the other hand, the FO is the responsible for calculating the flexibility offers, which can cover partially or entirely the DSO needs. Hence, an interaction between the DSO and the FO is needed to activate the required flexibility services. The data flow is depicted in Figure 2 below.
 
 \begin{figure}[h]
 	\centering
@@ -67,7 +69,14 @@ As mentioned in the previous section, the use of demand-side flexibility, manage
 %OPENADR - USEF? 
 %\subsection{Literature review on congestion management tools - OPF}
 %\subsection{Contribution}
-\subsection{Contribution}
+\section{Contribution}
+
+
+
+The optimization problem is developed to minimize the aggregator operation costs. The costs are based on curtailing local generation output, charging or discharging batteries, switching off curtailable and disconnectable loads and shifting loads during specific time periods. A local flexibility market design is presented in [12], described as a market-based mechanism for aggregators. BRP and DSO are the main stakeholders of these flexibility services and they can buy flexibility from a market platform or a bilateral contract. However, in any case an information exchange is required between the flexibility buyer and the flexibility provider, to agree on the quantity and delivery time of this flexibility to be provided. 
+
+\section{Flexibility activation costs for distribution network operators}
+\textcolor{red}{incloure coses nuria aqui. caldra lincarho amb la part de parametres, del parametre de costos de la funcio objectiu.} 
 
 \section{Mathematical formulation for Flexibility request calculation}
 The problem to solve is mainly an AC-OPF, considering as the objective function the minimization of the total flexibility costs, but also considering the distribution network. In the following subsections the objective function is detailed, as well as all the restrictions related to AC-OPF. 
