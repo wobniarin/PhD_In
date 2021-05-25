@@ -1,4 +1,5 @@
-\chapter{Aggregated Flexibility Forecast }
+%\chapter{Aggregated flexibility forecast within aggregators flexibility portfolios}
+\chapter{Demand-side flexibility forecast: An aggregated approach for aggregators}
 \label{ChapterAggFlexForecast}
 \chaptermark{Aggregated Flexibility Forecast}
 
@@ -9,8 +10,7 @@ The contributions of this chapter are (i) the development of a framework based o
 
 This chapter aims to provide a probabilistic tool for estimating the available flexibility of a set of flexible assets managed by an aggregator. Hence, the interaction studied is the one according to Objective (iii) of the PhD thesis, outlined in Figure \ref{fig:chapter_obj_ii}. The organization of the chapters is the following. Section \ref{Sect:ProblemStatement} introduces the definition of flexibility and the modeling approach. Section \ref{Sect:FlexModeling} describes the two-level hierarchy chosen for the flexibility modeling and the mathematical formulation. Section \ref{Sect:CaseStudy} presents a case study of the aggregated flexibility forecast under a real dataset, while Section \ref{sect:Results} discusses the obtained results under the case study. Finally, Section \ref{Sect:Conclusions} concludes on the results.
 
-
-\begin{figure}[]
+\begin{figure}[h]
 	\centering
 	\includegraphics[width=0.7\columnwidth ]{ChapterAggFlexForecast/Figures/phd_intro_iii.pdf}
 	   %\vspace*{-8cm}
@@ -37,7 +37,7 @@ However, flexibility in the power system can be provided from different perspect
 
 Hence, firstly, flexibility can be defined by determining the provider of this flexibility and the final user of these services. Based on that, flexibility can therefore be formulated under a market-oriented approach or under a system-oriented approach. From the market-oriented perspective, the most common definition of flexibility is determining operating points of flexibility, as defined in \cite{Olivella-Rosell2018}, or by specifying an upward and downward flexibility band, as stated in \cite{Soares2017}. Another approach for calculating the flexibility from the market perspective is modeling the elasticity between price and demand \cite{Gorria2013}, linking the price with the flexibility activation, represented as a consumption increase or decrease. From the system-oriented approach, flexibility has mainly been defined as a multiperiod and time-constrained vector, without an associated price to it, as described in \cite{Pinto2017}. 
 
-\subsection{Problem Statement}
+\subsection{Problem Statement} \label{sec:problemstatement}
 By considering all the previous definitions and the main objective of this study, flexibility is defined and formulated as (i) aggregated, by jointly considering a group or a portfolio of users represented by an aggregator, with no available information neither in terms of the electrical network layout nor the location of the flexible assets; (ii) consumption approach, since flexibility is modeled considering only those flexible sources that consume energy, being prosumption out of the scope at this stage; (iii) short-term horizon, since flexibility will be forecast in a day-ahead basis, in time periods that may range from 15 minutes to 1 hour; and lastly (iv) system-oriented, being the output of this algorithm the energy value, defined as positive and in energy units [kWh], for operation and short-term decision-making purposes for DSOs and BRPs, with no associated price or cost. 
 
 \subsection{Approaches for Flexibility Aggregation}
@@ -58,10 +58,36 @@ The second stage considers the aggregated flexibility from the bottom-up approac
 \end{figure}
 
 \section{Flexibility Modeling} \label{Sect:FlexModeling}
+\subsection{Dealing with time series data}
+The approach to use in forecasting depends on the time horizon, the factors and related inputs that determine the current outcome, types of visible and "not visible" data patterns, and many more. There are several approaches for forecasting time series data, such as the most basic used for developing a benchmark, from as using the most recent observation as a forecast, also know as na\"{i}ve methods, to the more complex ones such probabilistic forecasts, neural networks or reinforcement learning \cite{Hyndman2021}. This chapter covers the five main steps in a forecasting project, as follows: 
+\begin{enumerate}
+\item Problem definition: Definition of the variable to be predicted, as well as the integration of this forecast model to the organisation and the related models that might interact with it. 
+\item Data and information collection: According to \cite{Hyndman2021}, there are at least two types of information required: (a) being the statistical data, and (b) the accumulated expertise of people who collect the data and use these forecasts. On top of that, even though larger amounts of data are currently being stored, there are still some difficulties to collect enough historical data to be able to fit a good statistical model. 
+\item Exploratory Data Analysis (EDA): With the main objective to find consistent patterns such as seasonality and trends, as well as outliers and missing values. 
+\item Choosing and fitting models: This step is directly related to the amount of historical data available and other explanatory variables, since they will affect the choice of the model to use. Most likely, the definition of a benchmark will help to evaluate in a later stage the performance of the more complex model. It is important to remember here that each model is itself an artificial construct based on a set os assumptions. and usually invovles one or more parameters which must be estimated using the available and known historical data  \cite{Hyndman2021}. 
+\item Model evaluation and utilization: Evaluating the performance of the model once the data for the forecast period have become available.
+\end{enumerate}
 
-\textcolor{red}{\subsection{Benchmark definition}}
+The forecast variable is most commonly called a random variable. In this case, according to the definition of flexibility outlined in Section \ref{Sect:ProblemStatement}, flexibility is considered as a random variable $X$. However, since we want to specify that we are considering one observation at a time, we will use the subscript $t$, resulting in the random variable $x_t$. This corresponds to the so-called time series data, meaning a set of observations $x_t$, each one being recorded at a specific time $t$. In this chapter and for the sake of simplicity, we will consider discrete time series, when observations are recorded under a discrete set, made at fixed time internvals. On the contrary, continuous time series are out of the scope of this research. 
 
-\textcolor{red}{Include here information about the two different benchmarks I have defined}
+When considering a probabilistic forecast, the forecast value $\hat{x}_t$ represents the average value of the forecast distribution.
+
+Time series data have several characteristics that make their analysis different from other types of data: 
+\begin{enumerate}
+\item they can present a trend over time, understood as a increasing or decreasing offset tendency values in a given time series. 
+\item the random variable may exhibit seasonality, understood as a fixed and known period. A seasonal pattern happens when a time series is influenced by seasonal factors such as the day of the week, the month of the year, among others. 
+\item the data presents autocorrelation, meant as serial correlation between subsequent observations. 
+\item the data might present cycles, when the data present rises and falls without a fixed frequency, most likely under economic conditions or cycles. 
+\item the time series data presents an unexplanatory component, known as white noise. This can be understood as a random component that cannot be explained by any of the considered variables. This noise component is a stationary process with parameters mean and variance. 
+\end{enumerate} 
+
+An important part of the analysis of a time series is the choice of a suitable probability model for the data. The most common approach to deal with time series data is the implementation of autoregressive models (ARIMA/SARIMA). However, tuning the hyperparameters of this type of models can be a challenging task resulting in an algorithm that does not perform better than the benchmark \cite{nonlinearARIMA}, since ARIMA models assume linear functions of past data; and sometimes the time series data under study present non-linearities of one of the decomposed signals. Futhermore, time series decomposition to assume stationarity is in the case of the energy sector not feasible, making it more challenging to forecast time series model under auto-regressive models. and In the recent years, the most used approaches for forecasting time series data have been boosting algorithms and probabilistic forecast approaches \cite{Robinzonov2010, Barrow2016, Taieb2017, Guen2020}.  
+
+\subsection{Benchmark definition}
+\subsubsection{Climatology}
+
+\subsubsection{Single exponential smoothing}
+\textcolor{red}{Include here information about the two different benchmarks I have defined: climatology, SES, powertech 1}
 
 \subsection{Hierarchical Model Formulation}
 The hierarchical model shown in Figure \ref{fig:top_down} has two different levels, being level~1 the characterization of whether there is flexibility available or not, represented by the random variable $X$, and level 2 the value of the available flexibility given the prior condition of availability, defined as a random variable $Y$. This yields
@@ -149,6 +175,11 @@ which relies on the previous resulting distribution, together with the new data 
 \end{equation}
 
 There are two parameters to estimate in this model, being the forgetting factor $\lambda$ and the kernel bandwidth for each time period ${h}_{t}$. The forgetting factor $\lambda$ is a real constant parameter in the range between 0 and 1, $\lambda\ \in\ (0,1]$. This value is estimated by means of cross-validation techniques, whereas the kernel bandwidth is estimated by means of Recursive Maximum Likelihood, since it can be formulated to be time-adaptive, with good overall performance. 
+
+
+\subsubsection{Linear relationship for bandwidth estimation}
+\textcolor{red}{incloure powertech i millores}
+
 
 
 \subsubsection{Recursive Maximum Likelihood for bandwidth estimation}
