@@ -43,7 +43,7 @@ By considering all the previous definitions and the main objective of this study
 \subsection{Approaches for Flexibility Aggregation}
 With the aim of characterizing and modeling flexibility based on an aggregated portfolio with different sources of flexible consumption, bottom-up and top-down approaches are used. Instead of modeling and forecasting each type of flexibility source, the aggregated flexibility value is predicted. Figure \ref{fig:bottom_up} shows the bottom-up approach used to obtain the initial dataset to model the aggregated flexibility value. By means of this approach, the signal obtained will be later used to characterize the flexibility signal and predict its value. In this model, three different sources of flexibility are considered based on submetering data: Electric Water Boilers (EWB), Space Heaters (SH), and Electric Vehicles (EV). The aggregated flexibility value can be obtained by adding them up by type and user, which will be the input data for the flexibility characterization and modeling.
 
-\begin{figure}[]
+\begin{figure}[htbp]
 \centerline{\includegraphics[width=0.8\columnwidth]{ChapterAggFlexForecast/Figures/BUAP.pdf}}
 \caption{Bottom-up approach for flexibility modeling}
 \label{fig:bottom_up}
@@ -51,7 +51,7 @@ With the aim of characterizing and modeling flexibility based on an aggregated p
 
 The second stage considers the aggregated flexibility from the bottom-up approach as input data. Then, the modeling of the flexibility signal is defined by employing a two-level hierarchical model and top-down approach, as shown in Figure \ref{fig:top_down}. The first level of the hierarchy characterizes the flexibility signal. In this context, the signal is transformed and modeled as a Bernoulli distribution, characterizing the flexibility signal into two different values based on a chosen threshold; flexibility available (1) and flexibility not available (0). By doing that, one can first know whether there is flexibility available in the portfolio before quantifying the available amount under the second level of the hierarchy. 
 
-\begin{figure}[]
+\begin{figure}[htbp]
 \centerline{\includegraphics[width=0.6\columnwidth]{ChapterAggFlexForecast/Figures/TPAP.pdf}}
 \caption{Top-down approach for flexibility characterization and modeling.}
 \label{fig:top_down}
@@ -83,36 +83,34 @@ Time series data have several characteristics that make their analysis different
 
 An important part of the analysis of a time series is the choice of a suitable probability model for the data. The most common approach to deal with time series data is the implementation of autoregressive models (ARIMA/SARIMA). However, tuning the hyperparameters of this type of models can be a challenging task resulting in an algorithm that does not perform better than the benchmark \cite{nonlinearARIMA}, since ARIMA models assume linear functions of past data; and sometimes the time series data under study present non-linearities of one of the decomposed signals. Futhermore, time series decomposition to assume stationarity is in the case of the energy sector not feasible, making it more challenging to forecast time series model under auto-regressive models. and In the recent years, the most used approaches for forecasting time series data have been boosting algorithms and probabilistic forecast approaches \cite{Robinzonov2010, Barrow2016, Taieb2017, Guen2020}.  
 
-\subsection{Benchmark definition}
-\subsubsection{Climatology}
+\subsection{Benchmarks Models}
+
+The benchmark models are a helpful tool for setting the baseline of the performance of a forecast algorithm. This section covers the definition of two different benchmarks for the aggregated flexibility forecast task, the climatology model and the single exponential smoothing model. Algorithm \ref{alg:climatology} presents the first benchmark developed for forecasting the flexibility available within an aggregator's portfolio. This model is based in the so-called na\"{i}ve, but evolved to consider the monthly seasonality in each month of the year. In this case, there is an average model created in each month of the year, represented by $m \in M$ and at each time period $t \in T$. As an example, the flexibility value for the 2nd of February at 10:00 consider all the previous flexibility values in February at 10:00, outlined as $y_{n|m,t}$,  providing the value $\hat{y}_{t+1|t}$. The set $N$ represents all the data points that belong to the same time period $t$ and month $m$, $n \in N | n \in  T \wedge M$. 
+
 \begin{algorithm}
 	\SetAlgoLined
-	\KwIn{ $Y|X=1 \sim \mathcal{F}, \lambda, \tilde{h}$}
-	\KwResult{$F \gets$ empty list of forecast values for each signal [kWh or share], indexed by $F^{l}_{t,m}$}
-	
-\For{all $m \in M\{1,12\}$}{	
-	 \For{all $t \in T$} {
-	 \For{all $l \in L$}{
-	 $F^{l}_{t,m} = \frac {1}{S} \ \mathlarger{\mathlarger{\sum}}_{i=1}^{S} \ \ \mathlarger{\mathlarger{x}}_{t = T,m=M} $\\
-	 $F^{l}_{t,m} = F^{l}_{t} \qquad \forall m \in M[1,12]$
-	}
-	}
+	\KwIn{$Y$ observed data, $T, M$ time-related parameters}
+	\KwResult{$\hat{Y}:\hat{y}_{t}$}
+	\For{all $m \in M$}{	
+		 \For{all $t \in T$} {
+			$\hat{y}_{t+1|t} = \frac{1}{N} \ \mathlarger{\mathlarger{\sum}}_{n=1}^{N} \ \ \mathlarger{\mathlarger{y}}_{n|m,t}$ \\ 	 			}
 	}
 	\caption{Benchmark 1: Climatology Model}
 	\label{alg:climatology}
 \end{algorithm}
 
+In the case of single exponential smoothing (SES), forecasts are calculated using weighted averagdes, meaning that there is a weight attached to each previous observation that decays exponentially as observations come from further in the past. As a result, the greatest weight is associated to the most recent observation, whereas the smallest weights correspond to the oldest observation. The smoothing parameter or time decay is represented by $\alpha$, being a constant value $\alpha \in [0,1]$. For the sake of clarification, those cases where $\alpha$ is close to 1, more importance and hence weight is given to more recent observations, On the contrary, when $\alpha$ is close to 0, more importance is provided to older observations. Algorithm \ref{alg:SES} outlines the setup for forecasting the flexibility signal based on historical data. 
 
-\subsubsection{Single exponential smoothing}
-\textcolor{red}{Include here information about the two different benchmarks I have defined: climatology, SES, powertech 1}
+
 \begin{algorithm}
 	\SetAlgoLined
-	\KwIn{ $Y|X=1 \sim \mathcal{F}, \lambda, \tilde{h}$}
-	\KwResult{$F \gets$ empty list of forecast values for each signal [kWh or share], indexed by $F^{l}_{t,m}$}
-	\For{all $t \in T$} {
-	 $\alpha^{l}_{t,m} = \alpha^{l}_{t} \qquad \forall m \in M[1,12] $
-     $\hat{F}^{l}_{t+1|t} = \mathlarger{\mathlarger{\sum}}_{n=1}^{N} \ \ \alpha^{l}_{t} \ (1-x)^{n} \ F^{l}_{t-n} \qquad n \in N | n=t \ \forall t \in T, \ \forall m \in M $
-	}
+	\KwIn{$Y$ observed data, $T$ time granularity set, $\alpha$ decay factor}
+	\KwResult{$\hat{Y}:\hat{y}_{t}$}
+	\For{all $t \in T$}{
+%		$\hat{y}_{t+1|t} = \mathlarger{\mathlarger{\sum}}_{n=1}^{T-1} $
+
+     $\hat{y}_{t+1|t} = \mathlarger{\mathlarger{\sum}}_{n=1}^{T-1} \ \ \alpha \ (1-\alpha)^{n} \ y_{t-n} + (1-\alpha)^{t}\ell_{0}$\\
+    }
 	\caption{Simple Exponential Smoothing (SES)}
 	\label{alg:SES}
 \end{algorithm}
@@ -434,24 +432,27 @@ The optimal value of the forgetting factor $\lambda$ is chosen as that which min
 \section{Case Study} \label{Sect:CaseStudy}
 The data used in this paper have been obtained from the Dataport Pecan Street Inc. dataset, collected from real households in Austin, Texas, the USA \cite{PecanStreetInc}. This dataset contains appliance-level energy consumption data from 25 households during one year of metering and sub-metering in 2018, providing the dataset in different granularity. Table \ref{table:dataport_austin} shows an overview of the dataset used for the model.
 
-\begin{table}[]
+% \usepackage{booktabs}
+\begin{table}[htbp]
 \centering
-\caption{Dataport dataset overview: Austin, Texas}
+\refstepcounter{table}
 \label{table:dataport_austin}
-\resizebox{0.6\textwidth}{!}{%
-\begin{tabular}{|l|l|}
+\resizebox{0.7\textwidth}{!}{%
+\begin{tabular}{ll} 
+\toprule
+\textbf{Element}                           & \textbf{Description}    \\ 
 \hline
-\textbf{Element}                           & \textbf{Description} \\ \hline
-\textit{\textbf{Number of users}}          & 25                   \\ \hline
-\textit{\textbf{Location}}                 & Austin, Texas (USA)  \\ \hline
-\textit{\textbf{Types of flexible assets}} & PV, ESS, EV, SH, EWB \\ \hline
-\textit{\textbf{Data granularity}}         & 1 min - 5 min - 15 min        \\ \hline
-\textit{\textbf{\# users with PV panels}}  & 9 (36\%)             \\ \hline
-\textit{\textbf{\# users with ESS}}        & 0 (0\%)              \\ \hline
-\textit{\textbf{\# users with SH}}         & 0 (0\%)              \\ \hline
-\textit{\textbf{\# users with EWB}}        & 5 (20\%)             \\ \hline
-\textit{\textbf{\# users with EV}}         & 4 (16\%)             \\ \hline
-\end{tabular}%
+Number of users          & 25                      \\
+Location                & Austin, Texas (USA)     \\
+Types of flexible assets & PV, ESS, EV, SH, EWB    \\
+Data granularity         & 1 min - 5 min - 15 min  \\
+\# users with PV panels  & 9 (36\%)                \\
+\# users with ESS        & 0 (0\%)                 \\
+\# users with SH         & 0 (0\%)                 \\
+\# users with EWB        & 5 (20\%)                \\
+\# users with EV         & 4 (16\%)                \\
+\bottomrule
+\end{tabular}
 }
 \end{table}
 
