@@ -432,7 +432,7 @@ The optimal value of the forgetting factor $\lambda$ is chosen as that which min
 \section{Case Study} \label{Sect:CaseStudy}
 The data used in this paper have been obtained from the Dataport Pecan Street Inc. dataset, collected from real households in Austin, Texas, the USA \cite{PecanStreetInc}. This dataset contains appliance-level energy consumption data from 25 households during one year of metering and sub-metering in 2018, providing the dataset in different granularity. Table \ref{table:dataport_austin} shows an overview of the dataset used for the model.
 
-% \usepackage{booktabs}
+
 \begin{table}[htbp]
 \centering
 \refstepcounter{table}
@@ -467,7 +467,7 @@ The final dataset has been defined considering the following particularities: (i
 
 Figure \ref{fig:agg_load} displays a sample of the aggregated total, flexible and inflexible load of the dataset used in the case study, over an arbitrarily chosen episode of one week. 
 
-\begin{figure}[]
+\begin{figure}[htbp]
 \centerline{\includegraphics[width=0.8\columnwidth]{ChapterAggFlexForecast/Figures/total_flex_inflex_FINAL_cropped.png}}
 \caption{Aggregated total, flexible and inflexible loads}
 \label{fig:agg_load}
@@ -483,7 +483,7 @@ This section presents the results obtained after applying the hierarchical model
 In the first level of the hierarchy, the defined threshold for encoding the dataset has been $0.20$ kWh, resulting in a dataset with one year of data encoded within binary outputs 0-1. Based on that, the climatology model has been computed and evaluated. 
 Figure \ref{fig:LEVEL1-P_YEAR} shows the probability value of having available flexibility, represented by the binary output $k=1$, for a given time period $t$ under the first level of the hierarchical model. For the sake of simplicity, we have stratified the probability value based on seasonality. Results show that, regardless of the season, afternoon and evening time periods from 14:00 until 21:00 is where the greatest probability of available flexibility is provided, following similar patterns. Despite this, it can also be seen that there are differences in specific time periods and seasons, being fall the season with the lowest flexibility availability until 6:00 in the morning. At the same time, fall is the season where the highest flexibility availability is seen in the afternoon, and at the same time achieving greater values earlier in the afternoon, compared to the other seasons.   
 
-\begin{figure}[]
+\begin{figure}[htbp]
 \centerline{\includegraphics[width=0.8\columnwidth]{ChapterAggFlexForecast/Figures/probability_season_final_cropped.png}}
 \caption{Available flexibility. Probability value based on season and time period}
 \label{fig:LEVEL1-P_YEAR}
@@ -491,21 +491,154 @@ Figure \ref{fig:LEVEL1-P_YEAR} shows the probability value of having available f
 
 The Brier Score (BS) is formulated as $\in \mathbb{R}^+ [0,1]$, assuming 0 as the perfect forecast and 1 the worst forecast, and it is considered as the evaluation method for the model developed under the first level of the hierarchy. Table \ref{tab:level1-scores} provides an overview of the results, where the BS obtained is $0.196$. That means that the probabilistic forecast calculated by this methodology can be considered as accurate enough. Furthermore, the computational time for which this algorithm computes the probabilities for one year of data is less than one minute, considering this algorithm fast enough for operational purposes where flexibility must be estimated. 
 
-\begin{table}[]
+%\begin{table}[]
+%\centering
+%\caption{Results of model evaluation procedure for the climatology model in the first level of the hierarchy, using the Brier Score (BS) as a performance score.}
+%\label{tab:level1-scores}
+%\resizebox{0.7\textwidth}{!}{%
+%\begin{tabular}{c|c|c|}
+%\cline{2-3}
+% &
+%  \textbf{\begin{tabular}[c]{@{}c@{}}BS {[}-{]}\end{tabular}} &
+%  \textbf{\begin{tabular}[c]{@{}c@{}}Processing time {[}s{]}\end{tabular}} \\ \hline
+%\multicolumn{1}{|l|}{\textbf{Level 1 - Single Model}} & 0.196
+%   & 53.31   \\ \hline
+%\end{tabular}%
+%}
+%\end{table}
+
+\begin{table}[htbp]
 \centering
 \caption{Results of model evaluation procedure for the climatology model in the first level of the hierarchy, using the Brier Score (BS) as a performance score.}
+\vspace*{3mm}
 \label{tab:level1-scores}
 \resizebox{0.7\textwidth}{!}{%
-\begin{tabular}{c|c|c|}
-\cline{2-3}
- &
-  \textbf{\begin{tabular}[c]{@{}c@{}}BS {[}-{]}\end{tabular}} &
-  \textbf{\begin{tabular}[c]{@{}c@{}}Processing time {[}s{]}\end{tabular}} \\ \hline
-\multicolumn{1}{|l|}{\textbf{Level 1 - Single Model}} & 0.196
-   & 53.31   \\ \hline
-\end{tabular}%
+\begin{tabular}{ccc} 
+\toprule
+                                                    & \textbf{BS [-]} & \textbf{Processing time [s]}  \\ 
+\hline
+\multicolumn{1}{l}{\textbf{Level 1 - Single Model}} & 0.196           & 53.31                         \\
+\bottomrule
+\end{tabular}
 }
 \end{table}
+
+\subsection{Flexibility Value Estimation: Hierarchy Level 2 - Adaptive Bandwidth estimation}\label{Sect:ResultsLevel2AdaptiveBandwidth}
+Fig. \ref{fig:KDE_EVOLUTION1} shows a representation of the online KDE algorithm for a specific time period. This visualisation aims to highlight the performance of the algorithm as new data are fed into the model, calculating a KDE for each new data point; and updating the actual distribution based on the obtained parameters $\widetilde{h}$ and $\lambda$. 
+With the aim of evaluating the performance of the online and adaptive bandwidth KDE, The Root Mean Square Error (RMSE) has been chosen as a metric to measure the accuracy of the model.
+
+\begin{figure}[!ht]
+\centerline{\includegraphics[width=0.8\columnwidth]{ChapterAggFlexForecast/Figures/KDE_evolution_final2_cropped.png}}
+\caption{Online KDE algorithm on February 13, 2018, 16:00}
+\label{fig:KDE_EVOLUTION1}
+\end{figure}
+
+Fig. \ref{fig:grid_search_hyperparameters_scatter_2} shows the RMSE value of the online KDE algorithm, depending on the values taken by $\widetilde{h}$ and $\lambda$. These results have been obtained under grid search and cross-validation algorithms, with the objective to define the best combination of $\widetilde{h}$ and $\lambda$ to achieve the minimum RMSE value. 
+Since the real distribution is unknown, the RMSE is calculated against the histogram, being that the most realistic available approximation to the real distribution. The histogram has been calculated using the entire dataset and using the Freedman-Diaconis rule to select the width of the bins.
+
+%
+%\begin{figure}[!ht]
+%\centerline{\includegraphics[width=0.6\columnwidth]{ChapterAggFlexForecast/Figures/surface3D_2ndGRIDSEARCH_cropped.png}}
+%\caption{Representation of RMSE as a function of $\widetilde{h}$ and $\lambda$ grid search values. }
+%\label{fig:grid_search_hyperparameters_LS}
+%\end{figure}
+
+
+We first considered a broader range for $\lambda$ and $\widetilde{h}$ under the grid search and cross-validation techniques. Therefore a second grid search was performed, narrowed around the minimum value for the RMSE score. According to the results observed in Fig. \ref{fig:grid_search_hyperparameters_scatter_2}, the minimum RMSE value of the model is RMSE $= 0.0458$, with $\widetilde{h}=0.7555$ and $\lambda=0.6455$. 
+The final distribution of the flexibility value can be calculated once the resulting best parameters for $\widetilde{h}$ and $\lambda$ have been obtained at the end of the test case set, as displayed in Fig. \ref{fig:KDE_GS}. This figure shows the final probability density function, obtained once the entire dataset has been included in the model under the cross-validation step, and can be compared to the histogram of the dataset under the second level of the hierarchy at that time period. Beware that the figure is displayed as a representation of the results; however, it is not directly comparable. The reason being is that the histogram is a static representation, whereas the resulting density functions are time adaptive based on the values of $\lambda$ and $\widetilde{h}$. It is interesting to highlight the differences between the resulting distribution for the combination of $\lambda$ and $\widetilde{h}$ with the most accurate performance. The approximated distribution, obtained with the online KDE, accurately follows the histogram of the dataset. However, our results were unsatisfactory in terms of the approximated distribution when the flexibility value is around 3.75 kWh, being the resulting distribution not capable of following the peak value. These differences can be accounted for as a limitation of the model since the best $\lambda$ value obtained under the grid search and cross-validation methods can be considered excessively low, leading to a significant down-weighting of the previous values when the distribution is updated at each time period $t$. 
+
+%\begin{figure}[!ht]
+%\centerline{\includegraphics[width=0.6\columnwidth]{ChapterAggFlexForecast/Figures/KDE_GS_final_cropped.png}}
+%\caption{Resulting distribution for the best two combinations of  $\lambda$ and $\widetilde{h}$ at the end of the test case set, June 19, 2018, 09:00}
+%\label{fig:KDE_GS}
+%\end{figure}
+
+
+
+%\begin{figure}[htbp]
+%\centering     %%% not \center
+%\subfigure[Representation of RMSE as a function of $\widetilde{h}$ and $\lambda$ grid search values.]{\label{fig:grid_search_hyperparameters_RMSE}\includegraphics[width=60mm]{ChapterAggFlexForecast/Figures/surface3D_2ndGRIDSEARCH_cropped.png}}
+%\subfigure[Resulting distribution for the best two combinations of  $\lambda$ and $\widetilde{h}$ at the end of the test case set, June 19, 2018, 09:00]{\label{fig:KDE_EVOLUTION1}\includegraphics[width=60mm]{ChapterAggFlexForecast/Figures/KDE_GS_final_cropped.png}}
+%\caption{Results overview with RMSE as evaluation method}
+%\label{fig:onlinekde_rmse}
+%\end{figure}
+
+
+\begin{figure}[htbp]
+\centering     %%% not \center
+\subfigure[Representation of RMSE as a function of $\widetilde{h}$ and $\lambda$ grid search values.]{\label{fig:grid_search_hyperparameters_RMSE}\includegraphics[width=60mm]{ChapterAggFlexForecast/Figures/surface3D_2ndGRIDSEARCH_cropped.png}}
+\subfigure[Representation of LS as a function of $\widetilde{h}$ and $\lambda$ grid search values.]{\label{fig:grid_search_hyperparameters_LS}\includegraphics[width=60mm]{ChapterAggFlexForecast/Figures/3D_surface_loglikelihood_1.png}}
+\caption{Grid-search results comparison}
+\label{fig:onlinekde_rmse}
+\end{figure}
+
+
+%\begin{figure}[htbp]
+%\centering     %%% not \center
+%\subfigure[Representation of RMSE as a function of $\widetilde{h}$ and $\lambda$ grid search values.]{\label{fig:grid_search_hyperparameters_RMSE}\includegraphics[width=60mm]{ChapterAggFlexForecast/Figures/surface3D_GRIDSEARCH_cropped.png}}
+%\subfigure[Representation of LS as a function of $\widetilde{h}$ and $\lambda$ grid search values.]{\label{fig:grid_search_hyperparameters_LS}\includegraphics[width=60mm]{ChapterAggFlexForecast/Figures/3D_surface_loglikelihood_1.png}}
+%\caption{Grid-search results comparison}
+%\label{fig:onlinekde_rmse}
+%\end{figure}
+
+
+
+explicacio loglikelihood bla bla 
+
+%
+%\begin{figure}[!ht]
+%\centerline{\includegraphics[width=0.6\columnwidth]{ChapterAggFlexForecast/Figures/3D_surface_loglikelihood_1.png}}
+%\caption{Representation of the LS score as a function of $\widetilde{h}$ and $\lambda$ grid search values.}
+%\label{fig:surface_LS}
+%\end{figure}
+
+
+%\begin{figure}[!ht]
+%\centerline{\includegraphics[width=0.6\columnwidth]{ChapterAggFlexForecast/Figures/final_density_loglikelihood_onlineKDE_basic.png}}
+%\caption{Online KDE algorithm on February 13, 2018, 16:00 using the grid-search optimal parameters under LS evaluation.}
+%\label{fig:finaldensity_ls}
+%\end{figure}
+
+
+
+%\begin{figure}[htbp]
+%\centering     %%% not \center
+%\subfigure[Representation of LS as a function of $\widetilde{h}$ and $\lambda$ grid search values.]{\label{fig:grid_search_hyperparameters_LS}\includegraphics[width=60mm]{ChapterAggFlexForecast/Figures/3D_surface_loglikelihood_1.png}}
+%\subfigure[Representation of LS as a function of $\widetilde{h}$ and $\lambda$ grid search values.]{\label{fig:finaldensity_ls}\includegraphics[width=60mm]{ChapterAggFlexForecast/Figures/final_density_loglikelihood_onlineKDE_basic.png}}
+%\caption{Online KDE algorithm on February 13, 2018, 16:00 using the grid-search optimal parameters under LS evaluation.}
+%\label{fig:onlinekde_LS}
+%\end{figure}
+
+
+\begin{figure}[ht!]
+\centering     %%% not \center
+\subfigure[Online KDE algorithm on February 13, 2018, 16:00 using the grid-search optimal parameters under RMSE evaluation.]{\label{fig:finaldensity_RMSE}\includegraphics[width=60mm]{ChapterAggFlexForecast/Figures/KDE_GS_final_cropped.png}}
+\subfigure[Online KDE algorithm on February 13, 2018, 16:00 using the grid-search optimal parameters under LS evaluation.]{\label{fig:finaldensity_ls}\includegraphics[width=63mm]{ChapterAggFlexForecast/Figures/final_density_loglikelihood_onlineKDE_basic.png}}
+\caption{Final density functions comparison}
+\label{fig:distribution_RMSE_LS}
+\end{figure}
+
+\subsection{Flexibility Value Estimation: Hierarchy Level 2 - Online RML-KDE performance}\label{Sect:ResultRMLalgorithm}
+
+
+\begin{figure}[ht!]
+\centering     %%% not \center
+\subfigure[Iteration 50]{\label{fig:it50}\includegraphics[width=60mm]{ChapterAggFlexForecast/Figures/RML_IT55.png}}
+\subfigure[Iteration 19500]{\label{fig:it19500}\includegraphics[width=60mm]{ChapterAggFlexForecast/Figures/RML_IT19000.png}}
+\caption{Online RML-KDE algorithm evolution}
+\label{fig:rml_evolution}
+\end{figure}
+
+\begin{figure}[ht!]
+\centering     %%% not \center
+\subfigure[Density function with $\lambda =0.9994$]{\label{fig:0999}\includegraphics[width=60mm]{ChapterAggFlexForecast/Figures/final_density_RML_lambda_0999_2.png}}
+\subfigure[Density function with $\lambda =0.9999$]{\label{fig:09999}\includegraphics[width=60mm]{ChapterAggFlexForecast/Figures/final_density_RML_lambda_09999_2.png}}
+\caption{Effect of $\lambda$ in the resulting probability density function}
+\label{fig:rml_lambda_effect}
+\end{figure}
+
+
+
 
 \subsection{Flexibility Value Estimation: Hierarchy Level 2 - Single Model}\label{Sect:ResultsLevel2SingleModel} 
 
@@ -513,16 +646,19 @@ Under the second level of the hierarchy, the data used are those that ensure tha
 Figures \ref{fig:conditional_density_16_09} and \ref{fig:conditional_density_31_12} show the resulting flexibility value distribution for a given time period. These figures reveal the probability for a specific flexibility value in kWh under a specific period of time. One can see how at each time period the resulting distribution function evolves, according to the recursive formulation presented in Section \ref{Sect:FlexModeling}. The resulting conditional flexibility shows that there are two peaks where the probability is higher, compared to the other values, being them around 0.53~kWh and 3.51 kWh. 
 
 
-\begin{table}[]
+\begin{table}[htbp]
 \centering
 \caption{Results of the cross validation procedure for hyperparameter definition for the Single Model in the second level of the hierarchy, using the log-likelihood score (LS) as a performance score.}
+\vspace*{3mm}
 \label{tab:train-test-score}
 \resizebox{0.5\textwidth}{!}{%
-\begin{tabular}{c|c|c|}
-\cline{2-3}
-                                                                                                          & \textbf{Train set} & \textbf{Validation set} \\ \hline
-\multicolumn{1}{|c|}{\textbf{\begin{tabular}[c]{@{}c@{}}LS \\ ($\lambda^{*}$ = 0.997)\end{tabular}}} & 1.87          &    2.04               \\ \hline
-\end{tabular}%
+\begin{tabular}{ccc} 
+\toprule
+                                                                                        & \textbf{Train set} & \textbf{Validation set}  \\ 
+\hline
+\begin{tabular}[c]{@{}c@{}}\textbf{LS }\\\textbf{ ($\lambda^{*}$ = 0.997)}\end{tabular} & 1.87               & 2.04                     \\
+\bottomrule
+\end{tabular}
 }
 \end{table}
 
@@ -546,7 +682,7 @@ Figures \ref{fig:conditional_density_16_09} and \ref{fig:conditional_density_31_
 
 
 
-\begin{figure}
+\begin{figure}[htbp]
 \centering     %%% not \center
 \subfigure[16/09/2018 17:00]{\label{fig:conditional_density_16_09}\includegraphics[width=60mm]{ChapterAggFlexForecast/Figures/finaldensity_corrected_1_20180916_1700_v2.png}}
 \subfigure[31/12/2018 23:00]{\label{fig:conditional_density_31_12}\includegraphics[width=60mm]{ChapterAggFlexForecast/Figures/finaldensity_corrected_1_20181231_23_v2.png}}
@@ -559,7 +695,7 @@ Figures \ref{fig:conditional_density_16_09} and \ref{fig:conditional_density_31_
 
 One can use the same approach for estimating flexibility, creating a model for each time period, in this case for every hour, instead of using a single model that is updated at each time period, as developed in the previous section. Then, this model could show differences in the density function for each time period of the day, since it is updated every day at that given time when a new observation is introduced into the model. According to the mathematical formulation, there is only a single forgetting factor $\lambda$ to be considered in each model. However, this approach considers 24 models, one for each hour of the day. To assess the possibility of considering a single $\lambda$ forgetting factor for all models, Grid-Search technique is implemented, considering a wide range of forgetting factors. The first set of analyses confirmed that the behaviour of the forgetting factor is the same for each hourly model, as seen in Figure \ref{fig:L2_M2_LS}. Interestingly, this analysis revealed that, in some hours of the day, the forgetting factor plays a key-role in the resulting score. This can be seen for example in the early morning between 4:00 and 7:00, whereas in the afternoon there is not such influence in the resulting overall score.  
 
-\begin{figure}[]
+\begin{figure}[htbp]
 \centerline{\includegraphics[width=0.8\columnwidth]{ChapterAggFlexForecast/Figures/L2M2_LS_v3.png}}
 \caption{Training set scores for each time period using different $\lambda$ forgetting factors}
 \label{fig:L2_M2_LS}
@@ -567,20 +703,38 @@ One can use the same approach for estimating flexibility, creating a model for e
 
 The model presented here shows slightly different results, in terms of the value of the forgetting factor $\lambda$ as well as the resulting density functions. The minimum LS obtained under the train set provides the optimal forgetting factor of $\lambda^* = 0.96$, being the LS score of 1.75 in this case (Table \ref{tab:train-test-score-L2M2}). 
 
-\begin{table}[]
+%\begin{table}[]
+%\centering
+%\caption{Results of the cross validation procedure for hyperparameter definition for the Hourly Model in the second level of the hierarchy, using LS as a performance score.}
+%\label{tab:train-test-score-L2M2}
+%\resizebox{0.5\textwidth}{!}{%
+%\begin{tabular}{c|c|c|}
+%\cline{2-3}                                             
+%& \textbf{Train set} & \textbf{Validation set} \\ \hline
+%\multicolumn{1}{|c|}{\textbf{\begin{tabular}[c]{@{}c@{}}LS\\ ($\lambda^{*}$ = 0.96)\end{tabular}}} & 1.75          &   2.00                \\ \hline
+%\end{tabular}%
+%}
+%\end{table}
+
+
+
+\begin{table}[htbp]
 \centering
 \caption{Results of the cross validation procedure for hyperparameter definition for the Hourly Model in the second level of the hierarchy, using LS as a performance score.}
 \label{tab:train-test-score-L2M2}
+\vspace*{3mm}
 \resizebox{0.5\textwidth}{!}{%
-\begin{tabular}{c|c|c|}
-\cline{2-3}                                             
-& \textbf{Train set} & \textbf{Validation set} \\ \hline
-\multicolumn{1}{|c|}{\textbf{\begin{tabular}[c]{@{}c@{}}LS\\ ($\lambda^{*}$ = 0.96)\end{tabular}}} & 1.75          &   2.00                \\ \hline
-\end{tabular}%
+\begin{tabular}{ccc} 
+\toprule
+                                                                                        & \textbf{Train set} & \textbf{Validation set}  \\ 
+\hline
+\begin{tabular}[c]{@{}c@{}}\textbf{LS }\\\textbf{ ($\lambda^{*}$ = 0.96)}\end{tabular}  & 1.75          &   2.00 \\
+\bottomrule
+\end{tabular}
 }
 \end{table}
 
-In order to validate the model, this parameter is fixed under the validation set, and the LS score is calculated again, being in this case of 2.00. One could argue that the forgetting factor value $\lambda^{*}$ could be too low for a forgetting factor, since it will overwrite previous density distribution faster than values closer to 1. However, this approach provides a density function for each hour of a day, and hence it is updated daily when new data are fed into the model. An optimal forgetting factor of $\lambda^* = 0.96$ considers an effective number of observation of 25 data points, being the equivalent of 25 days in memory to compute the following day. Figures \ref{fig:L2-M2_20180630} and \ref{fig:fig:L2-M2_20181231} show a significant difference in the resulting density function for a given time of the day and a given day, being in both cases a wider range of flexibility available around 17:00 than at 00:00. 
+In order to validate the model, this parameter is fixed under the validation set, and the LS score is calculated again, being in this case of 2.00. One could argue that the forgetting factor value $\lambda^{*}$ could be too low for a forgetting factor, since it will overwrite previous density distribution faster than values closer to 1. However, this approach provides a density function for each hour of a day, and hence it is updated daily when new data are fed into the model. An optimal forgetting factor of $\lambda^* = 0.96$ considers an effective number of observation of 25 data points, being the equivalent of 25 days in memory to compute the following day. Figures \ref{fig:L2-M2_20180630} and \ref{fig:L2-M2_20181231} show a significant difference in the resulting density function for a given time of the day and a given day, being in both cases a wider range of flexibility available around 17:00 than at 00:00. 
 
 
 %\begin{figure}[!h]
@@ -602,7 +756,7 @@ In order to validate the model, this parameter is fixed under the validation set
 %\end{figure}
 
 
-\begin{figure}
+\begin{figure}[htbp]
 \centering    
 \subfigure[30/06/2018]{\label{fig:L2-M2_20180630}\includegraphics[width=60mm]{ChapterAggFlexForecast/Figures/L2_M2_densities_00-12-17_20180630_lambda096.png}}
 \subfigure[31/12/2018]{\label{fig:L2-M2_20181231}\includegraphics[width=60mm]{ChapterAggFlexForecast/Figures/L2_M2_densities_00-12-17_20181231_lambda096.png}}
@@ -614,28 +768,47 @@ In order to validate the model, this parameter is fixed under the validation set
 The initial hypotheses that the hourly model would perform better in terms of summarized performance is validated. However, when comparing the two different approaches, the Hourly Model obtains only slightly better results. The performance score (LS) is 6.85\% lower under the train set. Besides, when evaluating the model under the validation set under the optimal value of the forgetting factor, the score is almost equal for both approaches, obtaining an improvement of 2\%. In terms of computational resources, both models are fast. The Single Model performs approximately a 29\% faster than the model containing 24 hourly density functions. The reason being is that the latter needs more parameters and spends more resources on storing the density functions, derivatives and hessian values for each model.  It is plausible that, in both models, the estimated densities show greater roughness than the expected by using KDE approaches, which could be improved as a further research by means of regularization or roughness penalization applied to splines (Figures \ref{fig:conditional_density_16_09}, \ref{fig:conditional_density_31_12}, \ref{fig:L2-M2_20180630}, \ref{fig:L2-M2_20181231}).
 As a conclusion for the calculation of the conditional density, the choice between the Single Model and the Hourly Model can be made according to the final objective of the conditional density. In cases where the time period at which flexibility could be provided is known, for example, the possibility of EV fleet portfolios, a model for each period could offer better results than a single one updated throughout all time periods. 
 
-\begin{table}[]
+%\begin{table}[]
+%\centering
+%\caption{Results overview between the two models developed under level~2 of the hierarchical model for conditional flexibility estimation.}
+%\label{tab:level2-scores}
+%\resizebox{1\textwidth}{!}{%
+%\begin{tabular}{c|c|c|c|}
+%\cline{2-4}
+% &
+%  \textbf{\begin{tabular}[c]{@{}l@{}}LS train {[}-{]}\end{tabular}} &
+%  \textbf{\begin{tabular}[c]{@{}l@{}}LS validation {[}-{]}\end{tabular}} &
+%  \textbf{\begin{tabular}[c]{@{}l@{}}Processing Time {[}s{]}\end{tabular}} \\ \hline
+%\multicolumn{1}{|l|}{\textbf{Level 2 - Single Model}} &
+%  1.87 &
+%  2.04 &
+%  0.97
+%   \\ \hline
+%\multicolumn{1}{|l|}{\textbf{Level 2 - Hourly Model}} &
+%  1.75 &
+%  2.00 &
+%  1.36
+%   \\ \hline
+%\end{tabular}%
+%}
+%\end{table}
+
+
+
+\begin{table}[htbp]
 \centering
 \caption{Results overview between the two models developed under level~2 of the hierarchical model for conditional flexibility estimation.}
+\vspace*{3mm}
 \label{tab:level2-scores}
-\resizebox{1\textwidth}{!}{%
-\begin{tabular}{c|c|c|c|}
-\cline{2-4}
- &
-  \textbf{\begin{tabular}[c]{@{}l@{}}LS train {[}-{]}\end{tabular}} &
-  \textbf{\begin{tabular}[c]{@{}l@{}}LS validation {[}-{]}\end{tabular}} &
-  \textbf{\begin{tabular}[c]{@{}l@{}}Processing Time {[}s{]}\end{tabular}} \\ \hline
-\multicolumn{1}{|l|}{\textbf{Level 2 - Single Model}} &
-  1.87 &
-  2.04 &
-  0.97
-   \\ \hline
-\multicolumn{1}{|l|}{\textbf{Level 2 - Hourly Model}} &
-  1.75 &
-  2.00 &
-  1.36
-   \\ \hline
-\end{tabular}%
+\resizebox{0.9\textwidth}{!}{%
+\begin{tabular}{lccc} 
+\toprule
+\multicolumn{1}{c}{}            & \textbf{LS train [-]} & \textbf{LS validation [-]} & \textbf{Processing Time [s]}  \\ 
+\hline
+\textbf{Level 2 - Single Model} & 1.87                  & 2.04                       & 0.97                          \\
+\textbf{Level 2 - Hourly Model} & 1.75                  & 2.00                       & 1.36                          \\
+\bottomrule
+\end{tabular}
 }
 \end{table}
 
@@ -667,7 +840,7 @@ where the final value, meaning the flexibility forecast is represented as the pr
 %\end{figure}
 
 
-\begin{figure}
+\begin{figure}[htbp]
 \centering    
 \subfigure[30/06/2018]{\label{fig:final_outcome_M1}\includegraphics[width=60mm]{ChapterAggFlexForecast/Figures/final_forecast_M1_final_v2.png}}
 \subfigure[31/12/2018]{\label{final_outcome_M2}\includegraphics[width=60mm]{ChapterAggFlexForecast/Figures/final_forecast_M2_final.png}}
@@ -679,47 +852,99 @@ where the final value, meaning the flexibility forecast is represented as the pr
 The combination of Level 1 and Level 2 using the Single Model based on a single density function updated at each time period $t \in T$, results in a RMSE value of 1.82 kWh. In the case of using the Hourly Model based on 24 density functions for each hour of the day, the final RMSE obtained is 1.68 kWh. An overview of the RMSE and MAE scores obtained for the flexibility final outcome is shown in Table \ref{tab:final_scores}. Results prove that, in both cases, this approach performs significantly better against a benchmark modeled with a Simple Exponential Smoothing (SES) approach which formulation is outlined in \cite{Hyndman2021}, as shown in Tables \ref{tab:final_scores_improv_M1} and  \ref{tab:final_scores_improv_M2}. 
 Besides, the final flexibility outcome provides a better performance when combining both levels of the hierarchy by means of the Hourly Model, assessing its performance with the RMSE and MAE scores. 
 
-\begin{table}[]
+%\begin{table}[]
+%\centering
+%\caption{Results of the final flexibility forecast outcome combining the two levels of the hierarchy. Results are for SES, and RML KDE for the Single Model and the Hourly Model.}
+%\label{tab:final_scores}
+%\resizebox{0.6\textwidth}{!}{%
+%\begin{tabular}{l|l|l|}
+%\cline{2-3}
+% & \textbf{\begin{tabular}[c]{@{}l@{}}RMSE {[}kWh{]}\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}MAE {[}kWh{]}\end{tabular}} \\ \hline
+%\multicolumn{1}{|l|}{\textbf{SES Benchmark}}   & 2.83 & 2.04 \\ \hline
+%\multicolumn{1}{|l|}{\textbf{Single Model}} & 1.82 & 0.99 \\ \hline
+%\multicolumn{1}{|l|}{\textbf{Hourly Model}}    & 1.68 & 0.92  \\ \hline
+%\end{tabular}%
+%}
+%\end{table}
+ 
+\begin{table}[htbp]
 \centering
 \caption{Results of the final flexibility forecast outcome combining the two levels of the hierarchy. Results are for SES, and RML KDE for the Single Model and the Hourly Model.}
-\label{tab:final_scores}
+\vspace*{3mm}
 \resizebox{0.6\textwidth}{!}{%
-\begin{tabular}{l|l|l|}
-\cline{2-3}
- & \textbf{\begin{tabular}[c]{@{}l@{}}RMSE {[}kWh{]}\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}MAE {[}kWh{]}\end{tabular}} \\ \hline
-\multicolumn{1}{|l|}{\textbf{SES Benchmark}}   & 2.83 & 2.04 \\ \hline
-\multicolumn{1}{|l|}{\textbf{Single Model}} & 1.82 & 0.99 \\ \hline
-\multicolumn{1}{|l|}{\textbf{Hourly Model}}    & 1.68 & 0.92  \\ \hline
-\end{tabular}%
+\label{tab:final_scores}
+\begin{tabular}{lll} 
+\toprule
+                       & \textbf{RMSE [kWh]} & \textbf{MAE [kWh]}  \\ 
+\hline
+\textbf{SES Benchmark} & 2.83                & 2.04                \\
+\textbf{Single Model}  & 1.82                & 0.99                \\
+\textbf{Hourly Model}  & 1.68                & 0.92                \\
+\bottomrule
+\end{tabular}
 }
-\end{table}
+\end{table} 
  
-\begin{table}[]
+ 
+%\begin{table}[]
+%\centering
+%\caption{Performance overview for the final flexibility outcome using Level 2 - Single Model as conditional flexibility, against the benchmark. Performance is evaluated with RMSE and MAE criteria.}
+%\label{tab:final_scores_improv_M1}
+%\resizebox{0.95\textwidth}{!}{%
+%\begin{tabular}{c|c|c|c|}
+%\cline{2-4}
+%                                              & \textbf{SES Benchmark} & \textbf{Level 1 / Single Model} & \textbf{Improvement {[}\%{]}} \\ \hline
+%\multicolumn{1}{|l|}{\textbf{RMSE {[}kWh{]}}} & 2.83                     & 1.82                       & 35.69                         \\ \hline
+%\multicolumn{1}{|l|}{\textbf{MAE {[}kWh{]}}}  & 2.04                     & 0.99                       & 51.47                         \\ \hline
+%\end{tabular}%
+%}
+%\end{table}
+
+\begin{table}[htbp]
 \centering
 \caption{Performance overview for the final flexibility outcome using Level 2 - Single Model as conditional flexibility, against the benchmark. Performance is evaluated with RMSE and MAE criteria.}
+\vspace*{3mm}
 \label{tab:final_scores_improv_M1}
 \resizebox{0.95\textwidth}{!}{%
-\begin{tabular}{c|c|c|c|}
-\cline{2-4}
-                                              & \textbf{SES Benchmark} & \textbf{Level 1 / Single Model} & \textbf{Improvement {[}\%{]}} \\ \hline
-\multicolumn{1}{|l|}{\textbf{RMSE {[}kWh{]}}} & 2.83                     & 1.82                       & 35.69                         \\ \hline
-\multicolumn{1}{|l|}{\textbf{MAE {[}kWh{]}}}  & 2.04                     & 0.99                       & 51.47                         \\ \hline
-\end{tabular}%
+\begin{tabular}{lccc} 
+\toprule
+\multicolumn{1}{c}{} & \textbf{SES Benchmark} & \textbf{Level 1 / Single Model} & \textbf{Improvement [\%]}  \\ 
+\hline
+\textbf{RMSE [kWh]}  & 2.83                   & 1.82                            & 35.69                      \\
+\textbf{MAE [kWh]}   & 2.04                   & 0.99                            & 51.47                      \\
+\bottomrule
+\end{tabular}
 }
 \end{table}
 
+%\begin{table}[]
+%\centering
+%\caption{Performance overview for the final flexibility outcome using Level 2 - Hourly Model as conditional flexibility, against the benchmark. Performance is evaluated with RMSE and MAE criteria.}
+%\label{tab:final_scores_improv_M2}
+%\resizebox{0.95\textwidth}{!}{%
+%\begin{tabular}{c|c|c|c|}
+%\cline{2-4}
+%                                              & \textbf{SES Benchmark} & \textbf{Level 1 / Hourly Model} & \textbf{Improvement {[}\%{]}} \\ \hline
+%\multicolumn{1}{|l|}{\textbf{RMSE {[}kWh{]}}} & 2.83                     & 1.68                       & 40.63                         \\ \hline
+%\multicolumn{1}{|l|}{\textbf{MAE {[}kWh{]}}}  & 2.04                     & 0.92                       & 54.90                         \\ \hline
+%\end{tabular}%
+%}
+%\end{table}
 
-\begin{table}[]
+\begin{table}[htbp]
 \centering
 \caption{Performance overview for the final flexibility outcome using Level 2 - Hourly Model as conditional flexibility, against the benchmark. Performance is evaluated with RMSE and MAE criteria.}
+\vspace*{3mm}
 \label{tab:final_scores_improv_M2}
 \resizebox{0.95\textwidth}{!}{%
-\begin{tabular}{c|c|c|c|}
-\cline{2-4}
-                                              & \textbf{SES Benchmark} & \textbf{Level 1 / Hourly Model} & \textbf{Improvement {[}\%{]}} \\ \hline
-\multicolumn{1}{|l|}{\textbf{RMSE {[}kWh{]}}} & 2.83                     & 1.68                       & 40.63                         \\ \hline
-\multicolumn{1}{|l|}{\textbf{MAE {[}kWh{]}}}  & 2.04                     & 0.92                       & 54.90                         \\ \hline
-\end{tabular}%
+\begin{tabular}{lccc} 
+\toprule
+\multicolumn{1}{c}{} & \textbf{SES Benchmark} & \textbf{Level 1 /  Hourly Model} & \textbf{Improvement [\%]}  \\ 
+\hline
+\textbf{RMSE [kWh]}  & 2.83                     & 1.68                       & 40.63                      \\
+\textbf{MAE [kWh]}   & 2.04                     & 0.92                       & 54.90                      \\
+\bottomrule
+\end{tabular}
 }
 \end{table}
 
