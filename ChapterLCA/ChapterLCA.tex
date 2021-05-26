@@ -13,8 +13,12 @@
 
 \section{Introduction} \label{Introduction}
 
+Climate change has pushed the electricity grid in an evolution towards smart grids by including distributed energy resources (DERs) and the {Internet of Things (IoT)} \cite{EuropeanCommission2012}. At the same time, the increase in electricity consumption is directly related to a significant contribution of the electricity supply to the carbon footprint, since CO\textsubscript 2 emissions in the power sector increased by 2.5\% as a result of a 4\% rise  in the global energy demand (GED) \cite{IEA2018}. Renewable energy sources (RESs) are helping the energy transition by increasing their share in the energy mix. {As stated by Ple{\ss}%$\beta$
+mann et al. in \cite{PLEMANN201719}, a transition from a conventional to a renewables-based power supply system is possible for the EU, even considering nuclear power phase-out.} Despite this, the variability of these resources requires flexibility in the energy system.
 
-\begin{figure}[]
+The goal is to {decarbonize the electricity sector, reducing the power system's environmental impact by shifting the consumption to those time periods where electricity from renewable sources is produced}. This is currently being implemented with the integration of energy storage systems, the activation of demand response (DR) mechanisms, and the development of flexibility markets \cite{USEFFoundation2015a,  LocalMicroPowerMarkets2019CH2}. Demand-side management (DSM) activities can be key for energy strategy and policy development. Nilsson et al. \cite{NILSSON2018273} proposed an interdisciplinary framework to evaluate demand response based on price and environmental signals.  {Gerbaulet et al. \cite{GERBAULET2019973} proved that the integration of storage and DSM, as well as other mechanisms, could lead to a decarbonization of the entire energy sector by 2050. This is also supported by Child \cite{CHILD201980}, considering also the integration of flexibility services and interconnections. All energy agents can benefit from flexibility services, as defined in \cite{Olivella2018}, where distribution system operators (DSOs), balance responsible parties (BRPs), and prosumers are the main stakeholders of the flexibility platform. This chapter analyses the environmental impact of flexibility, analyzing the greenhouse gas emissions emitted during peak hours with the aim to quantify the potential emission savings or increase by implementing flexibility. This corresponds to the last objective of this PhD research (objective $(v)$), according to Figure \ref{fig:chapter_obj_v}. 
+
+\begin{figure}[h]
 	\centering
 	\includegraphics[width=0.7\columnwidth ]{ChapterLCA/phd_intro_v.pdf}
 	   %\vspace*{-8cm}
@@ -22,15 +26,6 @@
 	\label{fig:chapter_obj_v}  
 \end{figure}
 
-Climate change has pushed the electricity grid in an evolution towards smart grids by including distributed energy resources (DERs) and the {Internet of Things (IoT)} \cite{EuropeanCommission2012}. At the same time, the increase in electricity consumption is directly related to a significant contribution of the electricity supply to the carbon footprint, since CO\textsubscript 2 emissions in the power sector increased by 2.5\% as a result of a 4\% rise  in the global energy demand (GED) \cite{IEA2018}. Renewable energy sources (RESs) are helping the energy transition by increasing their share in the energy mix. {As stated by Ple{\ss}%$\beta$
-mann et al. in \cite{PLEMANN201719}, a transition from a conventional to a renewables-based power supply system is possible for the EU, even considering nuclear power phase-out.} Despite this, the variability of these resources requires flexibility in the energy system. The goal is to {decarbonize the electricity sector, reducing the power system's environmental impact by shifting the consumption to those time periods where electricity from renewable sources is produced}. This is currently being implemented with the integration of energy storage systems, the activation of demand response (DR) mechanisms, and the development of flexibility%{le}%ility
-~markets \cite{USEFFoundation2015a,  LocalMicroPowerMarkets2019CH2}. Demand-side management (DSM) activities can be key for energy strategy and policy development. Nilsson et al. \cite{NILSSON2018273} proposed an interdisciplinary framework to evaluate demand response based on price and environmental signals.  {Gerbaulet et al. \cite{GERBAULET2019973} proved that the integration of storage and DSM, as well as other mechanisms, could lead to a decarbonization of the entire energy sector by 2050. This is also supported by Child \cite{CHILD201980}, considering also the integration of flexibility%{le}%ility
- services and interconnections. All energy agents can benefit from {flexibility}%was "flexibility", confirm that your intended meaning is retained, and confirm similar changes throughout
-% Authors' REPLY: The service to be provided is flexibility, not that the market itself is flexible. Hence, it should be changed into flexibility. All the cited references refer to this market as flexibility markets. 
- services, as defined in \cite{Olivella2018}, where distribution system operators (DSOs), balance responsible parties (BRPs), and prosumers are the main stakeholders of the flexibility%{le}%ility
- platform.} 
-
-% Authors' REPLY: The service to be provided is flexibility, not that the market itself is flexible. Hence, it should be changed into flexibility. All the cited references refer to this market as flexibility markets. 
 
 This shift in the energy mix entails an environmental burden, requiring an analysis of the resources used during  daily high-demand time periods, as well as their effects on the environment. Traditionally, peak hours (PH) were covered by using conventional sources such as coal or natural gas, since renewable sources had a low capacity factor \cite{NEVES2018905}. Policies in terms of energy planning and grid expansion attempt to tackle  climate change by restricting greenhouse gas (GHG) emissions in the electricity sector, since GHG emissions are closely linked to the production and use of energy \cite{Sinn2008PublicApproach}. However, each national electricity mix has unique characteristics based on the resources located inside the borders as well as geo-political conditions, and this must also be considered when defining energy policies \cite{Murdock2018, DAHAL2018222, LEVIN201953, BEST2018404, ZHAO2018303, SIMOES2017353}. 
 
@@ -70,9 +65,9 @@ Garc\'{i}a et al. studied the possible changes in the Spanish electricity produc
 {There are four different stages in an LCA model, according to \cite{2006ISOGuidelines, 2006ISOFramework}: (i) goal and scope definition; (ii) life cycle inventory (LCI); (iii) life cycle impact assessment (LCIA); and (iv) interpretation. LCA is an iterative process, being all the steps interconnected, as shown in Figure \ref{LCA_Methodology}.}
 {Section \ref{goalscope} defines the goal and scope for this study.} The life cycle inventory and life cycle impact assessment are developed in Section \ref{LCI} and Section \ref{LCIA}, respectively. {Finally, the interpretation is developed in Section \ref{Discussion}}.
 
-\begin{figure}[]
+\begin{figure}[htbp]
 	\centering
-	\includegraphics[width=0.4\columnwidth ]{ChapterLCA/Images/LCA_Framework_v3.jpg}
+	\includegraphics[width=0.6\columnwidth ]{ChapterLCA/Images/LCA_Framework_v3.jpg}
 	   %\vspace*{-8cm}
 		\caption{Life cycle assessment (LCA) steps according to ISO 14040, 14044, and 14067.}
 	\label{LCA_Methodology}  %This figure has not been referred to within the text of the manuscript. Please cite Figure 1 before the image of Figure 1. %Authors: It has been referred now. 
@@ -86,7 +81,7 @@ Garc\'{i}a et al. studied the possible changes in the Spanish electricity produc
 
 %%%%%%%%%%%%%% SCREENING TABLE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{table}[]
+\begin{table}[htbp]
 \label{screeninglca}
 \caption{Electricity grid mix LCA goal and scope structure.}
 \resizebox{\textwidth}{!}{%
@@ -95,16 +90,16 @@ Garc\'{i}a et al. studied the possible changes in the Spanish electricity produc
 %%\multicolumn{3}{|c|}{\textbf{Electricity grid mixes LCA}}                                                                                                                                                                                               %%\\ \hline
 \multirow{4}{*}{\begin{turn}{90}\textbf{Goal}\hspace{8mm} \end{turn}}  & \textbf{Intended Application}      & Explorative study                                                                                                                                                                          \\ \cline{2-3} 
                                 & \textbf{LCA Typology}         & Attributional LCA                                                                             \\ \cline{2-3} 
-                                & \textbf{Purpose of the Study}      & \begin{tabular}[c]{@{}l@{}}Provide the reader knowledge to understand the environmental\\ impacts of peak hours' electricity production\end{tabular}                                  
+                                & \textbf{Purpose of the Study}      & \begin{tabular}[c]{@{}l@{}}Provide the reader knowledge to understand \\ the environmental impacts of peak hours'\\ electricity production\end{tabular}                                  
 
 \\ \cline{2-3} 
-                                & \textbf{Comparative Analysis}      & \begin{tabular}[c]{@{}l@{}}This is not a comparative analysis between countries.\\Comparison between average and {peak-hourly} (PH)%Confirm the definition. CONFIRMED
-~global warming potential (GWP) values. \end{tabular} \\ \hline
+                                & \textbf{Comparative Analysis}      & \begin{tabular}[c]{@{}l@{}}This is not a comparative analysis between countries.\\Comparison between average and {peak-hourly} (PH)\\
+global warming potential (GWP) values. \end{tabular} \\ \hline
 
-\multirow{8}{*}{\begin{turn}{90}\textbf{Scope}\hspace{5mm}\end{turn}} & \textbf{Function of the System}    & \begin{tabular}[c]{@{}l@{}}The targeted country's electricity grid mixes are in charge of\\ producing the electricity needed to meet the national load\\ in any instant\end{tabular}        \\ \cline{2-3} 
+\multirow{8}{*}{\begin{turn}{90}\textbf{Scope}\hspace{5mm}\end{turn}} & \textbf{Function of the System}    & \begin{tabular}[c]{@{}l@{}}The targeted country's electricity grid mixes are in charge of\\ producing the electricity needed to meet the national load\\ in any time period $t$. \end{tabular}        \\ \cline{2-3} 
                                 & \textbf{Functional Unit}           & 1 kWh \cite{Nilsson2017AssessingEmissions,Khan2018,Khan2018AnalysisIntensity}                                                                                                                                               \\ \cline{2-3} 
                                 & \textbf{Reference Flow}            & Energy flow (kWh) of electricity                                                                                                                                                     \\ \cline{2-3} 
-                                & \textbf{Description of the System} & \begin{tabular}[c]{@{}l@{}} {Bulgaria, Germany, The Netherlands, Norway, and Spain (Section \ref{CaseStudy})} \end{tabular}                                                              \\ \cline{2-3} 
+                                & \textbf{Description of the System} & \begin{tabular}[c]{@{}l@{}} {Bulgaria, Germany, The Netherlands, Norway, and Spain} \end{tabular}                                                              \\ \cline{2-3} 
                                 & \textbf{System Boundaries}         & Cradle to Gate                                                                                                                                                                  \\ \cline{2-3} 
                                 & \textbf{Allocation Procedures}     & {Detailed in Section \ref{SB}}                                                                                                                                          \\ \cline{2-3} 
                                 & \textbf{Impact Assessment Method}  & \begin{tabular}[c]{@{}l@{}}CML 2015 \cite{Guinee2001}. Impact category : GWP {(}kg CO\textsubscript2-eq/kWh{)}\end{tabular}                                               %Please check the unit 
@@ -147,9 +142,9 @@ Finding the suitable allocation factor can sometimes be problematic, and can hav
 {LCI can be understood as a model of the product system which fulfills a function that is quantified in the functional unit. It requires hypothesis definition, data collection, and data modeling, resulting in an inventory table with all the environmental interventions. The objective of the LCI is to quantify the resources used and the emissions and waste per functional unit \cite{REBITZER2004701}. Traditional LCA approaches quantify the resources, emissions, and wastes on average per functional unit. However, when the aim is to quantify the environmental impacts on peak hours to develop flexibility services, this approach is not enough. The time variability of the electricity production is a fundamental issue to consider in order to correctly assess the GWP during different time slots. To achieve that objective, a new methodology named peak-hourly LCA is defined in Figure \ref{Methodology}, and it is compared to the traditional approach of LCA for electricity production.}
 
 
-\begin{figure}[]
+\begin{figure}[htbp]
 	\centering
-	\includegraphics[width=0.7\columnwidth ]{ChapterLCA/Images/Methodology_visio_new_v5.jpg}
+	\includegraphics[width=0.9\columnwidth ]{ChapterLCA/Images/Methodology_visio_new_v5.jpg}
 	   %\vspace*{-8cm}
 		\caption{LCA methodology for peak hours electricity generation.}%Check if round brackets can be used instead of square ones to declare units.
 	\label{Methodology}
@@ -222,7 +217,7 @@ As can be seen in  Table \ref{table:capacity}, the targeted countries of the H20
 
 
 
-\begin{table}[]
+\begin{table}[htbp]
 
 \caption{Electricity installed capacity in the targeted countries for the year 2018.}
 \resizebox{1\textwidth}{!}{
@@ -261,7 +256,7 @@ This section presents the results of the performed LCA. As mentioned in Section 
 The values in  Table \ref{EmissionFactors} include upstream and downstream processes and thus all the steps involved in the electricity generation, like the construction of the power plants and Operations and Maintenance (O\&M)%Define if appropriate. %authors: we have defined it.
 ~procedures. The ranges of the values are wide, because the 167 case studies analyzed have different system boundaries and methodologies \cite{Turconi2013LifeLimitations}. Even so, the software used in this study has a specific country-based database for each technology, conferring the results a significant precision. {As it is possible to see from Table \ref{EmissionFactors}, even renewable sources have non-zero GWP values. This is due to indirect emissions, especially related to the manufacturing of the components for the construction of renewable power plants, which are taken into account in this study.}  
 
- \begin{table}[]
+ \begin{table}[htbp]
 \centering
 \caption{Emission factors of power production technologies. Extracted from \cite{Turconi2013LifeLimitations}.}
 \label{EmissionFactors}
@@ -300,11 +295,11 @@ However, it is possible that resources such as hydro and nuclear, even though th
 The electricity demand of this southeastern European country  during the year is mainly covered by lignite and nuclear power, as explained in Table \ref{RES_BG}. The high percentage of hydro power capacity (Table \ref{table:capacity}) is reflected in the  consistent use of hydro power plants. Solar and wind power together represented  just 5.35\% of the total electricity production in Bulgaria in 2018. The total electricity produced during the year was equal to 45.2 TWh. 
  
  
- \begin{table}[]
+ \begin{table}[htbp]
 \centering
 \caption{Percentage of resources used during peak and off-peak hours in Bulgaria  \cite{Entso-eProduction}.}
 \label{RES_BG}
-\resizebox{0.8\textwidth}{!}{%
+\resizebox{0.9\textwidth}{!}{%
 \begin{tabular}{ccccccc}
 \toprule
 \textbf{Lignite} &  \textbf{Nuclear} &  \textbf{Hydropower} & \textbf{Natural Gas} & \textbf{Wind} & \textbf{Solar} &  \textbf{Others} \\ \hline
@@ -315,24 +310,20 @@ The electricity demand of this southeastern European country  during the year is
  
 Consequently, the GWP during peak hours was mainly based on lignite (Figure \ref{GWP_BG}). The GWP during peak hours was higher than the average from September to December because of higher use of lignite and a lower use of flexible hydro to cover the peak demand {(+6.65\% more on average)}. From Figure  \ref{COMP_BG}, it is possible to see the direct correlation between the use of lignite and hydropower during peak hours and the GWP. Hydropower and lignite are the only two represented resources because they were the only ones with a significant variation in their usage throughout the year. When there was the possibility to use the hydro reservoirs and the hydro pumped storage, the GWP decreased in comparison with the average. The months in which the power production during peak hours was greater than the average showed higher values of GWP. The reason is that  nuclear power represents a huge and constant portion of the base production {(34.78\% throughout the year)}, and the less extra power is needed, the less fossil fuels are used to generate it. The two presented curves of lignite and hydro in Figure \ref{COMP_BG} have exactly the opposite trends. April is a symbolic month, with the highest share usage of hydro and the lowest of lignite,  leading to the lowest GWP of the year ({0.397 kg CO\textsubscript2-eq/kWh). The reasons behind this event are related to the low power production in April and possibly to the abundance of water resources. 
  
-\begin{figure}[]
+\begin{figure}[htbp]
 	\centering
 	\includegraphics[width=1\textwidth]{ChapterLCA/Images/GWP_plots/Bulgaria_GWP.png}
-   \vspace*{-15mm}
-\hspace*{-1cm}	\caption{Monthly peak hours GWP compared with average through the year (dotted line) in Bulgaria.}
+	\caption{Monthly peak hours GWP compared with average through the year (dotted line) in Bulgaria.}
 	\label{GWP_BG}
 \end{figure} 
-	\vspace*{-7mm}
-\begin{figure}[]
+
+	
+\begin{figure}[htbp]
 	\centering
-	\hspace*{0.2cm}\includegraphics[width=1.2\textwidth]{ChapterLCA/Images/GWP_plots/Comp_GWP_BG.png}
-	\vspace*{-20mm}
-\hspace*{-1cm}	\caption{Percentage use of resources throughout the year compared with monthly GWP in Bulgaria, both related to peak hours.}
+	\includegraphics[width=1\textwidth]{ChapterLCA/Images/GWP_plots/Comp_GWP_BG.png}
+	\caption{Percentage use of resources throughout the year compared with monthly GWP in Bulgaria, both related to peak hours.}
 	\label{COMP_BG}
 \end{figure}
-
-
-
 
 
 
@@ -341,7 +332,7 @@ Consequently, the GWP during peak hours was mainly based on lignite (Figure \ref
 Germany has a national production mix which relies on different sources. Regarding the base load, lignite and hard coal, {respectively 24.46\% and 13.72\%,} were the most used fossil fuels. The use of lignite throughout 2018 was almost constant, as shown in Figure \ref{GWP_DE}. Wind farms had the highest share of capacity in the country and a total share of production of 20.63\%, as presented in Table \ref{table:capacity} and Table \ref{RES_DE}. Nuclear still had  a regular contribution {(13.64\%)}, while solar {(7.83\%)} and biomass {(7.63\%)} power plants surpassed the use of natural gas {(6.41\%)} in 2018. Hydropower accounted for just 2.81\% of the total electricity production. The total electricity produced during the year in the country was equal to 2183.6 TWh. 
 
 
- \begin{table}[]
+ \begin{table}[htbp]
 \centering
 \caption{Percentage of resources used during peak and off-peak hours in Germany \cite{Entso-eProduction}.}
 \label{RES_DE}
@@ -363,26 +354,25 @@ Germany has a national production mix which relies on different sources. Regardi
 \end{tabular}
 \end{table}
 
-\vspace{-8mm}
 
-\begin{figure}[]
+\begin{figure}[htbp]
 	\centering
-	\hspace*{-1cm}\includegraphics[width=1.2\textwidth]{ChapterLCA/Images/GWP_plots/Germany_GWP.png}
-	\vspace*{-20mm}
+	\includegraphics[width=1\textwidth]{ChapterLCA/Images/GWP_plots/Germany_GWP.png}
 	\caption{Monthly peak hours GWP compared with average through the year (dotted line) in Germany.}
 	\label{GWP_DE}
 \end{figure}
 	
-\begin{figure}[]
+\begin{figure}[htbp]
 	\centering
-		\hspace*{-1.6cm}\includegraphics[width=1.2\textwidth]{ChapterLCA/Images/GWP_plots/COMP_GWP_DE.png}
-	\vspace*{-20mm}
+	\includegraphics[width=1\textwidth]{ChapterLCA/Images/GWP_plots/COMP_GWP_DE.png}
 	\caption{Percentage use of resources throughout the year compared with monthly GWP in Germany, both related to peak hours.}
 	\label{COMP_GE}
 \end{figure}
 
 \newpage
-According to the LCIA, the GWP during peak hours was higher than the average only in  February {(+5.2\%)} and November {(+4.52\%)} (Figure \ref{GWP_DE}). This was due to the highest percentages of the use of hard coal {(+29.15\% in average)} and natural gas {(+26.1\% in average)} during the entire year, and also the higher use of lignite in comparison with the other months. From Figure \ref{GWP_DE}, April and May were the months with the lowest GWP {($-$23.95\%)}, because of the lower use of fossil fuels compared to the average. This strategy was applicable considering that both months had peaks of demand much lower than the average, {with the power requested during peak hours being around 5.45\% lower compared to the other months}. This means that the base power from nuclear power plants (which is almost constant throughout the year) had a more important role than during the months in which the production was higher and so fewer fossil fuels had to be used. It is interesting to look at solar and wind power trends: electricity production from solar power was clearly higher during the summer months, while the wind production had its maximum in the winter months (Figure \ref{GWP_DE}). These two facts lead the peak hour GWP to be lower than the average  for 10 out of 12 months. February and November, the two exceptions, saw a larger use of fossil fuels compared to the {other}%was "near", confirm. %authors: confirmed 
+According to the LCIA, the GWP during peak hours was higher than the average only in  February {(+5.2\%)} and November {(+4.52\%)} (Figure \ref{GWP_DE}). This was due to the highest percentages of the use of hard coal {(+29.15\% in average)} and natural gas {(+26.1\% in average)} during the entire year, and also the higher use of lignite in comparison with the other months. From Figure \ref{GWP_DE}, April and May were the months with the lowest GWP {($-$23.95\%)}, because of the lower use of fossil fuels compared to the average. This strategy was applicable considering that both months had peaks of demand much lower than the average, {with the power requested during peak hours being around 5.45\% lower compared to the other months}. This means that the base power from nuclear power plants (which is almost constant throughout the year) had a more important role than during the months in which the production was higher and so fewer fossil fuels had to be used. 
+
+It is interesting to look at solar and wind power trends: electricity production from solar power was clearly higher during the summer months, while the wind production had its maximum in the winter months (Figure \ref{GWP_DE}). These two facts lead the peak hour GWP to be lower than the average  for 10 out of 12 months. February and November, the two exceptions, saw a larger use of fossil fuels compared to the {other}%was "near", confirm. %authors: confirmed 
 ~months. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%% NL %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -391,7 +381,7 @@ According to the LCIA, the GWP during peak hours was higher than the average onl
 
 In the Netherlands, the use of natural gas for electricity production represented  67.85\% of the total. It was the most important resource affecting the GWP value. Nuclear power helped to cover a small percentage of the base load {(6.61\%)}, while the lack of hydropower capacity influenced the electricity generation strategy.  The overall production percentages are presented in Table \ref{RES_NL}.  The total electricity produced during the year in the country was equal to 224.8 TWh.
 
- \begin{table}[]
+ \begin{table}[htbp]
 \centering
 \caption{Percentage of resources used during peak and off-peak hours in the Netherlands \cite{Entso-eProduction}.}
 \label{RES_NL}
@@ -409,20 +399,17 @@ In the Netherlands, the use of natural gas for electricity production represente
  As can be seen in Figure \ref{COMP_NL}, the GWP line follows the natural gas use curve. The valley formed by the dotted line from March to June is linked to a similar one drawn by the natural gas curve. From April until July, the amount of electricity produced through solar power plants during peak hours was higher than the yearly average, resulting in an increase of {+39.7\% on average}, affecting positively the GWP. The lowest values for wind production corresponded to the highest values of the GWP (Figure \ref{GWP_NL}), {as in February, when the production from wind power was 49.94\% lower than the yearly average}. The changes in the use of  resources through the year were limited, and this is why there were no major changes in monthly GWPs. {The Netherlands was the country with the lowest observed fluctuations in terms of GWP, being in the range between 0.256 and 0.303 kg CO\textsubscript2-eq/kWh (respectively $-$10.9\% and +5.6\% in comparison with the yearly average value of 0.287 kg CO\textsubscript2-eq/kWh). As already observed in the case of Germany, solar and wind power had opposite concavities. When the availability of solar and wind power during peak hours was higher than the average, lower values of GWP were obtained.} 
  
 
-\begin{figure}[]
+\begin{figure}[htbp]
 	\centering
 	\includegraphics[width=1\textwidth]{ChapterLCA/Images/GWP_plots/Netherlands_GWP.png}
-	\vspace*{-17mm}
 	\caption{Monthly peak hours GWP compared with the annual average (dotted line) in the Netherlands.}
 	\label{GWP_NL}
 \end{figure}
 	
-\begin{figure}[]
+\begin{figure}[htbp]
 	\centering
-	\includegraphics[width=0.9\textwidth]{ChapterLCA/Images/GWP_plots/Comp_GWP_NL.png}
-		\vspace*{-8mm}
+	\includegraphics[width=1\textwidth]{ChapterLCA/Images/GWP_plots/Comp_GWP_NL.png}
 	\caption{Percentage use of resources throughout the year compared with monthly GWP in the Netherlands, both related to peak hours.}
-	
 	\label{COMP_NL}
 \end{figure}
 
@@ -431,9 +418,11 @@ In the Netherlands, the use of natural gas for electricity production represente
 %%%%%%%%%%%%%%%%%%%%%%%%% NO %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsubsection{Norway}
-As mentioned in Table \ref{RES_NO}, Norway bases its electricity needs on hydropower. The high percentage of water reservoirs and pumped hydro storage {(87.93\%)} allows the Nordic country to manage the generation in a flexible manner.  Thanks to this, the GWP value related to the produced electricity was much lower compared to the other studied countries, {being around an order of magnitude less}. Although it is beneficial for the flexibility of the generation, Norway is a good example of a country in which pumped hydro is not actually valuable because of the high presence of naturally charged reservoirs. The pumped storage technology was just a small percentage compared with the conventional hydropower (see Table \ref{table:capacity}). Its use is historically based in the months of June and July \cite{Kougias2017PumpedHorse}. Regarding the case study of 2018, a greater use in May was also observed. PHS is used to store the electricity that comes from conventional thermal power plants, leading to higher GWP values during those months, as presented in Figure \ref{GWP_NO}. The total electricity produced during the year in the country was equal to 146.8 TWh.
+As mentioned in Table \ref{RES_NO}, Norway bases its electricity needs on hydropower. The high percentage of water reservoirs and pumped hydro storage {(87.93\%)} allows the Nordic country to manage the generation in a flexible manner.  Thanks to this, the GWP value related to the produced electricity was much lower compared to the other studied countries, {being around an order of magnitude less}. Although it is beneficial for the flexibility of the generation, Norway is a good example of a country in which pumped hydro is not actually valuable because of the high presence of naturally charged reservoirs. 
 
- \begin{table}[]
+The pumped storage technology was just a small percentage compared with the conventional hydropower (see Table \ref{table:capacity}). Its use is historically based in the months of June and July \cite{Kougias2017PumpedHorse}. Regarding the case study of 2018, a greater use in May was also observed. PHS is used to store the electricity that comes from conventional thermal power plants, leading to higher GWP values during those months, as presented in Figure \ref{GWP_NO}. The total electricity produced during the year in the country was equal to 146.8 TWh.
+
+ \begin{table}[htbp]
 \centering
 \caption{Percentage of resources used during peak and off-peak hours in Norway \cite{Entso-eProduction}.}
 \label{RES_NO} 
@@ -447,18 +436,16 @@ As mentioned in Table \ref{RES_NO}, Norway bases its electricity needs on hydrop
 \end{table}
 
 
-\begin{figure}[]
+\begin{figure}[htbp]
 	\centering
-	\includegraphics[width=0.9\textwidth]{ChapterLCA/Images/GWP_plots/Norway_GWP.png}
-	\vspace*{-8mm}
+	\includegraphics[width=1\textwidth]{ChapterLCA/Images/GWP_plots/Norway_GWP.png}
 	\caption{Monthly peak hours GWP compared with average through the year (dotted line) in Norway.}
 	\label{GWP_NO}
 \end{figure}
 
-\begin{figure}[]
+\begin{figure}[htbp]
 	\centering
-	\includegraphics[width=0.95\textwidth]{ChapterLCA/Images/GWP_plots/Comp_GWP_NO.png}
-    \vspace*{-8mm}
+	\includegraphics[width=1\textwidth]{ChapterLCA/Images/GWP_plots/Comp_GWP_NO.png}
 	\caption{Percentage use of resources throughout the year compared with monthly GWP in Norway, both related to peak hours.}
 	\label{COMP_NO}
 \end{figure}
@@ -472,7 +459,7 @@ According to Figure \ref{GWP_NO}, what was not produced with reservoirs and pump
 Spain has several different resources with a great share in the electricity production, like Germany.
  Natural gas and hard coal were the fossil fuels used at higher rates, with percentages of 20.91\% and 13.29\% respectively. Nuclear power plants accounted for 22.46\% of the total yearly electricity production, and  wind onshore power represented a consistent share (20.21\%).  Solar production was also present  during night hours because of some concentrated solar power plants with molten salts. Table \ref{RES_ES} shows the resources used during the year in descending order. The total electricity produced during the year in the country was equal to 242.7 TWh.
 
- \begin{table}[]
+ \begin{table}[htbp]
 \centering
 \caption{Percentage of resources used during peak and off-peak hours in Spain \cite{Entso-eProduction}.}
 \label{RES_ES}
@@ -496,19 +483,17 @@ Spain has several different resources with a great share in the electricity prod
 
 
 
-\begin{figure}[]
+\begin{figure}[htbp]
 	\centering
-	\includegraphics[width=0.95\textwidth]{ChapterLCA/Images/GWP_plots/Spain_GWP.png}
-	\vspace*{-7mm}
+	\includegraphics[width=1\textwidth]{ChapterLCA/Images/GWP_plots/Spain_GWP.png}
 	\caption{Monthly peak hours GWP compared with average through the year (dotted line) in Spain.}
 	\label{GWP_ES}
 \end{figure}
 
 	
-\begin{figure}[]
+\begin{figure}[htbp]
 	\centering
-	\hspace*{0.3cm}\includegraphics[width=0.95\textwidth]{ChapterLCA/Images/GWP_plots/Comp_GWP_ES.png}
-	\vspace*{-10mm}
+	\includegraphics[width=1\textwidth]{ChapterLCA/Images/GWP_plots/Comp_GWP_ES.png}
 	\caption{Percentage use of resources throughout the year compared with monthly GWP in Spain (both related to peak hours).}
 	\label{COMP_ES}
 \end{figure}
@@ -533,7 +518,7 @@ During low-demand times (e.g., night hours), the power requested is lower than d
 % Please add the following required packages to your document preamble:
 % \usepackage{multirow}
 % \usepackage{graphicx}
- \begin{table}[]
+ \begin{table}[htbp]
 \centering
 \caption{Summary of results between LCA and peak-hourly life cycle assessment (PH-LCA).}
 \label{summaryfindings}
