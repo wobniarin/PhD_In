@@ -85,9 +85,38 @@ An important part of the analysis of a time series is the choice of a suitable p
 
 \subsection{Benchmark definition}
 \subsubsection{Climatology}
+\begin{algorithm}
+	\SetAlgoLined
+	\KwIn{ $Y|X=1 \sim \mathcal{F}, \lambda, \tilde{h}$}
+	\KwResult{$F \gets$ empty list of forecast values for each signal [kWh or share], indexed by $F^{l}_{t,m}$}
+	
+\For{all $m \in M\{1,12\}$}{	
+	 \For{all $t \in T$} {
+	 \For{all $l \in L$}{
+	 $F^{l}_{t,m} = \frac {1}{S} \ \mathlarger{\mathlarger{\sum}}_{i=1}^{S} \ \ \mathlarger{\mathlarger{x}}_{t = T,m=M} $\\
+	 $F^{l}_{t,m} = F^{l}_{t} \qquad \forall m \in M[1,12]$
+	}
+	}
+	}
+	\caption{Benchmark 1: Climatology Model}
+	\label{alg:climatology}
+\end{algorithm}
+
 
 \subsubsection{Single exponential smoothing}
 \textcolor{red}{Include here information about the two different benchmarks I have defined: climatology, SES, powertech 1}
+\begin{algorithm}
+	\SetAlgoLined
+	\KwIn{ $Y|X=1 \sim \mathcal{F}, \lambda, \tilde{h}$}
+	\KwResult{$F \gets$ empty list of forecast values for each signal [kWh or share], indexed by $F^{l}_{t,m}$}
+	\For{all $t \in T$} {
+	 $\alpha^{l}_{t,m} = \alpha^{l}_{t} \qquad \forall m \in M[1,12] $
+     $\hat{F}^{l}_{t+1|t} = \mathlarger{\mathlarger{\sum}}_{n=1}^{N} \ \ \alpha^{l}_{t} \ (1-x)^{n} \ F^{l}_{t-n} \qquad n \in N | n=t \ \forall t \in T, \ \forall m \in M $
+	}
+	\caption{Simple Exponential Smoothing (SES)}
+	\label{alg:SES}
+\end{algorithm}
+
 
 \subsection{Hierarchical Model Formulation}
 The hierarchical model shown in Figure \ref{fig:top_down} has two different levels, being level~1 the characterization of whether there is flexibility available or not, represented by the random variable $X$, and level 2 the value of the available flexibility given the prior condition of availability, defined as a random variable $Y$. This yields
@@ -177,8 +206,61 @@ which relies on the previous resulting distribution, together with the new data 
 There are two parameters to estimate in this model, being the forgetting factor $\lambda$ and the kernel bandwidth for each time period ${h}_{t}$. The forgetting factor $\lambda$ is a real constant parameter in the range between 0 and 1, $\lambda\ \in\ (0,1]$. This value is estimated by means of cross-validation techniques, whereas the kernel bandwidth is estimated by means of Recursive Maximum Likelihood, since it can be formulated to be time-adaptive, with good overall performance. 
 
 
-\subsubsection{Linear relationship for bandwidth estimation}
-\textcolor{red}{incloure powertech i millores}
+\subsubsection{Adaptive Bandwidth estimation}
+Since the main objective of this approach is to adapt the resulting distribution as long as a new data point is fed into the model, an online learning approach is used. As a consequence, the kernel has to be updated at each time step. To do so, the value of the bandwidth has to be adaptive in order to fit the new sample included in the model.
+
+There are two parameters to estimate in this model, being the forgetting factor $\lambda$ and the kernel bandwidth for each time period $h_{t}$. The forgetting factor $\lambda$ is a real constant parameter in the range between 0 and 1, $\lambda\ \in\ [0,1)$. In the case of $h_{t}$, its value is defined as $h_{t} \in \mathbb{R}^+$, and calculated at each time step as a function of $y_{t}$. This yields 
+
+% shows the formulation to estimate the value of $h_{t}$ $\forall t$. 
+
+\begin{equation} \label{eq:ht}
+    h_{t} = \widetilde{h} \, \sqrt{y_{t}}
+\end{equation}
+
+where $\widetilde{h}$ is an estimated and constant value $\widetilde{h} \in \mathbb \geqslant \, 0$. This function ensures that the resulting KDE does not provide a negative parameter for the flexibility estimation, according to the definition of flexibility defined in Section \ref{Sect:ProblemStatement}. In order to determine the value of $\widetilde{h}$ and $\lambda$ so as to generalize the model, grid search and cross-validation techniques have been implemented, using a cross-validation set of 3 months.
+
+A uniform and normalized distribution is chosen as initial condition to start the recursive formula. This distribution can be formulated as 
+
+\begin{equation}
+    f_{0}(y) = \frac{1}{f_{max}}
+\end{equation}
+
+where $f_{max}$ is the maximum expected flexibility, considering all the available historical data at the beginning of the study. Hence, the kernel is updated at each time period by means of the following recursive formula 
+\begin{equation} \label{eq:recursive_formula}
+    f_{t}(y) = \lambda\ f_{t-1}(y) + (1-\lambda) \: \mathlarger{K}\left(\frac{y - y_{i}}{h_{t}}\right) \\
+\end{equation}
+
+which relies on the previous resulting distribution, together with the new data sample and associated KDE. This methodology ensures that at each time step the normalized kernel properties are maintained since
+
+\begin{equation}
+  \int_{y} \mathlarger{K}\left(\frac{y - y_{i}}{h_{t}}\right) \, dy = 1 \\  
+\end{equation}
+
+\begin{equation}
+  \int_{y} f_{t}(y) \, dy = 1  \quad \forall t \\  
+\end{equation}
+
+The setup used for the second level of the hierarchy used to calculate the resulting available flexibility value can be found in Algorithm \ref{alg:adaptive_bandwidth}. There, the previously defined formulation is structured together with the required input data, as well as the mathematical formulation in a generalized approach.
+
+
+\begin{algorithm}
+	\SetAlgoLined
+	\KwIn{ $Y|X=1 \sim \mathcal{F}, \lambda, \tilde{h}$}
+	\KwResult{$f_t (y) \; \forall t \in T$}
+	at $t_{0}$ $\rightarrow$ \: $f_{t_{0}}(y) = \frac{1}{f_{max}} $\\
+	\For{$ \forall\ t\ \in T $}{	
+	$y_i$: read input data point at time $t$ \\
+	$h_{t} = \widetilde{h} \, \sqrt{y_{i}}$ \\
+	$f_{t}(y)= \frac{1}{n_{\lambda}} \ \sum_{i=1}^{t} \lambda^{t-i} \
+\mathlarger{K}\left(\frac{y - y_{i}}{h_{t}}\right) $ \\
+	$\mathlarger{K}\left(\frac{y - y_{i}}{h_{t}}\right) = \frac{1}{h_{t} \sqrt{2 \pi}} \exp{\left(-\frac{1}{2}\left(\frac{y - y_{i}}{h_{t}}\right)^2\right) }$ \\
+	$f_{t}(y) = \lambda\ f_{t-1}(y) + (1-\lambda) \: \mathlarger{K}\left(\frac{y - y_{i}}{h_{t}}\right)$ 
+	}
+	\caption{Online Adaptive Bandwidth KDE}
+	\label{alg:adaptive_bandwidth}
+\end{algorithm}
+
+
 
 
 
@@ -277,34 +359,62 @@ This formulation can be implemented in different time-scales, being for example 
 
 The setup used in this section can be found in Algorithm \ref{alg:RML_algorithm}. There, the previously defined formulation is structured together with the required input data, as well as the mathematical formulation in a generalized approach. It is worth to consider a number of particularities in the following algorithm to ensure the good performance of the code for all data points. A lower bound has been included in the model by means of a tolerance value.  This is done to avoid discontinuities in the calculation of the information vector (line 4 in Algorithm~\ref{alg:RML_algorithm}) when the read data point $y_{i}$ is closer to the tails of the approximated distribution. However, for the sake of clarity, this is not include in the Algorithm formulation, but can be found in the code source. Both terms $\nabla_h \, \mathlarger{S}_t (\hat{h}_{t})$ and $\nabla^2_h \ \mathlarger{S}_t (\hat{h}_{t})$ are considered as a function of $h_{t}$. These functions are evaluated at each time period $t \in T$ at a vector of specific data points $y$ defined at $t_0$. Nevertheless, in order to update the estimated value of the bandwidth $\hat{h}_t$, $\nabla_h \, \mathlarger{S}_t (\hat{h}_{t})$ and $\nabla^2_h \ \mathlarger{S}_t (\hat{h}_{t})$ have to be evaluated and hence interpolated in a new data point, being in this case $y_i$ (lines 6 and 7). Finally, the if-statement in line 8 considers a warm-start initialization, represented as $t_{ws}$.
 
-\begin{algorithm}[]
-\caption{Online KDE using Recursive Maximum Likelihood}
-\begin{spacing}{1.7}
-\hspace*{\algorithmicindent} \textbf{Input data} $Y|X=1 \sim \mathcal{F}$ 
-\begin{algorithmic}[1] \label{alg:RML_algorithm}
-%\STATE     $f_{t}(y)= \frac{1}{n_{\lambda}} \ \sum_{i=1}^{t} \lambda^{t-i} \
-%\mathlarger{K}\left(\frac{y - y_{i}}{h_{t}}\right) $
-%\STATE $\mathlarger{K}\left(\frac{y - y_{i}}{h_{t}}\right) = \frac{1}{h_{t} \sqrt{2 \pi}} \exp{\left(-\frac{1}{2}\left(\frac{y - y_{i}}{h_{t}}\right)^2\right) }$
-\STATE at $t_{0}$ $\rightarrow$ \: $f_{t_{0}}(y) = \frac{1}{f_{max}}, \: df_{t_{0}}(y) = 0, \: \nabla^2_h \mathlarger{S}_{t_{0}}(y) = \frac{1}{f_{max}},\: \tilde{h}_{t_{0}} = -1$ \\ %initialization of fy, initialization of dfy, initialization of hessian S, initialization of hh (h_tilde) 
-%\STATE \hspace{40pt} $\hat{h}_{t_{0}} = e^{\tilde{h}_{t_{0}}}$ \\ %initialization of hy (h_hat)
-\FOR { $ \forall\ t\ \in T $} 
-     \STATE $y_i$: read input data point at time $t$ 
-     \STATE $U_t = \frac{\nabla_h \, f_t (y)}{f_t (y)}$\\ %update information vector
-     \STATE $\nabla_h \, \mathlarger{S}_t (\hat{h}_{t-1}) =  (\lambda - 1) \ \mathlarger{U}_t$ \\ %gradient update\\
-     \STATE \text{$\nabla_h \, \mathlarger{S}_t(\hat{h}_{t-1},\ y_i)$: \ retrieve the value through linear interpolation of $\nabla_h \mathlarger{S}_t(\hat{h}_{t})$ } \\ \hspace{75pt} and $y$ in the read data point $y_i$\\
-     \STATE \text{$\nabla^2_h \, \mathlarger{S}_t(\hat{h}_{t-1},\ y_i)$: \ retrieve the value by linear interpolation of $\nabla^2_h \mathlarger{S}_t(\hat{h}_{t})$} \\ \hspace{75pt} and $y$ in the read data point $y_i$\\
-     %\STATE \text{$\nabla_h \mathlarger{S}_t(\tilde{h}_{t-1},\ y_i)$, $\nabla^2_h \mathlarger{S}_t(\tilde{h}_{t-1},\ y_i)$: \ retrieve the values through linear interpolation} \\  \hspace{145pt} of $\nabla_h \mathlarger{S}_t(\tilde{h}_{t})$ and $\nabla^2_h \mathlarger{S}_t(\tilde{h}_{t})$ and $y$ in a \\ \hspace{145pt} new data point $y_i$\\
-          \IF {$t\geq t_{ws}$}  % warm start implementation
-                \STATE $\tilde{h}_t = \tilde{h}_{t-1} - \frac{ \nabla_h \ \mathlarger{S}_t (\hat{h}_{t-1},\ y_i) }{\nabla^2_h \ \mathlarger{S}_t (\hat{h}_{t-1},\ y_i)}$
-        \ENDIF 
-     \STATE $\hat{h}_t = e^{(\tilde{h}_{t})}$ %compute hy based on hh (np.exp)\\
-     \STATE  $f_{t}(y) = \lambda\ f_{t-1}(y) + (1-\lambda) \: \mathlarger{K}\left(\frac{y - y_{i}}{\hat{h}_{t}}\right)$ \\ %Recursive formula for fy \\
-     \STATE $\nabla_h \, f_t (y) = \lambda \ \nabla_h \,f_{t-1}(y) + (1-\lambda) \ \left(\frac{(y - y_{i})^2}{\hat{h}_{t}^2} - 1\right) \cdot \mathlarger{K}\left(\frac{y - y_{i}}{\hat{h}_{t}}\right) $ \\ %Recursive formula for dfy\\
-     \STATE $\nabla^2_h \ \mathlarger{S}_t (\hat{h}_{t}) = \lambda \ \nabla^2_h \ \mathlarger{S}_{t-1} (\hat{h}_t) + (1-\lambda) \ \mathlarger{U}_t^2$\\ %Recursive formula for  hessian\\
-\ENDFOR
-\end{algorithmic} 
-\end{spacing}
+%\begin{algorithm}[]
+%\caption{Online KDE using Recursive Maximum Likelihood}
+%\begin{spacing}{1.7}
+%\hspace*{\algorithmicindent} \textbf{Input data} $Y|X=1 \sim \mathcal{F}$ 
+%\begin{algorithmic}[1] \label{alg:RML_algorithm}
+%%\STATE     $f_{t}(y)= \frac{1}{n_{\lambda}} \ \sum_{i=1}^{t} \lambda^{t-i} \
+%%\mathlarger{K}\left(\frac{y - y_{i}}{h_{t}}\right) $
+%%\STATE $\mathlarger{K}\left(\frac{y - y_{i}}{h_{t}}\right) = \frac{1}{h_{t} \sqrt{2 \pi}} \exp{\left(-\frac{1}{2}\left(\frac{y - y_{i}}{h_{t}}\right)^2\right) }$
+%\STATE at $t_{0}$ $\rightarrow$ \: $f_{t_{0}}(y) = \frac{1}{f_{max}}, \: df_{t_{0}}(y) = 0, \: \nabla^2_h \mathlarger{S}_{t_{0}}(y) = \frac{1}{f_{max}},\: \tilde{h}_{t_{0}} = -1$ \\ %initialization of fy, initialization of dfy, initialization of hessian S, initialization of hh (h_tilde) 
+%%\STATE \hspace{40pt} $\hat{h}_{t_{0}} = e^{\tilde{h}_{t_{0}}}$ \\ %initialization of hy (h_hat)
+%\FOR { $ \forall\ t\ \in T $} 
+%     \STATE $y_i$: read input data point at time $t$ 
+%     \STATE $U_t = \frac{\nabla_h \, f_t (y)}{f_t (y)}$\\ %update information vector
+%     \STATE $\nabla_h \, \mathlarger{S}_t (\hat{h}_{t-1}) =  (\lambda - 1) \ \mathlarger{U}_t$ \\ %gradient update\\
+%     \STATE \text{$\nabla_h \, \mathlarger{S}_t(\hat{h}_{t-1},\ y_i)$: \ retrieve the value through linear interpolation of $\nabla_h \mathlarger{S}_t(\hat{h}_{t})$ } \\ \hspace{75pt} and $y$ in the read data point $y_i$\\
+%     \STATE \text{$\nabla^2_h \, \mathlarger{S}_t(\hat{h}_{t-1},\ y_i)$: \ retrieve the value by linear interpolation of $\nabla^2_h \mathlarger{S}_t(\hat{h}_{t})$} \\ \hspace{75pt} and $y$ in the read data point $y_i$\\
+%     %\STATE \text{$\nabla_h \mathlarger{S}_t(\tilde{h}_{t-1},\ y_i)$, $\nabla^2_h \mathlarger{S}_t(\tilde{h}_{t-1},\ y_i)$: \ retrieve the values through linear interpolation} \\  \hspace{145pt} of $\nabla_h \mathlarger{S}_t(\tilde{h}_{t})$ and $\nabla^2_h \mathlarger{S}_t(\tilde{h}_{t})$ and $y$ in a \\ \hspace{145pt} new data point $y_i$\\
+%          \IF {$t\geq t_{ws}$}  % warm start implementation
+%                \STATE $\tilde{h}_t = \tilde{h}_{t-1} - \frac{ \nabla_h \ \mathlarger{S}_t (\hat{h}_{t-1},\ y_i) }{\nabla^2_h \ \mathlarger{S}_t (\hat{h}_{t-1},\ y_i)}$
+%        \ENDIF 
+%     \STATE $\hat{h}_t = e^{(\tilde{h}_{t})}$ %compute hy based on hh (np.exp)\\
+%     \STATE  $f_{t}(y) = \lambda\ f_{t-1}(y) + (1-\lambda) \: \mathlarger{K}\left(\frac{y - y_{i}}{\hat{h}_{t}}\right)$ \\ %Recursive formula for fy \\
+%     \STATE $\nabla_h \, f_t (y) = \lambda \ \nabla_h \,f_{t-1}(y) + (1-\lambda) \ \left(\frac{(y - y_{i})^2}{\hat{h}_{t}^2} - 1\right) \cdot \mathlarger{K}\left(\frac{y - y_{i}}{\hat{h}_{t}}\right) $ \\ %Recursive formula for dfy\\
+%     \STATE $\nabla^2_h \ \mathlarger{S}_t (\hat{h}_{t}) = \lambda \ \nabla^2_h \ \mathlarger{S}_{t-1} (\hat{h}_t) + (1-\lambda) \ \mathlarger{U}_t^2$\\ %Recursive formula for  hessian\\
+%\ENDFOR
+%\end{algorithmic} 
+%\end{spacing}
+%\end{algorithm}
+
+
+\begin{algorithm}
+	\SetAlgoLined
+	\KwIn{ $Y|X=1 \sim \mathcal{F}$ }
+	\KwResult{$f_t (y) \; \forall t \in T$}
+	at $t_{0}$ $\rightarrow$ \: $f_{t_{0}}(y) = \frac{1}{f_{max}}, \: df_{t_{0}}(y) = 0, \: \nabla^2_h \mathlarger{S}_{t_{0}}(y) = \frac{1}{f_{max}},\: \tilde{h}_{t_{0}} = -1$ \\
+	
+	\For{$ \forall\ t\ \in T $}{	
+	$y_i$: read input data point at time $t$ \\
+	$U_t = \frac{\nabla_h \, f_t (y)}{f_t (y)}$\\ %update information vector
+	$\nabla_h \, \mathlarger{S}_t (\hat{h}_{t-1}) =  (\lambda - 1) \ \mathlarger{U}_t$ \\ %gradient update\\
+	\text{$\nabla_h \, \mathlarger{S}_t(\hat{h}_{t-1},\ y_i)$: \ retrieve the value through linear interpolation of} \\ \hspace{75pt}  $\nabla_h \mathlarger{S}_t(\hat{h}_{t})$  and $y$ in the read data point $y_i$\\
+    \text{$\nabla^2_h \, \mathlarger{S}_t(\hat{h}_{t-1},\ y_i)$: \ retrieve the value by linear interpolation of} \\ \hspace{75pt} $\nabla^2_h \mathlarger{S}_t(\hat{h}_{t})$ and $y$ in the read data point $y_i$\\		 
+	          \eIf{$t\geq t_{ws}$}{  % warm start implementation
+				$\tilde{h}_t = \tilde{h}_{t-1} - \frac{ \nabla_h \ \mathlarger{S}_t (\hat{h}_{t-1},\ y_i) }{\nabla^2_h \ \mathlarger{S}_t (\hat{h}_{t-1},\ y_i)}$
+				}{
+	$\hat{h}_t = e^{(\tilde{h}_{t})}$\\ %compute hy based on hh (np.exp) 
+	$f_{t}(y) = \lambda\ f_{t-1}(y) + (1-\lambda) \: \mathlarger{K}\left(\frac{y - y_{i}}{\hat{h}_{t}}\right)$ \\ %Recursive formula for fy \\
+	$\nabla_h \, f_t (y) = \lambda \ \nabla_h \,f_{t-1}(y) + (1-\lambda) \ \left(\frac{(y - y_{i})^2}{\hat{h}_{t}^2} - 1\right) \cdot \mathlarger{K}\left(\frac{y - y_{i}}{\hat{h}_{t}}\right) $ \\ %Recursive formula for dfy\\
+	$\nabla^2_h \ \mathlarger{S}_t (\hat{h}_{t}) = \lambda \ \nabla^2_h \ \mathlarger{S}_{t-1} (\hat{h}_t) + (1-\lambda) \ \mathlarger{U}_t^2$\\ %Recursive formula for  hessian\\ 
+	}   
+	}
+	\caption{Online KDE using Recursive Maximum Likelihood}
+	\label{alg:RML_algorithm}
 \end{algorithm}
+
+
 \subsubsection{Model evaluation}
 This approach has the forgetting factor or time decay $\lambda$ as a hyper-parameter to be tuned. The choice of an optimal value for $\lambda$ is implemented by using a cross-validation technique. In this case, the last three months of data are used as a validation set to validate the optimal value of the forgetting factor, out of the 6000 available hourly data points of flexible consumption under the second level of the hierarchy. For the evaluation of the probabilistic forecast, in this case a density distribution, we follow the approach of a log-likelihood score (LS). For a given predictive density distribution $f_{t}(y)$ and corresponding measured available flexibility value, written as $y_{i+1}$, the score can be formulated as
 
@@ -563,7 +673,6 @@ where the final value, meaning the flexibility forecast is represented as the pr
 \caption{Hourly Model - Flexibility value conditional densities at specific time periods}
 \label{fig:conditional_densities_2}
 \end{figure}
-
 
 
 The combination of Level 1 and Level 2 using the Single Model based on a single density function updated at each time period $t \in T$, results in a RMSE value of 1.82 kWh. In the case of using the Hourly Model based on 24 density functions for each hour of the day, the final RMSE obtained is 1.68 kWh. An overview of the RMSE and MAE scores obtained for the flexibility final outcome is shown in Table \ref{tab:final_scores}. Results prove that, in both cases, this approach performs significantly better against a benchmark modeled with a Simple Exponential Smoothing (SES) approach which formulation is outlined in \cite{Hyndman2021}, as shown in Tables \ref{tab:final_scores_improv_M1} and  \ref{tab:final_scores_improv_M2}. 
