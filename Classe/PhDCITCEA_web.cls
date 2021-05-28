@@ -95,6 +95,8 @@
 \newcommand{\afffive}[1]{\gdef\@afffive{#1}}
 \newcommand*{\@affsix}{}
 \newcommand{\affsix}[1]{\gdef\@affsix{#1}}
+\newcommand*{\@affseven}{}
+\newcommand{\affseven}[1]{\gdef\@affseven{#1}}
 %%% From File: scrktitl.dtx
 \if@titlepage
   \renewcommand*\maketitle[1][1]{%
@@ -157,13 +159,13 @@
         \begin{minipage}[b]{\textwidth}
         	Examination Commitee:\\
         	{\@examinerone} {\@affthree}\\
-        	{\@examinertwo} {\@affone}\\
-        	{\@examinerthree} {\@afffour}\\
+        	{\@examinertwo} {\@afffour}\\
+        	{\@examinerthree} {\@afffive}\\
         \end{minipage}
         \begin{minipage}[b]{\textwidth}
            	Thesis reviewers:\\
-            {\@reviewerone} {\@afffive}\\
-            {\@reviewertwo} {\@affsix}\\
+            {\@reviewerone} {\@affsix}\\
+            {\@reviewertwo} {\@affseven}\\
         \end{minipage}
         \begin{minipage}[b]{\textwidth}
         	\@place, \@date
