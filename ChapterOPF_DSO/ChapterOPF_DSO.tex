@@ -17,16 +17,24 @@ This chapter aims to develop an optimization tool for calculating the value and 
 
 These flexibility services could be provided by several resources, from different nature, including centralized energy storage, distributed energy storage, electric vehicles, PV panels, or Flexible Loads such as water boilers or space heaters [3]. The aggregator gathers the flexibility from customers to provide flexibility services to different stakeholders, like energy suppliers, Balance Responsible Parties (BRP), TSO, DSO and final consumers (\cite{USEFFoundation2015a, Olivella2018}). Then, the aggregator acts as a single entity when engaging in power system markets or selling services to the system operators \cite{BURGER2017}. Under the context of smart grids and flexibility services in place, distribution system operators could benefit by activating flexibility in distribution grids \cite{USEFFoundation2015a, spiliotis2016demand, esmat2016conf, hashemi2016}. DSOs could compensate grid congestions during high consumption or production periods, reducing their networks stress. At the same time, DSO can increase their renewable generation hosting capacity by using behind-the-meter flexibility during peak production periods. 
 
-The most common problems caused by the high penetration of distributed and renewable generation can be classified into four main categories. Figure XXX provides an overview of the location of these potential problems in a arbitrary distribution network:  
+The most common problems caused by the high penetration of distributed and renewable generation can be classified into four main categories. Figure \ref{fig:network_problems} provides an overview of the location of these potential problems in a arbitrary distribution network, also detailed in the following list:  
 
-\begin{itemize}
+\begin{enumerate}
 \item Overload and losses of feeders and transformers. 
 \item Risk of overvoltage.
 \item Power quality disturbances.
 \item Incorrect operation of protection elements. 
-\end{itemize}
+\end{enumerate}
 
-Based on previous references XXXX, the two main potential problems under the distribution network operation are $(i)$ \textbf{overload} and  $(ii)$ \textbf{overvoltage}. 
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1\columnwidth]{ChapterOPF_DSO/Figures/network_problems.png}
+	   %\vspace*{-8cm}
+		\caption{Scheme of a distribution network and main affected area of potential problems}
+	\label{fig:network_problems}  
+\end{figure}
+
+Based on previous references \cite{ISMAEL20191002, Bollen2011}, the two main potential problems under the distribution network operation are $(i)$ \textbf{overload} and  $(ii)$ \textbf{overvoltage}. The following sections defines the potential problems and details the main causes of them. 
 
 
 \subsection{Risk of overload/overcurrents - congestion management}
