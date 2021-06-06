@@ -28,9 +28,9 @@ The most common problems caused by the high penetration of distributed and renew
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=1.2\columnwidth]{ChapterOPF_DSO/Figures/network_problems.png}
+	\includegraphics[width=1\columnwidth]{ChapterOPF_DSO/Figures/network_problems.pdf}
 	   %\vspace*{-8cm}
-		\caption{Scheme of a distribution network and main affected area of potential problems}
+		\caption{Distribution network scheme with potential problems and areas}
 	\label{fig:network_problems}  
 \end{figure}
 
@@ -79,16 +79,14 @@ The DSO is responsible for calculating their Flexibility Requests (FR) for conge
 %\subsection{Contribution}
 \section{Contribution}
 
-
-
 The optimization problem is developed to minimize the aggregator operation costs. The costs are based on curtailing local generation output, charging or discharging batteries, switching off curtailable and disconnectable loads and shifting loads during specific time periods. A local flexibility market design is presented in [12], described as a market-based mechanism for aggregators. BRP and DSO are the main stakeholders of these flexibility services and they can buy flexibility from a market platform or a bilateral contract. However, in any case an information exchange is required between the flexibility buyer and the flexibility provider, to agree on the quantity and delivery time of this flexibility to be provided. 
 
 \section{Flexibility activation costs for distribution network operators}
 \textcolor{red}{incloure coses nuria aqui. caldra lincarho amb la part de parametres, del parametre de costos de la funcio objectiu.} 
 
 \section{Mathematical formulation for Flexibility request calculation}
-The problem to solve is mainly an AC-OPF, considering as the objective function the minimization of the total flexibility costs, but also considering the distribution network. In the following subsections the objective function is detailed, as well as all the restrictions related to AC-OPF. 
-This AC-OPF formulation is based  on the polar Power-Voltage formulation XXXX. This formulation represents complex quantities in polar form and explicitly uses sines and cosines in the power flow constraints. However, in this case the objective function as well as some of the nodal power balance and the power at buses is adapted to the objective of the flexibility provision for DSOs.
+The problem to solve is mainly an AC-OPF, considering as the objective function the minimization of the total flexibility activation costs, but also considering the distribution network related constraints. The following section outlines the formulation, convering the objective function and the related constraints of the model.
+This AC-OPF formulation is based  on the polar Power-Voltage formulation XXXX. This formulation represents complex quantities in polar form, and explicitly uses sines and cosines in the power flow constraints. However, in this case the objective function as well as some of the nodal power balance and the power at buses is adapted to the objective of the flexibility provision for DSOs.
 
 This chapter will consider the notation for complex magnitudes such as voltage at each of the buses, $\underline{V}_{i,t}$. The polar formulation of this variable can be hence outlined as follows
 
