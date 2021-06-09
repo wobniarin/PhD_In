@@ -412,7 +412,23 @@ It is important to notice that are some network buses and network scenarios wher
 
 \subsection{Day-ahead flexibility request (Multiperiod)}
 
+\begin{figure}[htbp]
+\centering     %%% not \center
+\subfigure[Load and generation profile for an exemplary day - Active power]{\label{fig:p_loadprofile}\includegraphics[width=90mm]{ChapterOPF_DSO/Figures/load_profile0_5.png}}
+\subfigure[Load profile for an exemplary day - Reactive power]{\label{fig:q_loadprofile}\includegraphics[width=90mm]{ChapterOPF_DSO/Figures/q_profile0_3.png}}
+\caption{Time-series profiles for an arbitrary node of the LV network}
+\label{fig:data_opf_multiperiod}
+\end{figure}
 
+
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.9\columnwidth ]{ChapterOPF_DSO/Figures/p_q_profile_2.png}
+	   %\vspace*{-8cm}
+		\caption{Time-series power profiles for an arbitrary node of the LV network}
+	\label{fig:chapter_obj_iv}  
+\end{figure}
 
 \section{Chapter remarks}
 While AC-OPF has the advantage that it considers the full AC power flow equations, being the best choice for optimization of control and operation actions, it has some challenges and disadvantages that have been faced in this chapter. AC-OPF is computationally expensive and troublesome for very large networks. In some cases, the current and available solvers such as the interior point (ipopt) or knitro used in this formulation were not able to obtain a solution for the case study. That means that some efforts have to be done to decrease computation time and resources to avoid the infeasibility of the solution. One option has been to change the initial values of the control variables, so as to start the simulation with a power flow feasible solution. Despite, this is not always possible when considering power system networks. Another option could be to use the DC approximation. However, DC approximations are more suitable for transmission systems, not being possible to implement and model the correct behaviour of a distribution network because of the impedance associated to short lines as the ones in distribution networks. 
