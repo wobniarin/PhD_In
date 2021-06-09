@@ -20,6 +20,7 @@
 \DeclareMathOperator*{\argmax}{arg\,max}
 \DeclareMathOperator*{\argmin}{arg\,min}
 \usepackage{booktabs}
+\usepackage{eurosym}
 \usepackage[spanish,catalan,english]{babel}
 \usepackage[latin1]{inputenc}
 \usepackage[pdftex,
