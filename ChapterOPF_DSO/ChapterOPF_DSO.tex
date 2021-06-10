@@ -2,7 +2,7 @@
 \label{ChapterOPFDSO}
 \chaptermark{Optimal Power Flow for Distribution System Operators}
 
-\section{Objectives and Chapter Contribution}
+\section{Objectives and Chapter Contributions}
 
 The dynamics of the power system are changing towards a new model where large generators on the high-voltage side of the network are being replaced by smaller generation units placed at the medium-voltage and low-voltage side of the grid. This increase of penetration by DERs will have a significant impact on how the distribution network operates. At the distribution level, distributed energy resources will make arise some new challenges and, in some cases, problems already solved will rise again. As a result, the increasing number of DERs placed alongside the medium-voltage  and low-voltage distribution networks leads to the need of flexibility services for the DSO. 
 This chapter aims to develop an optimization tool for calculating the value and location of the flexibility request that a DSO needs for operating the distribution network and avoid or mitigate network congestions, corresponding to objective $(iv)$ of the thesis research, according to Figure \ref{fig:chapter_obj_iv}. 
@@ -273,67 +273,38 @@ In the AC-OPF formulation presented in Section XXX, . The execution of the Flexi
 %\end{algorithm}
 
 
-
+%$\hat{Q}_{i,t}^{G}$, $\hat{Q}_{i,t}^{D}$
 \begin{algorithm}
 	\SetAlgoLined
-	\KwIn{ Network layout,\\ \phantom{Input:X} $D+1$ forecast $\hat{P}_{i,t}^{G}$, $\hat{P}_{i,t}^{D}$, $\hat{Q}_{i,t}^{G}$, $\hat{Q}_{i,t}^{D}$, \\ \phantom{Input:X} Network parameters $z_{ik}$,$y_{ik}$}
+	\KwIn{ Network layout,\\ \phantom{Input:X} $D+1$ forecast $\hat{P}_{i,t}^{G}$, $\hat{P}_{i,t}^{D}$\\ \phantom{Input:X} Network parameters $z_{ik}$,$y_{ik}$}
 	Compute $[Y]_{bus}$ and $[Z]_{bus}$ \\
-	Read network layout;\\
+%	Read network layout;\\
 	\For{$ \forall\ t\ \in T $}{
 	\For{$ \forall\ i\ \in N $}{	
-	Assign forecast to nodes; \\
-	Compute AC-power flow; \\
-	\If{$l_{load} > L^{max}$}{
-		line overload identified\\	
+	Assign forecast $\hat{P}_{i,t}^{G}$, $\hat{P}_{i,t}^{D}$ to nodes; \\
+	Initialize: $[\underline{V}],[\underline{I}]$; \\
+	Compute AC-power flow equations; \\
+	\If{$l_{load} \geq L^{max}$}{
+		line overload identified: store results;\\	
 	}
-	\If{$v_{m_{pu}} > V_{m_{pu}}^{max}$}{
-		bus overvoltage identified\\
+	\If{$v_{m_{pu}} \geq V_{m_{pu}}^{max}$}{
+		bus overvoltage identified: store results;\\
+	}
+	\If{$v_{m_{pu}} <\leq V_{m_{pu}}^{min}$}{
+		bus undervoltage identified: store results;\\
 	}
 	Initialize: $[\underline{V}],[\underline{I}]$ \\
-	Execute AC-OPF optimization problem (Eqs 5.13)\\
+	Compute AC-OPF optimization problem (Eqs 5.13)\\
 	Obtain $\phi_{i,t}^{P^{UP}},\phi_{i,t}^{P^{DOWN}},\phi_{i,t}^{Q^{UP}},\phi_{i,t}^{Q^{DOWN}}$;\\
-	Check local minimum with AC-power flow equations\\
+	Check new grid status - Compute AC-power flow equations;\\
 	}
 }
-\KwResult{$\phi_{i,t}^{P^{UP}},\phi_{i,t}^{P^{DOWN}},\phi_{i,t}^{Q^{UP}},\phi_{i,t}^{Q^{DOWN}}$} 
+\KwOut{\textbf{$\Phi^{P^{UP}},\Phi^{P^{DOWN}},\Phi^{Q^{UP}},\Phi^{Q^{DOWN}}$}}
 	\caption{Flexibility Request Calculation. AC-OPF}
 	\label{alg:centralized}
 \end{algorithm}
 
-
-
-
-%\begin{algorithm} %\small
-%	\SetAlgoLined
-%	Initialize: $x_{i}^{(0)}, \lambda_{t}^{(0)}, \rho^{(0)}>0 $ \;
-%	\KwIn{$K^i, K^d, \epsilon^{pri}, \epsilon^{dual}, \tau^{incr}, \tau^{decr}, CT^{max}, k^{max}, W^{flex}$}
-%	%	\KwData{this text}
-%	%	\KwResult{how to write algorithm with \LaTeX2e }
-%	
-%	\While{$\epsilon^{pri}>\|r_t^k\|_2$ and $\epsilon^{dual}>\|s_t^k\|_2$}{
-%		\For{i=1,2,...,I}
-%		{
-%			($x_i$ is updated \textbf{concurrently})\;
-%			$x_{i}^{(k+1)}$ := $\underset{x_i}{\text{argmin}}$ $\mathcal{L}_{\rho}(x_i, {x_j^k}_{j\neq i},\lambda_{t}^{k},\rho^{(k+1)}) + \dfrac{1}{2} \| (x_{i} - x_{i}^{(k)} ) \|^2_{P_{i}}$\;
-%			s.t. \text{Site $i$ constraints:} (\ref{eq:electricityBalance})\eqref{eq:import_cap}\eqref{eq:export_cap}\eqref{eq:eb_binary_var}
-%		}
-%		{
-%			Update dual and penalty variables \;	
-%		}
-%		\eIf{$\|r_t^{(k)}\|_2 > 0.05\|FR_t\|_2$}{
-%			Fast update: $\rho^{(k+1)}$ according to \eqref{eq:rho_update_1}\;
-%			Update $\lambda_{t}^{(k+1)}:=\lambda_{t}^{k}+\gamma \rho^{(k+1)} r_t^{(k+1)},$ $\forall t \in \mathcal{T}^{\pm}$\;
-%		}{
-%			Soft update: $\lambda_{t}^{(k+1)}$ according to \eqref{eq:dual_update_2}
-%		}{
-%			Update $\|r_t^{(k)}\|_2$, $\|s_t^{(k)}\|_2$, $k=k+1$
-%		}
-%	}
-%	\caption{Two-steps Fast-PJ-ADMM for optimal flexibility provision.}
-%	%\caption{Optimal Exchange Fast-PJ-ADMM for flexibility trading}
-%	\label{alg:ADMM}
-%\end{algorithm}
-
+ 
 
 \section{Case study for evaluating the flexibility activation}
 
@@ -349,6 +320,15 @@ This network considers two types of standard loads by default, being household l
 		\caption{LV Network scheme}
 	\label{fig:case_study_LV}  
 \end{figure}
+
+The main goal of the case study is to simulate active network management for a safe distribution network operation, calculating the flexibility request to avoid network reconfiguration and congestions problems such as overloads and voltage deviations. The case study implements the previously defined mathematical formulation under the LV network detailed above, and also considers the following restriction for a correct operation: 
+
+\begin{enumerate}
+\item All bus voltages have to be within $\pm 3$ \% of the rated voltage, 1.01 pu.
+\item All lines have a maximum loading percentage of 70 \%. 
+\end{enumerate}
+
+At these time periods where the operation constraints are not fulfilled, a congestion problem is detected, being characterized under overload, overvoltage or undervoltage, and the AC-OPF computes the flexibility requested to return the distribution network to a status where the restrictions are met again at all buses, transformers, and lines. The problem is based on a day-ahead time horizon, split into hourly time periods. The following sections cover a detailed analysis of the results under a single period, being understood as one hour, while the latter covers the operation results under a multiperiod optimization for a day-ahead scenario.  
 
 \newpage
 \section{Results and Discussion}
@@ -381,7 +361,7 @@ Node & FR\_P [kW] & FR\_Q [kvar]  \\
 
 \subsubsection{Results for two congestions and two flexibility points}
 
-In this second scenario, two congestions were identified on the network, one caused by an surplus of generation and the other by an increase of the demand in one of the network nodes. In this case, congestions were considered as overcurrent in line 8 (NODE XX-XX) with a load percentage of 91.5 \%, and in line 20 (NODE XX-XX), with a load percentage of 73.75\%. After computing the AC-OPF algorithm, flexibility is requested in three nodes, for both active and reactive power, as shown in Table \ref{tab:FR_case2}
+In this second scenario, two congestions were identified on the network, one caused by an surplus of generation and the other by an increase of the demand in one of the network nodes. In this case, congestions were considered as overcurrent in line 8 (Nodes 6-10) with a load percentage of 91.5 \%, and in line 20 (Nodes 15-22), with a load percentage of 73.75\%. After computing the AC-OPF algorithm, flexibility is requested in three nodes, for both active and reactive power, as shown in Table \ref{tab:FR_case2}
 
 \begin{table}[htbp]
 \centering
@@ -398,40 +378,40 @@ Node & FR\_P [kW] & FR\_Q [kvar]  \\
 \end{tabular}
 \end{table}
 
-By activating these flexibility requests, a new network status is achieved and validated by the Power Flow check at the end of the algorithm. As can be observed in Figure \ref{fig:case2_fr}, the previous network status with the indentified congestions showed that there are two lines over the constraint of 80 \% of loading percent \ref{fig:congestion_pq_pre_2points}. Once flexibility is activated, Figure \ref{fig:congestion_pq_post_2points} shows that the congested lines achieve a reduction of congestion around the 18 \%. In this case, a greater reduction in these lines lead to a congestion located in other lines of the network, and hence to an infeasibility of the AC-OPF algorithm. Furthermore, even though non-linear solvers such as interior point, being the one used in this chapter for the calculation of the flexibility request, 
+By activating these flexibility requests, a new network status is achieved and validated by the Power Flow check at the end of the algorithm. As can be observed in Figure \ref{fig:case2_fr}, the previous network status with the indentified congestions showed that there are two lines over the constraint of 70 \% of loading percent \ref{fig:congestion_pq_pre_2points}. Once flexibility is activated, Figure \ref{fig:congestion_pq_post_2points} shows that the congested lines achieve a reduction of congestion around the 18 \%. In this case, a greater reduction in these lines lead to a congestion located in other lines of the network, and hence to an infeasibility of the AC-OPF algorithm. Furthermore, even though non-linear solvers such as interior point, being the one used in this chapter for the calculation of the flexibility request, 
 
 \begin{figure}[htbp]
 \centering     %%% not \center
 \subfigure[Network status before the flexibility request activation]{\label{fig:congestion_pq_pre_2points}\includegraphics[width=90mm]{ChapterOPF_DSO/Figures/congestion_two_points_pre.png}}
-\subfigure[Network status after flexibility request being activated]{\label{fig:congestion_pq_post_2points}\includegraphics[width=90mm]{ChapterOPF_DSO/Figures/congestion_two_points_post.png}}
+\subfigure[Network status after flexibility request being activated]{\label{fig:congestion_pq_post_2points}\includegraphics[width=90mm]{ChapterOPF_DSO/Figures/congestion_two_points_post_2.png}}
 \caption{Flexibility AC-OPF results comparison for two identified congestions}
 \label{fig:case2_fr}
 \end{figure}
 
-It is important to notice that are some network buses and network scenarios where a congestion cannot be completely avoided by activating flexibility, without creating a congestion in a different location of the same network. In this case, the objective is to decrease the overload or the overvoltage problem closer to the maximum operation constraints while ensuring the AC power flow equations are satisfied at any point. In all cases, though, the AC-OPF algorithm considers a maximum line overload of 80 \%, and a maximum voltage magnitude in pu of 1.05, based on the current regulation. 
+It is important to notice that are some network buses and network scenarios where a congestion cannot be completely avoided by activating flexibility, without creating a congestion in a different location of the same network. In this case, the objective is to decrease the overload or the overvoltage problem closer to the maximum operation constraints while ensuring the AC power flow equations are satisfied at any point. In all cases, though, the AC-OPF algorithm considers a maximum line overload of 70 \%, and the voltage magnitude within the $\pm$ 3 \% of the rated voltage. 
 
 \subsection{Day-ahead flexibility request (Multiperiod)}
 
-\begin{figure}[htbp]
-\centering     %%% not \center
-\subfigure[Load and generation profile for an exemplary day - Active power]{\label{fig:p_loadprofile}\includegraphics[width=90mm]{ChapterOPF_DSO/Figures/load_profile0_5.png}}
-\subfigure[Load profile for an exemplary day - Reactive power]{\label{fig:q_loadprofile}\includegraphics[width=90mm]{ChapterOPF_DSO/Figures/q_profile0_3.png}}
-\caption{Time-series profiles for an arbitrary node of the LV network}
-\label{fig:data_opf_multiperiod}
-\end{figure}
-
+%\begin{figure}[htbp]
+%\centering     %%% not \center
+%\subfigure[Load and generation profile for an exemplary day - Active power]{\label{fig:p_loadprofile}\includegraphics[width=90mm]{ChapterOPF_DSO/Figures/load_profile0_5.png}}
+%\subfigure[Load profile for an exemplary day - Reactive power]{\label{fig:q_loadprofile}\includegraphics[width=90mm]{ChapterOPF_DSO/Figures/q_profile0_3.png}}
+%\caption{Time-series profiles for an arbitrary node of the LV network}
+%\label{fig:data_opf_multiperiod}
+%\end{figure}
+%
 
 
 \begin{figure}[htbp]
 	\centering
 	\includegraphics[width=0.9\columnwidth ]{ChapterOPF_DSO/Figures/p_q_profile_2.png}
 	   %\vspace*{-8cm}
-		\caption{Time-series power profiles for an arbitrary node of the LV network}
-	\label{fig:chapter_obj_iv}  
+		\caption{Time-series power profiles for node 9 of the LV network}
+	\label{fig:data_opf_multiperiod}  
 \end{figure}
 
 \section{Chapter remarks}
 While AC-OPF has the advantage that it considers the full AC power flow equations, being the best choice for optimization of control and operation actions, it has some challenges and disadvantages that have been faced in this chapter. AC-OPF is computationally expensive and troublesome for very large networks. In some cases, the current and available solvers such as the interior point (ipopt) or knitro used in this formulation were not able to obtain a solution for the case study. That means that some efforts have to be done to decrease computation time and resources to avoid the infeasibility of the solution. One option has been to change the initial values of the control variables, so as to start the simulation with a power flow feasible solution. Despite, this is not always possible when considering power system networks. Another option could be to use the DC approximation. However, DC approximations are more suitable for transmission systems, not being possible to implement and model the correct behaviour of a distribution network because of the impedance associated to short lines as the ones in distribution networks. 
 
-Furthermore, in its original form, as the one being formulated in this chapter, the AC-OPF formulation is a non-linear and hence a non-convex problem. That means that there is not guarantee that the global optimum is found. Further research in this topic is mainly focused on implement convex relaxations into the problem to transform the OPF problem into a convex Semi-Definit Program (SDP). That can lead to, under certain conditions, obtain a solution that is the global optimum to the original OPF problem, achieving a zero-duality gap. If this cannot be achieved, a convex relaxation at least could help determinee how far the local minimum found is from the global minimum.  
+Furthermore, in its original form, as the one being formulated in this chapter, the AC-OPF formulation is a non-linear and hence a non-convex problem. That means that there is not guarantee that the global optimum is found. Further research in this topic is mainly focused on implement convex relaxations into the problem to transform the OPF problem into a convex Semi-Definite Program (SDP). That can lead to, under certain conditions, obtain a solution that is the global optimum to the original OPF problem, achieving a zero-duality gap. If this cannot be achieved, a convex relaxation at least could help determinee how far the local minimum found is from the global minimum.  
 
