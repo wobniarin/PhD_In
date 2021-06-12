@@ -14,83 +14,64 @@
 
 % AC-OPF FOR DSOs
 %Sets
-\nomenclature[I]{$\mathcal{I}$}{Set of network nodes, indexed by $i$}
-\nomenclature[I]{$\mathcal{T}$}{Set of periods/time slots in the operation horizon, indexed by $t$}
-\nomenclature[I]{$\mathcal{L}$}{Set of network lines, indexed by $l$}
-\nomenclature[I]{$\mathcal{G}$}{Set of generators, indexed by \textit{g}}
-\nomenclature[I]{$\mathcal{D}$}{Set of demands, indexed by \textit{g}}
-\nomenclature[I]{$\mathcal{B}^{bat}$}{Set of storage units, indexed by \textit{b}}
-
+%\nomenclature[I]{$\mathcal{I}$}{Set of network nodes, indexed by $i$}
+%\nomenclature[I]{$\mathcal{T}$}{Set of periods/time slots in the operation horizon, indexed by $t$}
+%\nomenclature[I]{$\mathcal{L}$}{Set of network lines, indexed by $l$}
+%\nomenclature[I]{$\mathcal{G}$}{Set of generators, indexed by \textit{g}}
+%\nomenclature[I]{$\mathcal{D}$}{Set of demands, indexed by \textit{g}}
+%\nomenclature[I]{$\mathcal{B}^{bat}$}{Set of storage units, indexed by \textit{b}}
+%\nomenclature[V]{$V_{i,t}$}{voltage {[}V{]}}
 
 % ONLINE KDE-RML 
-\nomenclature[V]{$\overline{p}_{m,t}$}{Probability of having flexibility available in a time period $t$ and month $m$ [-]}
-\nomenclature[P]{$\lambda$}{Forgetting factor or time-decay [-]}
-\nomenclature[P]{$\alpha$}{Forgetting factor or time-decay in Single Exponential Smoothing model [-]}
-\nomenclature[P]{$h_t$}{Kernel bandwidth at time period $t$ [-]}
-\nomenclature[P]{$\hat{h}_t$}{Expected Kernel bandwidth at time period $t$ under RML [-]}
-\nomenclature[P]{$f_{max}$}{maximum expected flexibility [kWh]}
-\nomenclature[V]{$\hat{y}_t$}{Expected value}
-\nomenclature[P]{$f_0(y)$}{Initial distribution function [-]}
-\nomenclature[V]{$f_t(y)$}{Flexibility distribution function at time period $t$ [-]}
-\nomenclature[V]{$U_t$}{Information vector at time period $t$ [-]}
-\nomenclature[P]{$t_{ws}$}{Warm start [s]}
+%\nomenclature[V]{$\overline{p}_{m,t}$}{Probability of having flexibility available in a time period $t$ and month $m$ [-]}
+%\nomenclature[P]{$\lambda$}{Forgetting factor or time-decay [-]}
+%\nomenclature[P]{$\alpha$}{Forgetting factor or time-decay in Single Exponential Smoothing model [-]}
+%\nomenclature[P]{$h_t$}{Kernel bandwidth at time period $t$ [-]}
+%\nomenclature[P]{$\hat{h}_t$}{Expected Kernel bandwidth at time period $t$ under RML [-]}
+%\nomenclature[P]{$f_{max}$}{maximum expected flexibility [kWh]}
+%\nomenclature[V]{$\hat{y}_t$}{Expected value}
+%\nomenclature[P]{$f_0(y)$}{Initial distribution function [-]}
+%\nomenclature[V]{$f_t(y)$}{Flexibility distribution function at time period $t$ [-]}
+%\nomenclature[V]{$U_t$}{Information vector at time period $t$ [-]}
+%\nomenclature[P]{$t_{ws}$}{Warm start [s]}
 
-
-
-%\nomenclature[P]{$CR_t$}{DSO capacity limitation request per period \textit{t} as the maximum consumption for all charging points [kWh]}
-%\nomenclature[P]{$Q_v^{CPMin}$}{Minimum power of charging point \textit{v} without desconnecting it [kW]}
-%\nomenclature[P]{$Q_v^{CPMax}$}{Maximum power of charging point \textit{v} [kW]}
-%\nomenclature[V]{$\upsilon_m$}{Voltage module of node \textit{m} [p.u.]}
-%\nomenclature[V]{$\alpha_m$}{Voltage angle of node \textit{m} [p.u.]}
-%\nomenclature[V]{$P^{pw}_m$}{Active power leaving node \textit{m} [p.u.]}
-%\nomenclature[V]{$Q^{pw}_m$}{Reactive power leaving node \textit{m} [p.u.]}
-%\nomenclature[V]{$E^{mL}$}{Fraction of the energy consumption of each block matched [p.u.]}
-%\nomenclature[V]{$E^{mG}$}{Fraction of the energy generation of each block matched [p.u.]}
-%\nomenclature[V]{$\sigma^{reac}_{i,t}$}{Battery reactive power in time step \textit{t} in site \textit{i} [p.u.]}
-%\nomenclature[V]{$P^{mat}_{o,t}$}{Matched power to exchange with the main grid [p.u.]}
-%\nomenclature[V]{$Dv^{abs}_{o,t}$}{Absolute value of deviation in site \textit{o} in period \textit{t} [p.u.]}
-
-\nomenclature[V]{$V_{i,t}$}{voltage {[}V{]}}
 
 
 
 
 
 % Abbreviations
-\nomenclature[A]{FR}{Flexibility request}
+\nomenclature[A]{FR}{Flexibility Request}
 \nomenclature[A]{PV}{Photovoltaic}
-\nomenclature[A]{BRP}{Balance responsible party}
-\nomenclature[A]{DSO}{Distribution system operator}
-\nomenclature[A]{TSO}{Transmission system operator}
-\nomenclature[A]{FD}{Flexibility device}
-\nomenclature[A]{SOC}{State-of-charge}
-\nomenclature[A]{LEM}{Local energy market}
-\nomenclature[A]{$\mu$M}{Micro-market}
-\nomenclature[A]{LFM}{Local flexibibility market}
-\nomenclature[A]{HEMS}{Home energy management system}
-\nomenclature[A]{P2P}{Peer-to-peer}
-\nomenclature[A]{CS}{Charging station}
-\nomenclature[A]{LV}{Low-voltage}
-\nomenclature[A]{MV}{Medium-voltage}
-\nomenclature[A]{ICT}{Information and communication technologies}
-\nomenclature[A]{DER}{Distributed energy resource}
-\nomenclature[A]{DG}{Distributed generation}
+\nomenclature[A]{BRP}{Balance Responsible Party}
+\nomenclature[A]{DSO}{Distribution System Operator}
+\nomenclature[A]{TSO}{Transmission System Operator}
+\nomenclature[A]{FD}{Flexibility Device}
+\nomenclature[A]{SOC}{State-of-Charge}
+\nomenclature[A]{LEM}{Local Energy Market}
+\nomenclature[A]{$\mu$M}{Micro-Market}
+\nomenclature[A]{LFM}{Local Flexibibility Market}
+\nomenclature[A]{HEMS}{Home Energy Management System}
+\nomenclature[A]{P2P}{Peer-to-Peer}
+\nomenclature[A]{CS}{Charging Station}
+\nomenclature[A]{ICT}{Information and Communication Technologies}
+\nomenclature[A]{DER}{Distributed Energy Resource}
+\nomenclature[A]{DG}{Distributed Generation}
 \nomenclature[A]{EIT}{European Institute of Innovation and Technology}
-\nomenclature[A]{VPP}{Virtual power plant}
-\nomenclature[A]{DAM}{Day-ahead market}
-\nomenclature[A]{PDF}{Probability distribution function}
-\nomenclature[A]{VRE}{Variable renewable energy}
-\nomenclature[A]{AS}{Ancillary services}
-\nomenclature[A]{TLC}{Traffic light concept}
+\nomenclature[A]{VPP}{Virtual Power Plant}
+\nomenclature[A]{DAM}{Day-Ahead Market}
+\nomenclature[A]{PDF}{Probability Distribution Function}
+\nomenclature[A]{VRE}{Variable Renewable Energy}
+\nomenclature[A]{AS}{Ancillary Services}
 \nomenclature[A]{USEF}{Universal Smart Energy Framework}
-\nomenclature[A]{TE}{Transactive energy}
-\nomenclature[A]{SGAM}{Smart grid architecture model}
-\nomenclature[A]{SW}{Social welfare}
+\nomenclature[A]{TE}{Transactive Energy}
+\nomenclature[A]{SGAM}{Smart Grid Architecture Model}
+\nomenclature[A]{SW}{Social Welfare}
 \nomenclature[A]{RML}{Recursive Maximum Likelihood}
 \nomenclature[A]{KDE}{Kernel Density Estimation}
 \nomenclature[A]{RMSE}{Root Mean Squared Error}
 \nomenclature[A]{BS}{Brier Score}
-\nomenclature[A]{LS}{Log-likelihood score}
+\nomenclature[A]{LS}{Log-likelihood Score}
 \nomenclature[A]{LCA}{Life Cycle Assessment}
 \nomenclature[A]{A-LCA}{Atributional Life Cycle Assessment}
 \nomenclature[A]{HD-LCA}{Hourly-defined Life Cycle Assessment}
@@ -99,26 +80,26 @@
 \nomenclature[A]{LCI}{Life Cycle Inventory}
 \nomenclature[A]{GWP}{Global Warming Potential}
 \nomenclature[A]{TP}{Transparency Platform}
-\nomenclature[A]{$CO_{2}$}{Carbon dioxide}
+\nomenclature[A]{CO$_{2}$}{Carbon Dioxide}
 \nomenclature[A]{GED}{Global Energy Demand}
 \nomenclature[A]{EU}{European Union}
 \nomenclature[A]{DR}{Demand Response}
 \nomenclature[A]{DSM}{Demand-Side Management}
 \nomenclature[A]{RES}{Renewable Energy Sources}
-\nomenclature[A]{PH}{Peak Hours}
+\nomenclature[A]{PH}{Peak Hour}
 \nomenclature[A]{GHG}{Greenhouse gas}
 \nomenclature[A]{ENTSO-E}{European Network of Transmission System Operators for Electricity}
-\nomenclature[A]{ESCO}{Energy services company}
-\nomenclature[A]{BAU}{Business as usual}
-\nomenclature[A]{PHS}{Hydro pumped storage}
-\nomenclature[A]{CHP}{Combined heat-power plant}
+\nomenclature[A]{ESCO}{Energy Services Company}
+\nomenclature[A]{BAU}{Business as Usual}
+\nomenclature[A]{PHS}{Hydro Pumped Storage}
+\nomenclature[A]{CHP}{Combined Heat-Power Plant}
 \nomenclature[A]{EV}{Electric Vehicle}
 \nomenclature[A]{O\{&}M}{Operations and Maintenance}
 \nomenclature[A]{NILM}{Non-Intrusive Load Metering}
 \nomenclature[A]{GDPR}{General Data Protection Regulation}
 \nomenclature[A]{IRENA}{International Renewable Energy Agency}
 \nomenclature[A]{EWB}{Electric Water Boiler}
-\nomenclature[A]{SH}{Space heater}
+\nomenclature[A]{SH}{Space Heater}
 \nomenclature[A]{MAE}{Mean Average Error}
 \nomenclature[A]{GMM}{Gaussian Mixture Model}
 \nomenclature[A]{HV}{High Voltage}
@@ -128,10 +109,10 @@
 \nomenclature[A]{AC}{Alternating Current}
 \nomenclature[A]{DC}{Direct Current}
 \nomenclature[A]{OPF}{Optimal Power Flow}
-\nomenclature[A]{EMPOWER}{Local electricity retail markets for prosumer smart grid power services}
-\nomenclature[A]{INVADE}{Integrated electric vehicles and batteries to empower distributed and centralised storage in distribution grids}
-\nomenclature[A]{BD4OPEM}{Big data for open innovation energy marketplace}
-\nomenclature[A]{CITCEA}{Centre d'innovaci\'{o} tecnol\`{o}gica en convertidors est\`{a}tics i accionaments}
+\nomenclature[A]{EMPOWER}{Local Electricity Retail Markets for Prosumer Smart Grid Power Services}
+\nomenclature[A]{INVADE}{Integrated Electric Vehicles and Batteries to Empower Distributed and Centralised Storage in Distribution Grids}
+\nomenclature[A]{BD4OPEM}{Big Data for Open Innovation Energy Marketplace}
+\nomenclature[A]{CITCEA}{Centre d'Innovaci\'{o} Tecnol\`{o}gica en Convertidors Est\`{a}tics i Accionaments}
 \nomenclature[A]{UPC}{Univesitat Polit\`{e}cnica de Catalunya}
 \nomenclature[A]{EYPESA}{Estabanell i Pahisa Energia}
 \nomenclature[A]{DTU}{Technical University of Denmark}

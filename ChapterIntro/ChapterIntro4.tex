@@ -10,9 +10,9 @@ Current society is facing a challenge to mitigate the effects of climate change.
 \vspace*{3mm}
 \begin{figure}[htbp]
 	\centering 
-	\includegraphics[width=1\columnwidth ]{ChapterIntro/Figures/irena_scenarios.png}
+	\includegraphics[width=0.9\columnwidth ]{ChapterIntro/Figures/scenarios2.pdf}
 	   %\vspace*{-8cm}
-		\caption{Renewable Energy Sources penetration scenario. Extracted from \cite{IRENA2018}}  
+		\caption{Renewable Energy Sources penetration scenario. Based on \cite{IRENA2018}}  
 		\label{fig:scenarios}
 \end{figure}
 %\vspace*{1.5mm}
@@ -25,15 +25,17 @@ The following pages cover the main aspects related to the current scenario in th
 \section{Smart Grids. The evolution of the electrical network}
 
 %\subsection{Electricity network}
-The physical infrastructure of the electricity network is composed by generators, transmission network, distribution network and end-users or consumers, as shown in Figure \ref{fig:ree}. 
+The physical infrastructure of the electricity network is composed by generators, transmission network, distribution network and end-users or consumers.
 
-\begin{figure}[htbp]
-	\centering 
-	\includegraphics[width=1\columnwidth ]{ChapterIntro/Figures/REE_english.pdf}
-	   %\vspace*{-8cm}
-		\caption{Electricity network scheme. Adapted from \cite{RedElectricadeEspana}}  
-		\label{fig:ree}
-\end{figure}
+%, as shown in Figure \ref{fig:ree}. 
+%
+%\begin{figure}[htbp]
+%	\centering 
+%	\includegraphics[width=1\columnwidth ]{ChapterIntro/Figures/REE_english.pdf}
+%	   %\vspace*{-8cm}
+%		\caption{Electricity network scheme. Adapted from \cite{RedElectricadeEspana}}  
+%		\label{fig:ree}
+%\end{figure}
 
 Generators are the main agents feeding the grid downstream. Large generators can produce a range from 6 kV to 20 kV \cite{Gomez-Exposito2008}, to then increase the voltage up to 200 kV in order to connect to the high voltage (HV) tramission lines. The transmission network is the responsible for the electricity transportation over long distances, and it is done at HV level. By doing this, the transmission losses are lower while using a cheaper infrastructure. The tranmission network voltage level usually ranges from 200 kV to 1000 kV \cite{Erbach2016}, and both generators and HV-MV transformers are the main elements connected to it. Due to their critical position in the system, connecting generation and consumption sides, transmission grids are meshed to avoid collapsing when there is any failure in on of the lines. On top of that, this layout allows the distribution of the loads through different tramission lines with the objective of reducing losses and avoiding congestions. Transmission networks are operated by the so-called Transmission System Operators (TSO). Similarly, distribution networks are responsible for the energy distribution and transportation for shorter distances. One could consider a distribution grid when its voltage levels are either medium-voltage (MV) and low-voltage (LV). By definition, the voltage levels considered for distribution networks are: 132 kV, 66 kV, 45 kV, 30 kV, 20 kV, 10 kV, 6 kV, 3 kV, 1 kV, 400 V and 230 V \cite{Gomez-Exposito2008, Erbach2016}. 
 
@@ -42,32 +44,33 @@ Differently as seen in the transmission system, the assets connected at distribu
 
 \begin{figure}[htbp]
 	\centering 
-	\includegraphics[width=0.6\columnwidth ]{ChapterIntro/Figures/ELECTRICITY_SYSTEM.jpg}
+	\includegraphics[width=0.6\columnwidth ]{ChapterIntro/Figures/13.pdf}
 	   %\vspace*{-8cm}
-		\caption{Electricity network scheme. Extracted from \cite{Erbach2016}}  
+		\caption{Electricity network scheme}  
 		\label{fig:networkscheme}
 \end{figure}
 
+%Extracted from \cite{Erbach2016}
 %\subsection{Smart Grids}
 
 Despite the scenarios where renewables are the main source for electricity production, it is a fact that geographical, economical and social-cultural barriers are still slowing down the implementation of renewable energy projects in some locations in the landfield \cite{ASANTE2020111479, barriers2020}, leading to newer technologies to allocate renewable sources in places where a larger power output can be obtained, and generally less concern by end-users in terms of environmental and visual impact of them, such as off-shore wind turbines \cite{Kaldellis2016, KPMG2019}, connected to the transmission network. At the same time, as electricity demand on grids increased due to the electrification of appliances, distribution system operators (DSOs) started to face congestions in their networks, and hence utilities started to find solutions for managing these peak loads, usually located in specific time periods.  This combined to the implementation of smart meters so utilities could encourage customers to switch consumption from peak to non-peak hours, and the need for monitoring and controlling the operation of the distribution network enhanced the development of smart grids.
 
 Traditionally, electric power systems have been centralizsed structures organized into generation, transmission and distribution, placing end-users and the endpoint of the supply chain. This was an unidirectional structure where electricity generated by large power plants was transported by means of transmission and distribution networks, to be delivered to end-users. 
 
-Furthermore, the emergence of the social awareness of the environmental impact of the end-users consumption, the increase of the electricity prices, as well as the emergence of the so-called distributed energy resources (DERs), such as small-scale PV installations (mainly rooftop), storage systems, electric vehicles (EVs) and smart home appliances are transforming the end-users into active participants in the power system. The increasing penetration of these decentralized resources, as well as the emergence of new market agents like prosumers, aggregators and active consumers, are pushing the electricity system to include innovation in their business models, creating the paradigm of smart grids (Figure \ref{fig:IRENA-DSO}). According to \cite{EuropeanParliamentSG}, smart grids can be defined as:
+Furthermore, the emergence of the social awareness of the environmental impact of the end-users consumption, the increase of the electricity prices, as well as the emergence of the so-called distributed energy resources (DERs), such as small-scale PV installations (mainly rooftop), storage systems, electric vehicles (EVs) and smart home appliances are transforming the end-users into active participants in the power system. The increasing penetration of these decentralized resources, as well as the emergence of new market agents like prosumers, aggregators and active consumers, are pushing the electricity system to include innovation in their business models, creating the paradigm of smart grids. According to \cite{EuropeanParliamentSG}, smart grids can be defined as:
 \vspace*{3mm}
 \begin{tcolorbox}
 \textit{"An electricity network that can integrate in a cost efficient manner the behaviour and actions of all users connected to it, including generators, consumers and those that both generate and consume, in order to ensure an economically efficient and sustainable power system with low losses and high levels of quality, security of supply and safety".} 
 \end{tcolorbox}
 \vspace*{5mm}
 
-\begin{figure}[htbp]
-	\centering 
-	\includegraphics[width=0.9\columnwidth ]{ChapterIntro/Figures/Irena-DSO-1.png}
-	   %\vspace*{-8cm}
-		\caption{Conventional scenario vs Smart Grids. Extracted from \cite{IRENA2018}}  
-		\label{fig:IRENA-DSO}
-\end{figure}
+%\begin{figure}[htbp]
+%	\centering 
+%	\includegraphics[width=0.9\columnwidth ]{ChapterIntro/Figures/Irena-DSO-1.png}
+%	   %\vspace*{-8cm}
+%		\caption{Conventional scenario vs Smart Grids. Extracted from \cite{IRENA2018}}  
+%		\label{fig:IRENA-DSO}
+%\end{figure}
 
 However, it is not only in terms of technological innovation to fulfill the electricity transition roadmap. Changing the regulatory framework mainly for DSOs to adapt the current regulation for the operation of the distribution network to the new challenges placed by DERs is a key factor for the success of the energy transition.
 
@@ -129,9 +132,9 @@ According to the same institution, flexibility will enable all stakeholder and e
 
 \begin{figure}[h]
 	\centering 
-	\includegraphics[width=1\columnwidth ]{ChapterIntro/Figures/flex_load_shifting.png}
+	\includegraphics[width=1\columnwidth ]{ChapterIntro/Figures/load_curve.pdf}
 	   %\vspace*{-8cm}
-		\caption{Flexibility effects on electricity consumption. Extracted from \cite{Johra2019}.}  
+		\caption{Evolution of the demand curve when implementing demand-side management or flexibility.}  
 		\label{fig:load_shifting}
 \end{figure}
 
@@ -139,18 +142,19 @@ According to the same institution, flexibility will enable all stakeholder and e
 Due to the increase of electricity consumption and DERs integration in the last 10 years, the consumer behavior patterns have been broadly studied \cite{ZHOU201773,TORRITI2014265}, showing that the electricity consumption is focused at specific time periods, such as noon and in the evening. With the implementation of DERs and the increase of the electricity consumption, there is a possibility to include flexibility in power systems by achieving the paradigm where consumption follows the generation curve only partially. That could lead to implement flexibility in the demand-side by shifting the consumption of some assets or the production of some small scale generators or storage systems to other time periods, as seen in Figure \ref{fig:load_shifting}. Demand-side flexibility can be defined as follows, according to \cite{EuropeanSmartGridsTaskForceExpertGroup32019}:  
 
 \begin{tcolorbox}
-\textit{"The ability of a customer or prosumer to deviate from its normal electricity consumption or production profile, in response wo price signals or market incentives"} 
+\textit{"The ability of a customer or prosumer to deviate from its normal electricity consumption or production profile, in response to price signals or market incentives"} 
 \end{tcolorbox}
 
-Demand-side flexibility is based on load, demand-side generation and demand-side storage. The Universal Smart Energy Framework (USEF) defined a wide range of services that could be provided to network operators, retailers, balancing parties thanks to demand-side flexibility under demand-side management. An overview of the flexibility products can be seen in Figure \ref{fig:DSF}. 
-
-\begin{figure}[h]
-	\centering 
-	\includegraphics[width=1\columnwidth ]{ChapterIntro/Figures/USEF_DSF.png}
-	   %\vspace*{-8cm}
-		\caption{Products and services available from the demand-side. Extracted from \cite{USEFFoundation2015a}}  
-		\label{fig:DSF}
-\end{figure}
+Hence, demand-side flexibility can help developing smart grids and achieving the Paris Agreement objectives, by means of distributed energy resources, the change on their electricity consumption profile and the integration of energy storage and electric vehicles. 
+%Demand-side flexibility is based on load, demand-side generation and demand-side storage. The Universal Smart Energy Framework (USEF) defined a wide range of services that could be provided to network operators, retailers, balancing parties thanks to demand-side flexibility under demand-side management. An overview of the flexibility products can be seen in Figure \ref{fig:DSF}. 
+%
+%\begin{figure}[h]
+%	\centering 
+%	\includegraphics[width=1\columnwidth ]{ChapterIntro/Figures/USEF_DSF.png}
+%	   %\vspace*{-8cm}
+%		\caption{Products and services available from the demand-side. Extracted from \cite{USEFFoundation2015a}}  
+%		\label{fig:DSF}
+%\end{figure}
 
 
 \section{Sustainability of smart grids and DERs}
@@ -229,18 +233,19 @@ A conceptual overview of the different objectives outlined above is shown in Fig
 \section{Thesis related work and activities}
 This section provides a summary of the work and the relevant activities that the author has participated in during the developlment of the thesis presented in this manuscpript. 
  	
-Doctoral activities started in June 2017 with the collaboration on behalf of the EMPOWER \textit{Local electricity retail markets for prosumer smart grid power services } Project (Grant Agreement No. 646476). This work consisted on a review of the current state of the art in terms of Life Cycle Assessment Methodology in the field of smart grids, the understanding of how this methodology can be implemented in power systems and renewable energy technologies and the assessment of the environmental impact of the pilot-sites implemented throughout the project. This research resulted in a presentation in the General Assembly of the H2020 Project [P-C1] and the technical report [TR-2]. The research on the environmental assessment of ICT and Smart grids continued in the H2020 Project INVADE \textit{Integrated electric vehicles and batteries to empower distributed and centralised storage in distribution grids} (Grant Agreement No. 731148), in years  2018 and 2019, with the assessment of the environmental impact of electricity generation and the possibility of including flexibility to lower the environmental impact of electricity production in the INVADE pilot-sites. This research was performed in collaboration with the Finnish research center VTT, NTNU, Elaad and eSmart resulted in the journal publication [J1], a conference proceeding [C2], and technical reports [TR3], [TR5]. Dissemination events for the exploitation of the results took place in years 2019 and 2020, [P-C5] and [P-C11]. 
+Doctoral activities started in June 2017 with the collaboration on behalf of the EMPOWER \textit{Local electricity retail markets for prosumer smart grid power services } Project (Grant Agreement No. 646476). This work consisted on a review of the current state of the art in terms of Life Cycle Assessment Methodology in the field of smart grids, the understanding of how this methodology can be implemented in power systems and renewable energy technologies and the assessment of the environmental impact of the pilot-sites implemented throughout the project. This research resulted in a presentation in the General Assembly of the H2020 Project [P1] and the technical report [R2]. The research on the environmental assessment of ICT and Smart grids continued in the H2020 Project INVADE \textit{Integrated electric vehicles and batteries to empower distributed and centralised storage in distribution grids} (Grant Agreement No. 731148), in years  2018 and 2019, with the assessment of the environmental impact of electricity generation and the possibility of including flexibility to lower the environmental impact of electricity production in the INVADE pilot-sites. This research was performed in collaboration with the Finnish research center VTT, NTNU, Elaad and eSmart resulted in the journal publication [J1], a conference proceeding [C2], and technical reports [R3], [R5]. Dissemination events for the exploitation of the results took place in years 2019 and 2020, [P5] and [P11]. 
 
-Since the main objective of the thesis is how new local markets and new service can help the deployment of smart grids, a thorough review of the state-of-the-art on local electricity market was done as a starting point of the doctoral research in 2018. This research was mainly focused on describing the basics on power systems and market mechanisms, as well as a literature review on local and micro-markets. As a result of that, a technical report was developed [TR1], and two book chapters were published by Wiley ([BC1],[BC2]).  The evolution of this state-of-the-art review, combined with the collaboration with colleagues at CITCEA-UPC and other research centers and companies such as EYPESA and Smart Innovation Norway or on behalf the INVADE Project led to several outcomes covering from technical reports [TR4], journal articles [J4] adnd [J5]; conference papers [C1], [C3] and [C4]; and presentations in local and international events [P-C3] and [P-C4].  
+Since the main objective of the thesis is how new local markets and new service can help the deployment of smart grids, a thorough review of the state-of-the-art on local electricity market was done as a starting point of the doctoral research in 2018. This research was mainly focused on describing the basics on power systems and market mechanisms, as well as a literature review on local and micro-markets. As a result of that, a technical report was developed [R1], and two book chapters were published by Wiley ([B1],[B2]).  The evolution of this state-of-the-art review, combined with the collaboration with colleagues at CITCEA-UPC and other research centers and companies such as EYPESA and Smart Innovation Norway or on behalf the INVADE Project led to several outcomes covering from technical reports [T4], journal articles [J4] adnd [J5]; conference papers [C1], [C3] and [C4]; and presentations in local and international events [P3] and [P4].  
 
-The evolution and implementation of smart grids based on data-driven approaches has been of interest of the author, and combined with collaboration with other universities as KU Leuven, DTU and KTH Stockholm on behalf of EIT InnoEnergy, resulted in [P-C6], [P-C10] and [P-C14]. 
+The evolution and implementation of smart grids based on data-driven approaches has been of interest of the author, and combined with collaboration with other universities as KU Leuven, DTU and KTH Stockholm on behalf of EIT InnoEnergy, resulted in [P6], [P10] and [P14]. 
 
 %Escriure BD4OPEM aquí 
-Year 2020 started with the kick-off the BD4OPEM H2020 Project \textit{Big Data for Open Innovation Energy Marketplace} (Grant Agreement No. 872525), with the participation of 12 partners from 8 different countries, and 5 pilot-sites. The research consisted on the development of algorithms for flexibility forecast and distribution network congestion management based on optimization techniques and flexibility provision. This work was combined with the Technical University of Denmark (DTU) under the external stay of the author, and in collaboration with other research centers and companies such as JSI and ICOM. This work resulted in a technical report [TR6], two dissemination events [PC-12], [PC-15], and three journal publications under review or preparation [J2], [J3] and [J7].  
+Year 2020 started with the kick-off the BD4OPEM H2020 Project \textit{Big Data for Open Innovation Energy Marketplace} (Grant Agreement No. 872525), with the participation of 12 partners from 8 different countries, and 5 pilot-sites. The research consisted on the development of algorithms for flexibility forecast and distribution network congestion management based on optimization techniques and flexibility provision. This work was combined with the Technical University of Denmark (DTU) under the external stay of the author, and in collaboration with other research centers and companies such as JSI and ICOM. This work resulted in a technical report [R6], two dissemination events [P12], [P15], and three journal publications under review or preparation [J2], [J3] and [J7].  
 
-The international placement took place from March 2020 until April 2021, at the Electricity Markets (ELMA), DTU, Kongens Lyngby, Denmark. The topic was aggregated flexibility forecast based on probabilistic forecast techniques. It resulted in a journal paper [J2], and the database publication [DB1]. During this period, the author has collaborated with KU Leuven in the core of the Data Science Working Group, with the aim of improving the knowledge of undergraduate students in the field of data science in the energy sector. This resulted in the publications [J6] and [J8]. 
+The international placement took place from March 2020 until April 2021, at the Electricity Markets (ELMA), DTU, Kongens Lyngby, Denmark. The topic was aggregated flexibility forecast based on probabilistic forecast techniques. It resulted in a journal paper [J2], and the database publication [D1]. During this period, the author has collaborated with KU Leuven in the core of the Data Science Working Group, with the aim of improving the knowledge of undergraduate students in the field of data science in the energy sector. This resulted in the publications [J6] and [J8]. 
 
-Since the author and the research center where the thesis was involved has a flair for knowledge transfer and higher and professional education, the author has collaborated with other entities and other researchers, resulting in the respective outcomes, which are not included in the thesis manuscript. This is the case of the collaboration with EIT InnoEnergy. This European institution has as a main core activity the connection and collaboration between industry, universities and research centers with the objective of reducing the gap betwen research and the market. In years 2018, 2019 and 2020 the author has been the lead teacher of the course on Control and Automation for the Efficient Use of Energy, developing the open-source learning material and developing a course based on project-based learning and flipped classroom approach. This resulted in several activities, such as [E1] being the learning material, and dissemination of the results in different local conferences [P-C2], [P-C7] and [P-C8]. The project Learning Analytics started in September 2018, with the objective of monitoring students' performance to assess their engagement in the course, in collaboration with the Data Collection company DataLemon. This collaboration led to dissemination event [P-C9] and [P-C13], as well as an ongoing journal paper to be submitted in the near future. Other collaborations within the Electrical Engineering Department led to two outcomes: a MOOC course for wearable technology [E2], and a publication in a local journal [C5]. 
+%Since the author and the research center where the thesis was involved has a flair for knowledge transfer and higher and professional education, t
+The author has collaborated with other entities and other researchers, resulting in the respective outcomes, which are not included in the thesis manuscript. This is the case of the collaboration with EIT InnoEnergy, whose core activity is the connection and cooperation between industry, universities, and research centers to reduce the gap between research and the market. In years 2018, 2019 and 2020 the author has been the lead teacher of the course on Control and Automation for the Efficient Use of Energy, developing the open-source learning material, and developing a course based on project-based learning and flipped classroom approach. This resulted in [E1] learning material, and dissemination of the results in different local conferences [P2], [P7] and [P8]. The project Learning Analytics started in September 2018, with the objective of monitoring students' performance to assess their engagement in the course, in collaboration with the Data Collection company DataLemon. This collaboration led to dissemination event [P9] and [P13], as well as an ongoing journal paper to be submitted in the near future. Other collaborations within the Electrical Engineering Department led to two outcomes: a MOOC course for wearable technology [E2], and a publication in a local journal [C5]. 
 
 
 %\newpage 

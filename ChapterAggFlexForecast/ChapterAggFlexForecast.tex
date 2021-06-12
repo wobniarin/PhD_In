@@ -1,9 +1,9 @@
 %\chapter{Aggregated flexibility forecast within aggregators flexibility portfolios}
-\chapter{Demand-side flexibility forecast: An aggregated approach for aggregators}
+\chapter{Demand-side flexibility forecast for aggregators}
 \label{ChapterAggFlexForecast}
 \chaptermark{Aggregated Flexibility Forecast}
 
-\section{Introduction}
+\section{Objectives and contributions}
 % Que es la flexibilitat i com ens podem beneficiar d'ella
 Flexibility in smart grids has become a key element to enhance the integration of renewable energy sources  that  are  variable and  with some  natural  uncertainty  associated  to  them \cite{Ulbig2015, Goutte2019}. Furthermore, the increase in electricity consumption in specific time periods can lead to network operation problems such as congestions \cite{CEDEC2018, LaurA.Nieto-MartinJ.BunnD.Vicente-Pastor2019}. One way of activating flexibility is by Demand-Side Management (DSM), incentivizing the consumption through electricity price signals, allowing a paradigm shift where consumption follows generation partially \cite{Strbac2008}. Another way is by aggregators providing flexibility services to the Distribution System Operator (DSO) \cite{MUNNE-COLLADO2019}, the Balance Responsible Party (BRP) or retailers under a Local Flexibility Market (LFM) \cite{Olivella-Rosell2018, Heinrich2020}. Thus, aggregators must directly control the end-user's assets to increase or decrease the electricity consumption at specific time periods. For this purpose, aggregators should know the potential flexibility out of the total load. 
 The contributions of this chapter are (i) the development of a framework based on hierarchical modeling to characterize and predict the aggregated flexibility within a flexibility portfolio; (ii) a probabilistic forecast formulation of the aggregated flexibility based on Online Learning, using Kernel Density Estimation and Recursive Maximum Likelihood; (iii) a flexibility forecast approach that does not require network topology information; and (iv) a flexibility estimation that is applicable to different flexible assets, and does not require specific information of them. 
@@ -30,9 +30,9 @@ Kernel Density Estimation (KDE) methods are commonly used for obtaining predicti
 This chapter presents a methodology for estimating the flexibility by means of Online KDE, employing Gaussian kernels, which are parameterized with a mean-variance model. Accordingly, the relevant parameters of the kernels are tracked with a Recursive Maximum Likelihood estimation method. Recursivity and on-line learning approaches outlined here allow the time-adaptivity of the model, and potential application to real test cases. This methodology provides the aggregator with a tool to estimate the flexibility availability probability, as well as its conditional value, in a short period of time, for operation purposes, without the need of computing HEMS optimization algorithms for each household. Furthermore, in this approach no particular forecasting models for each asset type are needed, since the estimation is done in an aggregated level, only using metering and submetering data, assuming that the flexibility signal is known. An additional advantage is that asset-specific data such as driving patterns or battery state of charge, among others, are not needed, which are usually not available. This is because the presented methodology is generalist and asset-independent. Hence, this approach is useful for decision-making objectives in an aggregated approach as a first stage of the flexibility provision.
 
 
-\section{Aggregated Flexibility Estimation}\label{Sect:ProblemStatement}
+\section{Aggregated flexibility estimation}\label{Sect:ProblemStatement}
 
-\subsection{Problem Statement} \label{sec:problemstatement}
+\subsection{Problem statement} \label{sec:problemstatement}
 By considering all the previous definitions in Chapter 3, and the main objective of this study, flexibility is defined and formulated as (i) aggregated, by jointly considering a group or a portfolio of users represented by an aggregator, with no available information neither in terms of the electrical network layout nor the location of the flexible assets; (ii) consumption approach, since flexibility is modeled considering only those flexible sources that consume energy, being prosumption out of the scope at this stage; (iii) short-term horizon, since flexibility will be forecast in a day-ahead basis, in time periods that may range from 15 minutes to 1 hour; and lastly (iv) system-oriented, being the output of this algorithm the energy value, defined as positive and in energy units [kWh], for operation and short-term decision-making purposes for DSOs and BRPs, with no associated price or cost. 
 
 \subsection{Approaches for Flexibility Aggregation}
@@ -52,7 +52,7 @@ The second stage considers the aggregated flexibility from the bottom-up approac
 \label{fig:top_down}
 \end{figure}
 
-\section{Flexibility Modeling} \label{Sect:FlexModeling}
+\section{Flexibility modeling} \label{Sect:FlexModeling}
 \subsection{Dealing with time series data}
 The approach to use in forecasting depends on the time horizon, the factors and related inputs that determine the current outcome, types of visible and "not visible" data patterns, and many more. There are several approaches for forecasting time series data, such as the most basic used for developing a benchmark, from as using the most recent observation as a forecast, also know as na\"{i}ve methods, to the more complex ones such probabilistic forecasts, neural networks or reinforcement learning \cite{Hyndman2021}. This chapter covers the five main steps in a forecasting project, as follows: 
 \begin{enumerate}
@@ -78,7 +78,7 @@ Time series data have several characteristics that make their analysis different
 
 An important part of the analysis of a time series is the choice of a suitable probability model for the data. The most common approach to deal with time series data is the implementation of autoregressive models (ARIMA/SARIMA). However, tuning the hyperparameters of this type of models can be a challenging task resulting in an algorithm that does not perform better than the benchmark \cite{nonlinearARIMA}, since ARIMA models assume linear functions of past data; and sometimes the time series data under study present non-linearities of one of the decomposed signals. Futhermore, time series decomposition to assume stationarity is in the case of the energy sector not feasible, making it more challenging to forecast time series model under auto-regressive models. and In the recent years, the most used approaches for forecasting time series data have been boosting algorithms and probabilistic forecast approaches \cite{Robinzonov2010, Barrow2016, Taieb2017, Guen2020}.  
 
-\subsection{Benchmarks Models}
+\subsection{Benchmarks models}
 
 The benchmark models are a helpful tool for setting the baseline of the performance of a forecast algorithm. This section covers the definition of two different benchmarks for the aggregated flexibility forecast task, the climatology model and the single exponential smoothing model. Algorithm \ref{alg:climatology} presents the first benchmark developed for forecasting the flexibility available within an aggregator's portfolio. This model is based in the so-called na\"{i}ve, but evolved to consider the monthly seasonality in each month of the year. In this case, there is an average model created in each month of the year, represented by $m \in M$ and at each time period $t \in T$. As an example, the flexibility value for the 2nd of February at 10:00 consider all the previous flexibility values in February at 10:00, outlined as $y_{n|m,t}$,  providing the value $\hat{y}_{t+1|t}$. The set $N$ represents all the data points that belong to the same time period $t$ and month $m$, $n \in N | n \in  T \wedge M$. 
 
@@ -111,7 +111,7 @@ In the case of single exponential smoothing (SES), forecasts are calculated usin
 \end{algorithm}
 
 
-\subsection{Hierarchical Model Formulation}
+\subsection{Hierarchical model formulation}
 The hierarchical model shown in Figure \ref{fig:top_down} has two different levels, being level~1 the characterization of whether there is flexibility available or not, represented by the random variable $X$, and level 2 the value of the available flexibility given the prior condition of availability, defined as a random variable $Y$. This yields
 \begin{subequations}
 \begin{align} 
@@ -128,7 +128,7 @@ In the first level of the hierarchy, the output value is either 0 or 1, followin
 \end{equation}
 where the expected available flexibility at a specific time period is a result of multiplying the probability that flexibility is available (Level 1), times the expected value of flexibility given that the first condition is met (Level 2). The Root Mean Squared Error (RMSE) and the Mean Average Error (MAE) are chosen here as scores to evaluate the performance of the final outcome. The performance scores are calculated  at the end of the validation set, based on \cite{Hyndman2021}.
 
-\subsection{Level 1:Bernoulli Modeling for Flexibility Characterization}\label{sect:Level1}
+\subsection{Level 1: Bernoulli modeling for flexibility characterization}\label{sect:Level1}
 Given the overview of the hierarchy, the first level is modeled according to a Bernoulli distribution $X \sim \mathcal{B}(p)$. This first level encodes the aggregated flexibility value into a binary signal, given a predefined threshold according to the characteristics of the flexible assets portfolio. Then, the random variable $X$  of the model can take a binary output either $k=0$ or $k=1$, with the associated probability $p$.
 
 \begin{equation}
@@ -159,7 +159,7 @@ In order to evaluate the accuracy of a probabilistic prediction based on binary 
 
 
 where $N$ is the total number of observations under the case study, $\bar{p}_{t}$ is the probability of the outcome to be 1, obtained at time $t$, and $o_{t}$ the binary outcome at time $t$.
-\subsection{Level 2: Online KDE for Flexibility Value Forecast}
+\subsection{Level 2: Online KDE for flexibility value forecast}
 % How we describe density 
 Given that flexibility is available from the previous level of the hierarchy, the problem is now outlined by using a KDE, where a Gaussian Mixture Model (GMM) \cite{Silverman1986} of the observed data point is produced. Therefore, it is updated and adapted online based on new data samples fed into the model, similar to the approach outlined in \cite{Kristan2010,Pinson2012}. Formally, KDEs can be defined as
 \begin{equation}
@@ -424,7 +424,7 @@ Accordingly, the LS value can be averaged over the evaluation set, given by
 where $N_{CV}$ represents the number of data points considered under the validation set.
 The optimal value of the forgetting factor $\lambda$ is chosen as that which minimizes the log-likelihood score  over the validation set. 
 
-\section{Case Study} \label{Sect:CaseStudy}
+\section{Case study} \label{Sect:CaseStudy}
 The data used in this paper have been obtained from the Dataport Pecan Street Inc. dataset, collected from real households in Austin, Texas, the USA \cite{PecanStreetInc}. This dataset contains appliance-level energy consumption data from 25 households during one year of metering and sub-metering in 2018, providing the dataset in different granularity. Table \ref{table:dataport_austin} shows an overview of the dataset used for the model.
 
 
@@ -470,11 +470,13 @@ Figure \ref{fig:agg_load} displays a sample of the aggregated total, flexible an
 
 Open-access datasets with real-world data containing metering and submetering measurements are not generally accessible. As a result, the available dataset has some limitations such as that there are not any users with SH. This can be understood as a limitation of the model but also as a representation of a real dataset, where not all end-users have flexible assets, and where SH are not commonly used.  Likewise, having only one year of data and a portfolio of 25 users can lead to shortcomings in the flexibility modeling. PV generation and ESS are not defined as flexible loads but as flexible prosumption, and are not considered into the flexibility forecast at this stage of the research, because these assets are defined as generation or generation/consumption signals. Hence, it can lead to a misunderstanding of the signal itself based on the definition of flexibility considered in Section \ref{Sect:ProblemStatement}. 
 
+%\subsection{Data availability}
+%The case study related data cannot be shared due to license restrictions. Nevertheless, the code and a different data sample regarding the Online Recursive Maximum Likelihood Kernel Density Estimation approach implemented in this chapter can be found at \url{http://dx.doi.org/10.17632/t92mmtm4gs.1}, hosted at Mendeley Data \cite{Munne-collado_dataset} for the sake of reproducibility of the results.
 
-\section{Results} \label{sect:Results} 
+\section{Analysis of results} \label{sect:Results} 
 This section presents the results obtained after applying the hierarchical model described in Section \ref{Sect:FlexModeling} to the case study presented in Section \ref{Sect:CaseStudy}. Section \ref{Sect:ResultsLevel1} corresponds to the output of the first level of the hierarchy: the flexibility availability forecast. Sections \ref{Sect:ResultsLevel2SingleModel} and \ref{Sect:ResultsLevel224hModel} show the output of the second level of the hierarchy: the flexibility value estimation through two different approaches. In Section \ref{Sect:ResultsLevel2SingleModel} a Single Model is created at the first instant and updated for each time period of the time horizon considered. In Section \ref{Sect:ResultsLevel224hModel}, a model is created for each time period of the day, Hourly Model, and updated daily. In section \ref{Sect:ResultsFinalOutcome}, the first and second level of the hierarchy are combined to obtain the expected flexibility value. All data preparation, processing and model simulations were carried out using a desktop unit, with an Intel Core i7-10510U quad-core CPU @  1.8-4.9~GHz with 16 GB RAM.
 
-\subsection{Flexibility Availability Forecast: Hierarchy Level~1} \label{Sect:ResultsLevel1}
+\subsection{Flexibility availability forecast: Hierarchy level~1} \label{Sect:ResultsLevel1}
 In the first level of the hierarchy, the defined threshold for encoding the dataset has been $0.20$ kWh, resulting in a dataset with one year of data encoded within binary outputs 0-1. Based on that, the climatology model has been computed and evaluated. 
 Figure \ref{fig:LEVEL1-P_YEAR} shows the probability value of having available flexibility, represented by the binary output $k=1$, for a given time period $t$ under the first level of the hierarchical model. For the sake of simplicity, we have stratified the probability value based on seasonality. Results show that, regardless of the season, afternoon and evening time periods from 14:00 until 21:00 is where the greatest probability of available flexibility is provided, following similar patterns. Despite this, it can also be seen that there are differences in specific time periods and seasons, being fall the season with the lowest flexibility availability until 6:00 in the morning. At the same time, fall is the season where the highest flexibility availability is seen in the afternoon, and at the same time achieving greater values earlier in the afternoon, compared to the other seasons.   
 
@@ -518,7 +520,7 @@ The Brier Score (BS) is formulated as $\in \mathbb{R}^+ [0,1]$, assuming 0 as th
 }
 \end{table}
 
-\subsection{Flexibility Value Estimation: Hierarchy Level 2 - Adaptive Bandwidth estimation}\label{Sect:ResultsLevel2AdaptiveBandwidth}
+\subsection{Flexibility value estimation: Hierarchy level 2 - Adaptive bandwidth estimation}\label{Sect:ResultsLevel2AdaptiveBandwidth}
 
 As a starting point for the development of a probabilistic forecast model for the second level of the hierarchy, the formulation of the kernel density estimation model based on the adaptive bandwitdh estimation is applied to the study case.
 Fig. \ref{fig:KDE_EVOLUTION1} shows a representation of the online KDE algorithm for a specific time period. This visualisation aims to highlight the performance of the algorithm as new data are fed into the model, calculating a KDE for each new data point; and updating the actual distribution based on the obtained parameters $\widetilde{h}$ and $\lambda$. 
@@ -613,7 +615,7 @@ The approximated distribution, obtained with the online KDE, follows the histogr
 %\end{figure}
 
 
-\subsection{Flexibility Value Estimation: Hierarchy Level 2 - Online RML-KDE performance}\label{Sect:ResultRMLalgorithm}
+\subsection{Flexibility value estimation: Hierarchy level 2 - Online RML-KDE performance}\label{Sect:ResultRMLalgorithm}
 
 Prior to the visualization and explanation of the results obtained by implementing the online RML-KDE formulation to the case study, this section aims to validate the presented mathematical formulation presented in Algorithm \ref{alg:RML_algorithm} under a normal distribution with parameters $\mu = 0$ and $\sigma = 1$, and 1000000 random samples. As shown in Figure \ref{fig:rml_evolution} this online learning algorithm updates the resulting distribution.  More specifically, Figure \ref{fig:it50} outlines the performance of the algorithm in the 50$^{th}$ iteration and Figure \ref{fig:it19500} under iteration 19500. It can be seen that the first iteration starts with a uniform distribution, and that by iteration 50 the resulting distribution starts to be shaped. Since the resulting distribution needs a significant amount of iterations to be shaped and provide accurate forecast, the resulting algorithm presents a warm-start to initialize the model before computing the evaluation score.
 
@@ -809,7 +811,7 @@ As a conclusion for the calculation of the conditional density, the choice betwe
 }
 \end{table}
 
-\subsection{Final Outcome: Combination of Level 1 and Level 2}  \label{Sect:ResultsFinalOutcome} 
+\subsection{Aggregated flexibility forecast: Combination of level 1 and level 2}  \label{Sect:ResultsFinalOutcome} 
 The final outcome of this methodology is the expected flexibility value as a combination of the two-level hierarchical model, as follows
 
 \begin{equation}
@@ -945,10 +947,8 @@ Besides, the final flexibility outcome provides a better performance when combin
 }
 \end{table}
 
-\section{Conclusions} \label{Sect:Conclusions}
+\section{Chapter remarks} \label{Sect:Conclusions}
 This paper proposes a new aggregated flexibility forecast model based on a hierarchical formulation and an online adaptive bandwidth Kernel Density Estimation approach based on Recursive Maximum Likelihood. Probabilistic densities of flexibility estimation have been explicitly formulated under this approach. Results based on a real dataset case study show that it is possible to approximate and track an unknown distribution under an online framework. This approach provides a fast tool for obtaining a probabilistic forecast of the flexibility availability and its value. Furthermore, by implementing a probabilistic forecast, one can manage the uncertainty given by the nature of the demand-side flexible assets. 
 It quantifies the flexibility available within the portfolio without the need of creating a specific model for each asset-type, while at the same time avoiding the storage of a large amount of user data, which is sometimes difficult to obtain due to data privacy or third-parties contracts. 
 This model estimates the aggregated available flexibility with low computation resources and input data compared to individual approaches as HEMS optimization in terms of computational burdens. It uses aggregated data, and the number of users or assets does not affect the flexibility forecast algorithm computation time. However, when this approach for estimating flexibility is to be implemented, it will require scheduling the specific assets needed to activate this flexibility, allowing this to be done at a later stage and using optimization techniques at household level. To further this research, the implementation of this novel formulation should be based not only on flexible consumption but also considering generation from PV and prosumption from ESS, eventually increasing the aggregated flexibility that can be provided. Datasets including different and a larger amount of flexible assets could be helpful to replicate and scale up the approach presented in this paper. Further approaches such as regularization or roughness penalization applied to splines could be included in the model.
 
-\section{Data Availability}
-The case study related data cannot be shared due to license restrictions. Nevertheless, the code and a different data sample regarding the Online Recursive Maximum Likelihood Kernel Density Estimation approach implemented in this chapter can be found at \url{http://dx.doi.org/10.17632/t92mmtm4gs.1}, hosted at Mendeley Data \cite{Munne-collado_dataset} for the sake of reproducibility of the results.

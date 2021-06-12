@@ -1,42 +1,68 @@
 
-\chapter{Conclusions}
+\chapter{Conclusion and future work}
 \label{conclus}
     %Introduction to the general conclusions  
 	The increase of the electricity consumption in specific time periods, combined with the rise of DERs in distribution networks, has made power systems engage in innovation and become active agents throughout the entire supply chain. Distribution networks develop active grid management activities to mitigate and avoid congestion, and activating demand-side flexibility can be one of them. 
-    This thesis gathers several studies related to flexibility services, and each chapter outlines specific conclusions based on the results. Despite this, the present chapter exposes the main findings of the thesis, summarizes the main contributions, and draws further research to resolve the remaining questions. 
+   This thesis addressed five main research questions related to the development of flexibiliy services for distribution network operators. This thesis gathers several studies related to flexibility services, and each chapter outlines specific remarks based on the results. The present chapter exposes the main findings of the thesis, summarizes the main contributions, and draws further research to resolve the remaining questions. 
 
 \section{General conclusions}
 The importance of lowering the carbon footprint of the electricity production and engaging end-users to change their electricity consumption patterns while keeping the system reliability and the quality and security of supply has provided a revolution in the way distribution networks were managed until now. The flexibility concept has unlocked new business models and products for all the power systems agents, from the generation to the demand-side.
 
-The work presented in this manuscript aims to provide some light on the flexibility concept, covering different points in the supply chain, such as the role in the already existing as well as the new energy markets, the definition of flexibility, the environmental impact of the current electricity production and the role of flexibility there, as well as how this flexibility can be forecast and how distribution network operators can quantify the flexibility needed to mitigate congestions in their networks, providing an answer to the main research question of this work. 
+%The work presented in this manuscript aims to provide some light on the flexibility concept, covering different points in the supply chain, such as the role in the already existing as well as the new energy markets, the definition of flexibility, the environmental impact of the current electricity production and the role of flexibility there, as well as how this flexibility can be forecast and how distribution network operators can quantify the flexibility needed to mitigate congestions in their networks, providing an answer to the main research question of this work. 
+
+\begin{tcolorbox}
+\textit{(i)} What are the possible market schemes to integrate DERs and demand-side management, while at the same time ensuring that network operators can benefit from these services?  
+\end{tcolorbox}
 
 Flexibility has lacked for many years of a clear definition of how it can be integrated into a local energy market, connecting flexibility providers and flexibility users. The initial research question $(i)$, wanted to outline and analyze all the possible market schemes for energy and flexibility. The conducted research presented how these markets have been defined in the literature, how these services have been implemented, and the market mechanisms for it. The study provides a clear definition based on all the previous literature for the most important concepts like local market, energy, flexibility, and all the market agents present in this chain. One of the most important agents for the success of flexibility in distribution networks is the aggregator. The aggregator has the role in managing the demand-side flexibility and providing this flexibility to the final client.
 
+\begin{tcolorbox}
+
+\textit{(ii)} How can flexibility be defined and modeled, based on the final users providing and using this flexibility, as well as the time horizon purposes? 
+
+\end{tcolorbox}
 Once the market structure is clear, it is essential to have a clear definition for flexibility, not only as a general concept but also considering important aspects for modeling and calculating the available flexibility. This work has been done under research question $(ii)$. There is still an unclear definition for flexibility and how to model it, and the work developed in this case provided a new framework for modeling flexibility, based on the end-user providing flexibility, the final client using this flexibility, the time horizon when this flexibility should be provided and the approach. There are two different approaches found when defining flexibility: the market-oriented approach and the system-oriented approach. The first adds a price to the flexibility signal, making it suitable for those scenarios where flexibility is defined as a relationship between demand and price, considering the price and demand elasticity and controlling the demand-side flexibility based on price. On the other hand, it is highlighted that the system-oriented approach does not include the price in the flexibility signal. Still, there is a cost of the flexibility activation, which has to be agreed upon beforehand between the two parties participating in the flexibility supply. 
+
+\begin{tcolorbox}
+\textit{(iii)} How can flexibility be forecast, from the aggregator point of view, with very limited amount of data available, in a fast and reliable approach so as to know in advance the flexibility available in the portfolio, in order to provide flexibility to DSOs for operation purposes?
+\end{tcolorbox}
 
 The latter flexibility definition is the one found most suitable for providing flexibility to the DSO. Also, it becomes a more realistic approach due to the lack of control groups where demand changes can be monitored based on price signals. This leads to research question $(iii)$, where the main objective was to develop a framework for forecasting flexibility based on an aggregator's portfolio. The main conclusions drawn from this research question in general terms are that even though there is the feeling that lots of data are being collected, there is still a lack of standardization of the data storage coming from smart meters, making it more difficult to handle and provide useful solutions. On top of that, there is still an unclear answer to how end-users data can be monetized, and as a result, there is a lack of shared data in the energy field, difficulting the implementation of data-driven approaches for demand-side flexibility. Furthermore, there is a controversial issue that has arisen when answering this research question, that is the importance of respecting the privacy of the end-user data and ensuring that data-driven companies that base their business models in the data collected can still participate in open-data initiatives and share their data sources while respecting their intellectual property. Hence, aggregators and DSOs are different entities with different business models, and as a fact, there is not full cooperation in terms of data sharing. Besides, the current EU regulation states that DSOs and aggregators must be different entities. This is why the research performed under this research question aimed to provide a framework for forecasting flexibility in an aggregated way, ensuring that all the previous concerns are considered. Furthermore, this approach is not sensible to the portfolio size since all the submetering data covering the flexibility signals is aggregated before calculating the forecast, being more suitable than aggregating single-users flexibility forecast afterward. This tool provides aggregators with a solution for knowing with a limited amount of data and, in a short time, the amount of flexibility available within their portfolio for operation purposes. 
 
-The flexibility forecast provides the answer to research question $(iii)$, computing the flexibility the aggregator has available in the portfolio. However, this flexibility provides a congestion management solution to the distribution network operator, instead of reinforcing the network. This relates to research question $(iv)$. The objective is to provide a solution for DSOs to calculate their flexibility request cost-effectively in a specific location of the network, ensuring that the power flow equations are respected. The main conclusion drawn is that it is possible to provide DSOs with a tool for calculating the operational flexibility needed to avoid or mitigate congestions in a MV network. However, it is clear that there is still a lack of knowledge of the overall network costs to define a cost model for the DSO flexibility. This is still a pending question, being important for the success of the flexibility provision to DSOs. 
+%The flexibility forecast provides the answer to research question $(iii)$, computing the flexibility the aggregator has available in the portfolio. However, this flexibility provides a congestion management solution to the distribution network operator, instead of reinforcing the network. This relates to research question $(iv)$. 
 
-This research, even though it is focused on the flexibility interaction between end-users, aggregators, and DSOs, this entire scenario should help towards the objective of the energy transition and the Paris Agreement. This is why there is a research question $(v)$, focused on the sustainability of flexibility. To do so, the current electricity production is environmentally assessed by using one of the most known and used methodologies, the life-cycle assessment. However, traditional LCA approaches consider the average value of electricity production, not being able to cope and compute the environmental impact during peak hours, being the time periods where flexibility has its most significant potential. In this case, a new methodology is proposed to calculate the environmental impacts in this time-periods. One of the conclusions drawn is that current CO$_2$ monitoring systems present in the dashboards of the transmission system operators of the wholesale market operator for renewable energy sources only compute their value based on statistical analysis, concluding that all kind of renewable energy sources and distributed energy resources have an environmental impact of 0 kg CO$_2$/kWh. At the same time, the LCA approach proves that this is not true and that when assessing the benefits of DERs, the entire life-cycle should be considered. Furthermore, the current installed capacity is of great importance since the integration of DERs and RES sources could increase the environmental impacts on such cases. As a general conclusion, it is not only a matter of integrating innovative solutions for developing smart grids but also assessing the benefits and the impacts of such technologies to ensure the sustainability goals are respected. 
+\begin{tcolorbox}
+\textit{(iv)} How this flexibility can help DSOs to mitigate or avoid congestions in MV networks, and how can this flexibility request be calculated so as to be economically better than investing in network expansion or hosting capacity?
+\end{tcolorbox}
+
+The objective is to provide a solution for DSOs to calculate their flexibility request cost-effectively in a specific location of the network, ensuring that the power flow equations are respected. The main conclusion drawn is that it is possible to provide DSOs with a tool for calculating the operational flexibility needed to avoid or mitigate congestions in a MV network. However, it is clear that there is still a lack of knowledge of the overall network costs to define a cost model for the DSO flexibility. This is still a pending question, being important for the success of the flexibility provision to DSOs.
+
+This research, even though it is focused on the flexibility interaction between end-users, aggregators, and DSOs, this entire scenario should help towards the objective of the energy transition and the Paris Agreement. This is why there is a research question $(v)$, focused on the sustainability of flexibility.
+
+
+\begin{tcolorbox}
+\textit{(v)} How this scenario of flexibility provision can be environmentally assessed, so as to know if these approaches can be included in each and every country? Should the current installed capacity and generation portfolio be taken into account before the deployment of flexibility services in smart grids?
+\end{tcolorbox}
+
+ To do so, the current electricity production is environmentally assessed by using one of the most known and used methodologies, the life-cycle assessment. However, traditional LCA approaches consider the average value of electricity production, not being able to cope and compute the environmental impact during peak hours, being the time periods where flexibility has its most significant potential. In this case, a new methodology is proposed to calculate the environmental impacts in this time-periods. One of the conclusions drawn is that current CO$_2$ monitoring systems present in the dashboards of the transmission system operators of the wholesale market operator for renewable energy sources only compute their value based on statistical analysis, concluding that all kind of renewable energy sources and distributed energy resources have an environmental impact of 0 kg CO$_2$/kWh. At the same time, the LCA approach proves that this is not true and that when assessing the benefits of DERs, the entire life-cycle should be considered. Furthermore, the current installed capacity is of great importance since the integration of DERs and RES sources could increase the environmental impacts on such cases. As a general conclusion, it is not only a matter of integrating innovative solutions for developing smart grids but also assessing the benefits and the impacts of such technologies to ensure the sustainability goals are respected. 
 
 In summary, the integration of flexibility into the current power system is already a fact, being technically, environmentally, and economically possible, and a business opportunity for many of the agents in the power system. There are strong interactions between all the agents, the market, and the environment that must be considered in all steps of the flexibility provision supply chain to succeed in the roadmap towards a low carbon power system. 
      
-\section{Contributions}
+\section{Overview of contributions}
 The contributions of this PhD research are focused on the ecosystem that covers the flexibility supply chain. The main actors involved are the demand-side as the flexibility provider, the aggregator as the flexibility third-party manager, the DSO as the flexibility end-user, the electricity market that has to allocate this new service, and the environment since flexibility should be a tool for achieving the energy transition objectives for 2030 and 2050. The major contributions of this thesis are summarized as follows:  
 \begin{itemize}
-\item Chapter 2 \textit{Local market services and products for active network management:} 
-	\begin{enumerate}
-		\item Development of a comprehensive reference guide on the overall local energy markets for energy and flexibility.
-		\item Definition of a common baseline for understanding the differences between the surrounding concepts around local energy markets such as micro markets, energy provision, flexibility provision, centralised approaches and peer-to-peer market structures.  
-	\end{enumerate}
+%\item Chapter 2 \textit{Local market services and products for active network management:} 
+%	\begin{enumerate}
+%		\item Development of a comprehensive reference guide on the overall local energy markets for energy and flexibility.
+%		\item Definition of a common baseline for understanding the differences between the surrounding concepts around local energy markets such as micro markets, energy provision, flexibility provision, centralised approaches and peer-to-peer market structures.  
+%	\end{enumerate}
 \item Chapter 3 \textit{Framework definition and mathematical formulation of flexibility services:} 
 	\begin{enumerate}
 		\item Analysis of the current state of the art in flexibility definition in terms of approach, end-user , time horizon and final use of this flexibility. 
 		\item Analysis of the current EU guidelines on flexibility provision, activation and billing. 
 		\item Proposal of a generalised framework for defining flexibility based on the previously cited objectives. 
 	\end{enumerate}
-\item Chapter 4 \textit{Demand-side flexibility forecast. An aggregated approach for aggregators:} 
+\item Chapter 4 \textit{Demand-side flexibility forecast for aggregators:} 
 	\begin{enumerate}
 		\item Analysis of the time series structure of the flexibility signal, so as to know the main characteristics and particularities when developing forecast algorithms for time-series data. 
 		\item Analysis of the different algorithms for time-series, developing a benchmark model for flexibility forecast using the climatology model and the single exponential smoothing. 
@@ -60,10 +86,9 @@ The contributions of this PhD research are focused on the ecosystem that covers 
 		\item Analysis of the environmental impact of peak-hours electricity production in 5 different case studies, making room for the quantification of flexibility considering also the environmental impact or savings in GWP indicator units. 
 	\end{enumerate}
 \end{itemize}
-	
 
 
-\section{Future work}
+\section{Perspectives for future work}
 The presence of flexibility in the distribution network is already a reality, and at the moment, it can be considered a trend. Therefore, further research to improve the state-of-the-art forecasting techniques and optimization models for activating this flexibility for DSOs is required and will be continuously developed in the upcoming years. 
 Considering the research developed in each of the chapters of this manuscript, the potential research areas based on the accomplished achievements of the present thesis are described below: 
 
@@ -78,26 +103,26 @@ Considering the research developed in each of the chapters of this manuscript, t
 	\begin{enumerate}
 		\item Develop a flexibility model for specific flexible-assets such as EVs or Electric Water Boilers, to quantify the flexibility that can be provided considering the intrinsec nature of the asset. 
 	\end{enumerate}
-\item Chapter 4 \textit{Demand-side flexibility forecast: An aggregated approach for aggregators:} 
+\item Chapter 4 \textit{Demand-side flexibility forecast for aggregators:} 
 	\begin{enumerate}
 		\item Develop a logistic model for level 1 of the hierarchy to increase the overall performance of the algorithm. 
-		\item Test the model performance by using datasets with a larger aggregated portfolio with single flexible assets-type, to assess the generalization of the algorithm.
-		\item Implementation of the model into a business model with a control group, to develop the entire data pipeline, covering from the data collection to the re-training of the model thanks to the online learning approach.  
+%		\item Test the model performance by using datasets with a larger aggregated portfolio with single flexible assets-type, to assess the generalization of the algorithm.
+		\item Implementation of the model under a real scenario with a control group where the flexibility forecast could be evaluated under a control group.  
 		\item Improve the model by including a hierarchical top-down approach where the location of the asset could be derived. 
 	\end{enumerate}
 \item Chapter 5 \textit{Flexibility-based AC-Optimal Power Flow for active network management in distribution grids:} 
 	\begin{enumerate}
-		\item Integrate the algorithm with the already existing python libraries such as \textit{Pandapower} or \textit{Open-DSOPF} for a faster and easier network creation. 
+%		\item Integrate the algorithm with the already existing python libraries such as \textit{Pandapower} or \textit{Open-DSOPF} for a faster and easier network creation. 
 		\item Development of a cost-model for specifying the flexibility cost for DSOs, based on the network reinforcement costs. 
-		\item Improve the algorithm to reduce computational time and improve the solvability by linearizing the AC-OPF power flow constraints, and compare with other solvers. 
+		\item Improve the algorithm to reduce computational time and improve the solvability by deriving the convex relaxation of the AC-OPF power flow problem, and compare with other solvers. 
 		\item Develop a study case with the integration of the whole flexibility supply chain by means of a bilateral contract or a local flexibility market. 
-		\item Develop a flexibility costs model for the DSO, assessing the importance that activating flexibility should be cheaper that grid reinforcement. 
+%		\item Develop a flexibility costs model for the DSO, assessing the importance that activating flexibility should be cheaper that grid reinforcement. 
 	\end{enumerate}
 \item Chapter 6 \textit{The potential role of flexibility for a sustainable energy transition:} 
 	\begin{enumerate}
 		\item Develop a Consequential LCA method to compare the consequences of implementing flexibility in countries with a low peak-hour LCA environmental impact
 		\item Include the environmental impact of energy storage into the model. 
-		\item Increase number the case studies by assessing other countries with a diverse energy installed capacity portfolio such as France, Italy and Denmark. 
+%		\item Increase number the case studies by assessing other countries with a diverse energy installed capacity portfolio such as France, Italy and Denmark. 
 		\item Assess other environmental categories such as water depletion and cumulative energy demand and compare the case studies using more than one impact category. 
 	\end{enumerate}
 \end{itemize}

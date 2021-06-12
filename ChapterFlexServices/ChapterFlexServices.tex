@@ -3,7 +3,7 @@
 \label{chapterFlexibility}
 \chaptermark{Framework definition and mathematical formulation of flexibility}
 
-\section{Introduction}
+\section{Objectives and contributions}
 One of the outcomes of the previous chapter is that flexibility can be a key enabler of the energy transition, due to the possibility to create a new service for network operators, aggregators, retailers and end-users. Even though in the first years of the discussion on local markets energy was the main product to be provided, reviewed literature showed an increasing interest on enabling flexibility. However, there is still some discussion on how flexibility can be defined, modeled, forecast and priced. This chapter focuses on the definition of flexibility according to objective $(ii)$ of the PhD research, and provides a formulation which will be later used for providing this service to the distribution system operator in Chapter 4. The relationship between the thesis objective within the whole ecosystem of the research is shown in Figure \ref{fig:chapter_obj_ii}.
 
 
@@ -45,7 +45,7 @@ It is inherent to all the perspectives seen that flexibility is something that p
 
 In this case, the main objective is to provide a flexibility service to the DSO. By doing so, the DSO can implement active grid management, increasing the network hosting capacity and avoiding the grid reinforcement. At the same time, and since this flexibility will be provided by the demand-side or end-users, this will also provide the demand-side with the benefits of providing flexibility listed above. 
 
-\section{EU Guidelines and Legislation on Flexibility}
+\section{EU regulation and directives for flexibility services}
 There are several approaches to add flexibility to the grid; but this research foscuses on the demand-side flexibility. Hence, the EU legislation for demand-side flexibility is summarized and listed below. 
 
 \begin{enumerate}
@@ -80,12 +80,13 @@ From the market-oriented perspective, the most common definition of flexibility 
 
 \begin{figure}[htbp]
 	\centering
-	\includegraphics[width=0.7\columnwidth ]{ChapterFlexServices/Figures/ENVELOPES.png}
+	\includegraphics[width=0.9\columnwidth ]{ChapterFlexServices/Figures/up_down_flex.pdf}
 	   %\vspace*{-8cm}
-		\caption{Flexibility envelopes for upward and downward regulation. Source: \cite{Soares2017}}
+		\caption{Flexibility envelopes for upward and downward regulation.}
 	\label{fig:envelopes}  
 \end{figure}
 
+%Based on \cite{Soares2017}
 
 Other research has focused on determining the available flexibility from a specific type of asset. This is the case, for example, of the flexibility available in combined heat and power systems with termal energy storage in district heating presented in \cite{nuytten2013flexibility}. This paper determines the maximum flexibility available in power units from different aggregated asset, but being all of them of the same nature. Determining flexibility in an aggregated way is a good approach, since it allows the management of uncertainty by jointly considering a set of assets.  
 
@@ -93,23 +94,25 @@ Another approach for calculating the flexibility from the market perspective is 
 
 \begin{figure}[htbp]
 	\centering
-	\includegraphics[width=0.7\columnwidth ]{ChapterFlexServices/Figures/PRICE_SIGNAL.png}
+	\includegraphics[width=0.9\columnwidth ]{ChapterFlexServices/Figures/pricesignal.pdf}
 	   %\vspace*{-8cm}
-		\caption{Flexibility signal based on price-demand elasticity. Source: \cite{Gorria2013}}
+		\caption{Flexibility signal based on price-demand elasticity.}
 	\label{fig:elasticity}  
 \end{figure}
 
+% Based on \cite{Gorria2013}
 
 \subsection{System-oriented approach}
 From the system-oriented approach, flexibility has mainly been defined as a multiperiod and time-constrained vector, without an associated price to it, as described in \cite{Pinto2017}. By doing so, the main objective is to determine all the possible trajectories the household consumption can take, in order to provide this flexibility to the system operator. This is an interesting approach since it considers the uncertainty associated to demand, and it is shown in Figure \ref{fig:system}. However, the computational resources spent and time required to compute the flexibility trajectories for each household and then aggregate them for operational purposes can lead to scalability limitations. A similar approach for considering uncertainty associated to DERs is developed in \cite{Bremer2013} and \cite{SONNENSCHEIN2015}. In both cases, they determine a starting operating point and the schedule associated to it for the next time steps. Later, in each time step, the trajectory is modified according to a random factor in order to model the uncertainty associated to these flexible assets. 
 
 \begin{figure}[htbp]
 	\centering
-	\includegraphics[width=0.7\columnwidth ]{ChapterFlexServices/Figures/SYSTEM_ORIENTED.png}
+	\includegraphics[width=0.9\columnwidth ]{ChapterFlexServices/Figures/trajectories.pdf}
 	   %\vspace*{-8cm}
-		\caption{Stochastic time-constrained flexibility in a HEMS. Source: \cite{Pinto2017}}
+		\caption{Stochastic time-constrained flexibility.}
 	\label{fig:system}  
 \end{figure}
+%Based on \cite{Pinto2017}
 
 Hence, each approach has its benefits and shortcomings. It is not easy to provide a single flexibility modeling approach that works for all flexibility providers, asset types, and flexibility users. There are several differences in each of the cases. In conclusion, and to set a framework for the research developed in this PhD, the objective is to define a flexibility signal that works independently of the asset type. Consequently, flexibility is forecast as an aggregated signal, aggregating a portfolio of users and assets by considering their metering submetering data from the flexible assets but not considering the nature of each flexible asset. 
 The flexibility provider is the aggregator, and hence, the prosumers and end-users represented by it. On the other side, the flexibility user is the distribution network operator, intending to use this flexibility for operation purposes in the short-term horizon. As a result, the approach used in this research is the system-oriented approach, not considering any price or cost to it, and neither a market. With that objective in mind, flexibility is to be a short-term decision-making tool for aggregators to know how much flexibility they have in their portfolio that can be provided to the DSO through a bilateral contract. Furthermore, this aggregated flexibility will be forecast using a probabilistic forecast to consider the uncertainty and randomness associated with demand-side flexibility. 
@@ -129,7 +132,7 @@ Firstly, the aggregator collects the historical submetering data of the flexible
 \end{figure}
 
 \newpage
-\section{Conclusion}
+\section{Chapter remarks}
 
 In this chapter, the current framework about the flexibility provision in power systems has been outlined, considering all the agents that can provide flexibility, all the clients that can use this flexibility, all the schemes to exchange this service, and all the different approaches and formulations to define this service. The main focus is set on DSOs, demand-side, and aggregators. The framework presented in this chapter allows the definition of the flexibility signal that will be forecast and provided to the DSO for active grid management under operation time-horizon. This is done by the aggregator figure's participation, responsible for managing and controlling a portfolio of flexible assets with different nature. It is essential to define the flexibility signal based on the specific agents that will participate in this exchange, as well as the related data, monitoring systems, and controllability of the flexible assets, to evaluate the flexibility activated in a specific portfolio. The following chapters will use the flexibility formulation defined here for forecasting the available flexibility within an aggregator's portfolio in Chapter \ref{ChapterAggFlexForecast} and the calculation of the flexibility request in Chapter \ref{ChapterOPFDSO}. 
 
