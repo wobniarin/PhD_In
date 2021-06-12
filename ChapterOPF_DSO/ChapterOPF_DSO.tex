@@ -2,7 +2,7 @@
 \label{ChapterOPFDSO}
 \chaptermark{Optimal Power Flow for Distribution System Operators}
 
-\section{Objectives and Chapter Contributions}
+\section{Objectives and contributions}
 
 The dynamics of the power system are changing towards a new model where large generators on the high-voltage side of the network are being replaced by smaller generation units placed at the medium-voltage and low-voltage side of the grid. This increase of penetration by DERs will have a significant impact on how the distribution network operates. At the distribution level, distributed energy resources will make arise some new challenges and, in some cases, problems already solved will rise again. As a result, the increasing number of DERs placed alongside the medium-voltage  and low-voltage distribution networks leads to the need of flexibility services for the DSO. 
 This chapter aims to develop an optimization tool for calculating the value and location of the flexibility request that a DSO needs for operating the distribution network and avoid or mitigate network congestions, corresponding to objective $(iv)$ of the thesis research, according to Figure \ref{fig:chapter_obj_iv}. 
@@ -37,7 +37,7 @@ The most common problems caused by the high penetration of distributed and renew
 Based on previous references \cite{ISMAEL20191002, Bollen2011}, the two main potential problems under the distribution network operation are $(i)$ \textbf{overload} and  $(ii)$ \textbf{overvoltage}. The following sections defines the potential problems and details the main causes of them. 
 
 
-\subsection{Overcurrents - Line Congestion}
+\subsection{Overcurrents - Line congestion}
 Overloads or commonly also known as overcurrents are those situations where the current circulating through one of the electrical components is higher than the nominal value. This can cause either the damage of the electrical component if the situation happens for a short period of time, or the component failure if the current limit is overly exceeded. However, in many cases, protection elements would trigger and interrupt the service so as to guarantee the correct performance of the component. 
 If we consider the current scenario of energy transition with a high penetration of DERs, the risk of overcurrent is mainly caused by the increase of the electricity consumption in a network that has not been reinforced since its construction, and the increase of DERs and electrical appliances such as space heaters, electric vehicles and electric water boilers. In the latter case, the electricity in injected usually at MV and LV levels. In this scenario, overloads can happen when the overall resulting power flow downstream the distributed generator point exceeds the value upstream, under the hyphoteses that no other generation sources are providing energy. This is also related to the feeder capacity limits under normal operation schemes. The scenario where a feeder capacity has been working at its 40-50\% capacity before the integration of capacity generation would have a wider range to allocate these resources than those feeders that in normal operation are at its 90-95 \% of the total capacity. Furthermore, the length of the feeder should be also taken into consideration, since at the beginning of the power line the electricity to be distributed must be equal to the sum of all loads, whereas at the end of the feeder only the remaining has to be provided. Hence, the feeder capacity is also related to the length, structure and connected loads. 
 Despite the disadvantages and challenges of DERs in distribution networks, it is a fact that DERs can help reduce the losses in the electricity system, since generation is now closer to the consumption points. However, it should be considered that under the case of an excess of generation, reverse flows in MV and LV lines can increase the power losses of the overall system. 
@@ -78,7 +78,7 @@ The DSO is responsible for calculating their Flexibility Requests (FR) for conge
 %\subsection{Literature review on congestion management tools - OPF}
 %\subsection{Contribution}
 
-\section{Mathematical formulation for Flexibility request calculation}
+\section{Mathematical formulation for flexibility request calculation}
 The optimization problem is developed to minimize the aggregator operation costs. The costs are based on curtailing local generation output, charging or discharging batteries, switching off curtailable and disconnectable loads and shifting loads during specific time periods. A local flexibility market design is presented in [12], described as a market-based mechanism for aggregators. BRP and DSO are the main stakeholders of these flexibility services and they can buy flexibility from a market platform or a bilateral contract. However, in any case an information exchange is required between the flexibility buyer and the flexibility provider, to agree on the quantity and delivery time of this flexibility to be provided. 
 
 %\section{Flexibility activation costs for distribution network operators}
@@ -331,10 +331,10 @@ The main goal of the case study is to simulate active network management for a s
 At these time periods where the operation constraints are not fulfilled, a congestion problem is detected, being characterized under overload, overvoltage or undervoltage, and the AC-OPF computes the flexibility requested to return the distribution network to a status where the restrictions are met again at all buses, transformers, and lines. The problem is based on a day-ahead time horizon, split into hourly time periods. The following sections cover a detailed analysis of the results under a single period, being understood as one hour, while the latter covers the operation results under a multiperiod optimization for a day-ahead scenario.  
 
 \newpage
-\section{Results and Discussion}
+\section{Results}
 The resuts of the flexibility request under certain scenarios are detailed in this section. The defined scenarios consider an increase of he residental load in some of the nodes, and a surplus of DERs generation in some of the nodes. The results section is structured into two main subsections, first for detailing the specific results under a single period of study (e.g 1 hour), whereas the second section draws the results for a day-ahead simulation, split into hourly time periods. While the single period section aims to detail the effect of the flexibility request under a specific time period, the day-ahead or multiperiod section aims to detail the evolution of the flexibility requests for a given day and a given scenario of load and generation profiles in the LV network. 
-\subsection{Single Period}
-The congestion caused by a high load scenario in node 10 is an overload of line 6-10. After the flexibility-based AC-OPF calculation, the flexibility requested are located in two different nodes, requesting both flexibility upwards and downwards, for boh active and reactive power, as shown in Table \ref{tab:FR_case1}. 
+\subsection{Single period}
+The congestion caused by a high load scenario in node 10 is an overload of line 6-10. After the flexibility-based AC-OPF calculation, the flexibility requested are located in two different nodes, requesting both flexibility upwards and downwards, for boh active and reactive power, as shown in Table \ref{tab:FR_case1}. For the sake of simplicity of the results explanation, the variables related to flexibility request $\phi_{i,t}^{P^{UP}},\phi_{i,t}^{P^{DOWN}}$ and $,\phi_{i,t}^{Q}$ are represented in the following tables as $\phi_{i,t}^{P}$; represented by positive values for $\phi_{i,t}^{P^{UP}}$, negative values for $\phi_{i,t}^{P^{DOWN}}$. In the case of $\phi_{i,t}^{Q}$, this variable can take either positive or negative values depending on the type of reactive power requested, inductive or capacitive. 
 
 \begin{table}[htbp]
 \centering
@@ -342,9 +342,9 @@ The congestion caused by a high load scenario in node 10 is an overload of line 
 \label{tab:FR_case1}
 \begin{tabular}{lll} 
 \toprule
-Node & FR\_P [kW] & FR\_Q [kvar]  \\ 
+Node & $\phi_{i,t}^{P}$ [kW] & $\phi_{i,t}^{Q}$ [kvar]  \\ 
 \hline
-5    & 57.84      & 43.72         \\
+5    & 57.84      & 23.72         \\
 4    & - 0.7      & - 0.2         \\
 \bottomrule
 \end{tabular}
@@ -369,7 +369,7 @@ In this second scenario, two congestions were identified on the network, one cau
 \label{tab:FR_case2}
 \begin{tabular}{lll} 
 \toprule
-Node & FR\_P [kW] & FR\_Q [kvar]  \\ 
+Node & $\phi_{i,t}^{P}$ [kW] & $\phi_{i,t}^{Q}$ [kvar]  \\ 
 \hline
 5    & 17.54      & 1.99         \\
 15    & 17.12      & 1.78          \\
@@ -390,7 +390,8 @@ By activating these flexibility requests, a new network status is achieved and v
 
 It is important to notice that are some network buses and network scenarios where a congestion cannot be completely avoided by activating flexibility, without creating a congestion in a different location of the same network. In this case, the objective is to decrease the overload or the overvoltage problem closer to the maximum operation constraints while ensuring the AC power flow equations are satisfied at any point. In all cases, though, the AC-OPF algorithm considers a maximum line overload of 70 \%, and the voltage magnitude within the $\pm$ 3 \% of the rated voltage. 
 
-\subsection{Day-ahead flexibility request (Multiperiod)}
+\subsection{Multiperiod flexibility request}
+This section presents a time series simulation for checking the formulation and the flexibility request approach under a day-ahead scenario, where the DSO knows the load forecast and can calculate the flexibility request needed for operating the grid correctly. The time series load and generation profiles are shown in Figure \ref{fig:data_opf_multiperiod}. The goal is to operate the grid under the same constraints for a single period, but calculating the flexibility requests at each time period considering the load and generation for that specific time period. 
 
 %\begin{figure}[htbp]
 %\centering     %%% not \center
@@ -404,11 +405,41 @@ It is important to notice that are some network buses and network scenarios wher
 
 \begin{figure}[htbp]
 	\centering
-	\includegraphics[width=0.9\columnwidth ]{ChapterOPF_DSO/Figures/p_q_profile_2.png}
+	\includegraphics[width=0.8\columnwidth ]{ChapterOPF_DSO/Figures/p_q_profile_2.png}
 	   %\vspace*{-8cm}
 		\caption{Time-series power profiles for node 9 of the LV network}
 	\label{fig:data_opf_multiperiod}  
 \end{figure}
+
+Figure \ref{fig:flex_requests} shows the flexibility requested at specific nodes of the LV network. For a better understanding of the results, only the nodes where flexibility has been requested in order to avoid violating the operational constraints. The most congested nodes have been the sames as in the single period scenario, being nodes 6, 10, 15 and 22 the congested with overcurrent and undervoltage at the end of the line. After the execution of the flexibility-based AC-OPF, flexibility is requested in nodes 4, 5 and 22, between 0.5 to 57.84 kW. In any case, the upward flexibility requests are always larger than the downwards flexibility requests. This can be explained because in these nodes the most common congestion detected has been undervoltage. Hence, upward flexibility provides active power in that node, and raises the voltage magnitude solving the congestion at that specific node. In a smaller scale, reactive power is requested as well in one of the network nodes. 
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.8\columnwidth ]{ChapterOPF_DSO/Figures/flex_requests_vfin.png}
+	\caption{Flexibility requests for 24 time periods simulation}
+	\label{fig:flex_requests}  
+\end{figure}
+
+The main objective of the flexibility request optimization problem is to find a solution where there is a local flexibility activated in one of the network nodes, reducing or mitigating the problem detected of undervoltage, overvoltage or line overload while not creating another congestion in a different network area. 
+The results of the optimization problem are checked by means of the power flow equations, to check the new status of the network after finding an optimal solution. As can be seen in Figure \ref{fig:line_load}, the network lines are below the operational load percentage limit of 70\% in all time periods. 
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.8\columnwidth ]{ChapterOPF_DSO/Figures/line_load.png}
+	\caption{Line loading percentage throughout the multiperiod simulation}
+	\label{fig:line_load}  
+\end{figure}
+
+This correct operation of the network can also be checked by means of the voltage magnitudes where there was a flexibility request activated or a congestion in the network. Figure \ref{fig:voltage_magnitudes} depicts the voltage magnitudes at each time period of the day-ahead simulation. As  can be seen in that figure, the operational constraint that the voltage magnitude should always be between $\pm$ 3 \% of the rated voltage (1.01 pu) is always satisfied. 
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.8\columnwidth ]{ChapterOPF_DSO/Figures/voltage_pu_nodes.png}
+	\caption{Voltage magnitudes in network nodes}
+	\label{fig:voltage_magnitudes}  
+\end{figure}
+
+
 
 \section{Chapter remarks}
 While AC-OPF has the advantage that it considers the full AC power flow equations, being the best choice for optimization of control and operation actions, it has some challenges and disadvantages that have been faced in this chapter. AC-OPF is computationally expensive and troublesome for very large networks. In some cases, the current and available solvers such as the interior point (ipopt) or knitro used in this formulation were not able to obtain a solution for the case study. That means that some efforts have to be done to decrease computation time and resources to avoid the infeasibility of the solution. One option has been to change the initial values of the control variables, so as to start the simulation with a power flow feasible solution. Despite, this is not always possible when considering power system networks. Another option could be to use the DC approximation. However, DC approximations are more suitable for transmission systems, not being possible to implement and model the correct behaviour of a distribution network because of the impedance associated to short lines as the ones in distribution networks. 
