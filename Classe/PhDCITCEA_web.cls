@@ -21,6 +21,7 @@
 \DeclareMathOperator*{\argmin}{arg\,min}
 \usepackage{booktabs}
 \usepackage{eurosym}
+\usepackage{enumitem}
 \usepackage[spanish,catalan,english]{babel}
 \usepackage[latin1]{inputenc}
 \usepackage[pdftex,
