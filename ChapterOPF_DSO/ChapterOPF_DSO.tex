@@ -1,4 +1,4 @@
-\chapter{Flexibility-based AC-Optimal Power Flow for Active Network Management in Distribution Grids}
+\chapter{Flexibility-based AC-OPF for active network management in distribution grids}
 \label{ChapterOPFDSO}
 \chaptermark{Optimal Power Flow for Distribution System Operators}
 
@@ -80,26 +80,20 @@ This chapter will consider the notation for complex magnitudes by means of modul
 \underline{V}_{i,t} = V_{i,t} \phase{\theta_{i,t}}
 \end{equation*}
 
-where $V_{i,t}$ represents the voltage module measured in $pu$ for a given node $i \in N$ and time $t \in T$, and $\theta_{i,t}$ the angle in rad. The line admittance $\underline{Y}_{ik}$ for a line between nodes $i,k \in N$ can be formulated as
-
-\begin{equation*}
-\underline{Y}_{ik} = G_{ik} + jB_{ik}
-\end{equation*}
-
-where $G_{ik}$ is the conductance of the line and $B_{ik}$ is the susceptance, both measured in siemens $[\Omega^{-1}]$. $\underline{Y}_{ik}$ belongs to the bus admittance matrix, $[Y]_{bus}$, an $N x N$ matrix, where $N$ is the number of nodes. This matrix is composed by all the nodal admittance of the various buses. It explains the topology and the admittance of the network. It is a symmetric matrix and the way to obtain the elements of this matrix follow the criteria listed below:
+Where $V_{i,t}$ represents the voltage module measured in $pu$ for a given node $i \in N$ and time $t \in T$, and $\theta_{i,t}$ the angle in rad. The network topology and the line admittances are represented by the bus admittance matrix, $[Y]_{bus}$. Each element of this matrix is obtained by means of the following equations,
 
 \begin{subequations}
 \begin{align*}
-& \underline{Y}_{bus_{ii}}= \underline{y}_{ik_{1}} + \sum_k \underline{y}_{ik} \\
-& \underline{Y}_{bus_{ij}} = - \sum \underline{y}_{ij}
+& \underline{y}_{bus_{ii}}= \underline{y}_{ik_{sh,1}} + \sum_k \underline{y}_{ik} \\
+& \underline{y}_{bus_{ij}} = - \sum \underline{y}_{ij}
 \end{align*}
 \end{subequations}
 
-Where $i$,$k$ and $j$ are buses of the network, and $k$ are all the buses connected to bus $i$. The parameter $\underline{y}_{ik_{1}}$ represents the shunt admittance element connected at node $i$ required for modeling short and medium lines, being it the case for distribution networks. For the sake of simplicity, we will consider $[Y]_{bus}$ as $[Y]$, being each of the elements in the matrix the i-j element a complex number $\underline{Y}_{bus_ij}$. In the case of distribution networks, being it the case of study in this chapter, the equivalent network scheme in order to obtain the line admittances is based on the $\pi$-model, shown in Figure \ref{fig:pimodel}. This equivalent scheme considers both the series impedance, $\underline{z}_{ik}$, and the shunt admittance $\underline{y}_{ik_1}$ and $\underline{y}_{ik_2}$.
+Where two different formulations are used depending on the position of the element in the matrix, being $\underline{y}_{bus_{ii}}$ for a diagonal element and $\underline{y}_{bus_{ij}}$ for a non-diagonal element. The subscripts $i$,$k$ and $j$ are buses of the bus network set $N$. The parameters  $\underline{y}_{ik_{sh,1}}, \underline{y}_{ik}$ are obtained from the equivalent $\pi$-model of the network, represented in Figure \ref{fig:pimodel}. In the case of distribution networks with medium and short lines, the shunt elements $\underline{y}_{ik_{sh,1}}, \underline{y}_{ik_{sh,2}}$ should be included on top of the series admittance $\underline{y}_{ik}$. 
 
 \begin{figure}[htbp]
 	\centering
-	\includegraphics[width=0.7\columnwidth ]{ChapterOPF_DSO/Figures/pimodel2.pdf}
+	\includegraphics[width=0.7\columnwidth ]{ChapterOPF_DSO/Figures/pimodel4.pdf}
 	   %\vspace*{-8cm}
 		\caption{$\pi$-model of the network}
 	\label{fig:pimodel}  
@@ -110,6 +104,34 @@ In all cases, the relationship between the nodal admittance matrix  $[Y]_{bus}$ 
 \begin{equation*}
 [Y]_{bus} = [Z]_{bus}^{-1}
 \end{equation*}
+
+%represents the shunt admittance element connected at node $i$ required for modeling short and medium lines, being it the case for distribution networks. For the sake of simplicity, we will consider $[Y]_{bus}$ as $[Y]$, being each of the elements in the matrix the i-j element a complex number $\underline{Y}_{bus_ij}$. In the case of distribution networks, being it the case of study in this chapter, the equivalent network scheme in order to obtain the line admittances is based on the $\pi$-model, shown in Figure \ref{fig:pimodel}. This equivalent scheme considers both the series impedance, $\underline{z}_{ik}$, and the shunt admittance $\underline{y}_{ik_1}$ and $\underline{y}_{ik_2}$.
+
+The admittance matrix $[Y]_{bus}$ for a line between nodes $i,k \in N$ can be formulated as a complex formulation, being the $[G]_{bus}$ the real component representing the conductance of the line between nodes $i,k \in N$; and  $[B]_{bus}$ the complex component defined as the line susceptance between nodes $i,k \in N$, both measured in S $[\Omega^{-1}]$. 
+
+\begin{equation*}
+[Y]_{bus} = [G]_{bus} + j[B]_{bus}
+\end{equation*}
+
+%Where $G_{ik}$ is the conductance of the line and $B_{ik}$ is the susceptance, both measured in S $[\Omega^{-1}]$. $\underline{Y}_{ik}$ belongs to the bus admittance matrix, $[Y]_{bus}$, an $N x N$ matrix, where $N$ is the number of nodes. This matrix is composed by all the nodal admittance of the various buses. It explains the topology and the admittance of the network. It is a symmetric matrix and the way to obtain the elements of this matrix follow the criteria listed below:
+
+%\begin{subequations}
+%\begin{align*}
+%& \underline{Y}_{bus_{ii}}= \underline{y}_{ik_{1}} + \sum_k \underline{y}_{ik} \\
+%& \underline{Y}_{bus_{ij}} = - \sum \underline{y}_{ij}
+%\end{align*}
+%\end{subequations}
+
+%Where $i$,$k$ and $j$ are buses of the network, and $k$ are all the buses connected to bus $i$. The parameter $\underline{y}_{ik_{1}}$ represents the shunt admittance element connected at node $i$ required for modeling short and medium lines, being it the case for distribution networks. For the sake of simplicity, we will consider $[Y]_{bus}$ as $[Y]$, being each of the elements in the matrix the i-j element a complex number $\underline{Y}_{bus_ij}$. In the case of distribution networks, being it the case of study in this chapter, the equivalent network scheme in order to obtain the line admittances is based on the $\pi$-model, shown in Figure \ref{fig:pimodel}. This equivalent scheme considers both the series impedance, $\underline{z}_{ik}$, and the shunt admittance $\underline{y}_{ik_1}$ and $\underline{y}_{ik_2}$.
+%
+%\begin{figure}[htbp]
+%	\centering
+%	\includegraphics[width=0.7\columnwidth ]{ChapterOPF_DSO/Figures/pimodel2.pdf}
+%	   %\vspace*{-8cm}
+%		\caption{$\pi$-model of the network}
+%	\label{fig:pimodel}  
+%\end{figure}
+
 
 The apparent power of the bus $i \in N$ and time $t \in T$, $\underline{S}_{i,t}$, measured in kVA, can be decomposed into active, $P_{i,t}$ in kW, and reactive power $Q_{i,t}$ in kvar, by the following equation 
 
@@ -124,9 +146,9 @@ The objective function is to minimize the total flexibility costs for activating
 \!\min_{\phi_{i,t}^{P^{UP}},\phi_{i,t}^{P^{DOWN}},\phi_{i,t}^{Q}}  \qquad \sum_{t}^{T} \left( \sum_{i}^{N} C_t^{P} \cdot \phi_{i,t}^{P} + C_t^{Q} \cdot \phi_{i,t}^{Q} \right)  
 \end{equation*}
 
-There are a set of convencionalisms and constraints involved to ensure the correct calculation of the flexibility request. First of all, in the case of active power, there are two types of flexibility that can be activated, being flexibility upwards, $\phi_{i,t}^{P^{UP}}$, and flexibility downwards, $\phi_{i,t}^{P^{DOWN}}$. 
+There are a set of convencionalisms and constraints involved to ensure the correct calculation of the flexibility request. First of all, in the case of active power, there are two types of flexibility that can be activated, being flexibility upwards, $\phi_{i,t}^{P^{UP}}$, and flexibility downwards, $\phi_{i,t}^{P^{DOWN}}$. These are two of the variables of the optimization problem, for a given node $i \in N$ and time $t \in T$. The two vectors containing all the variables for sets $N$ and $T$ are defined as $\Phi^{P^{UP}}$ and $\Phi^{P^{DOWN}}$. In the case of the reactive power flexibility request variable, it is defined as $\phi_{i,t}^{Q}$, for a given node $i \in N$ and time $t \in T$; being the vector for all nodes $n \in N$ and times $t \in T$ represented as $\Phi^{Q}$.
 
-From the DSO perspective, flexibility upwards is meant to be an increase of generation or reduction of consumption, and hence it can be modeled as a generator in a specific node, for a given time period. On the contrary, flexibility downwards is meant to be an increase of the load at a specific node location of the network or equally as a reduction of the generation. As a consequence, downwards flexibility can be modeled as a load in a specific network node.
+From the DSO perspective, active power flexibility upwards is meant to be an increase of generation or reduction of consumption, and hence it can be modeled as a generator in a specific node, for a given time period. On the contrary, active power flexibility downwards is meant to be an increase of the load at a specific node location of the network or equally as a reduction of the generation. As a consequence, downwards flexibility can be modeled as a load in a specific network node. When talking about the reactive power flexibility request, no disctintion is made between upwards and downwards, since both generators and loads can provide capacitive and inductive reactive power. 
 
 In terms of considering upwards and downwards flexibility at specific time period and a specific node, there cannot be an active power flexibility request upwards and downwards at the same time. In order to avoid binary variables into the model, the flexibility variables are linked as follows
 
@@ -228,7 +250,7 @@ Furthermore, with the aim to improve the solvability of the problem, the voltage
 
 \begin{subequations}
 \begin{align*}
-&V_{i}^{MIN} \leq v_{i,t} \leq V_{i}^{MAX} &\forall i,\forall t  \\
+&V_{i}^{MIN} \leq V_{i,t} \leq V_{i}^{MAX} &\forall i,\forall t  \\
 &\theta_{i}^{MIN} \leq \theta_{i,t}  \leq \theta_{i}^{MAX}  &\forall i,\forall t  \\ 
 \end{align*}
 \end{subequations}
@@ -264,8 +286,8 @@ By jointly considering all the equations and constraints, the optimization probl
 \begin{subequations}
 \begin{alignat}{2}
 &\!\min_{\phi_{i,t}^{P^{UP}},\phi_{i,t}^{P^{DOWN}},\phi_{i,t}^{Q}}  &\qquad& \sum_{t}^{T} \left( \sum_{i}^{N} C_t^{P} \cdot \phi_{i,t}^{P} + C_t^{Q} \cdot \phi_{i,t}^{Q} \right) \label{eq:optProb}\\ 
-&\phantom{Mi} \text{s.t.} &      & P_{i,t} = V_{i,t} \sum_{k=1}^{N} V_{k} (G_{i,k} \cos(\theta_{i,k}) + (B_{i,k} \sin(\theta_{i,k})) \label{eq:activepowernodalbalance} \\ 
-&				   &      & Q_{i,t} = V_{i,t} \sum_{k=1}^{N} V_{k} (G_{i,k} \sin(\theta_{i,k}) - (B_{i,k} \cos(\theta_{i,k})) \label{eq:reactivepowernodalbalance} \\
+&\phantom{Mi} \text{s.t.} &      & P_{i,t} = V_{i,t} \sum_{k=1}^{N} V_{k} (G_{i,k} \cos(\theta_{i,k}) + B_{i,k} \sin(\theta_{i,k}) \label{eq:activepowernodalbalance} \\ 
+&				   &      & Q_{i,t} = V_{i,t} \sum_{k=1}^{N} V_{k} (G_{i,k} \sin(\theta_{i,k}) - B_{i,k} \cos(\theta_{i,k}) \label{eq:reactivepowernodalbalance} \\
 &                  &      & \theta_{ik,t} = \theta_{i,t} - \theta_{k,t}\label{eq:voltageangle} \\
 &                  &      & P_{i,t} = P_{i,t}^{G} - P_{i,t}^{D} \label{eq:Pi} \\
 &                  &      & Q_{i,t} = Q_{i,t}^{G} - Q_{i,t}^{D}  \label{eq:Qi} \\
@@ -357,10 +379,10 @@ This network considers two types of standard loads by default, being household l
 	\label{fig:case_study_LV}  
 \end{figure}
 
-The main goal of the case study is to simulate active network management for a safe distribution network operation, calculating the flexibility request to avoid network reconfiguration and congestions problems such as overloads and voltage deviations. The case study implements the previously defined mathematical formulation under the LV network detailed above, and also considers the following restrictions for a correct operation: 
+The main goal of the case study is to simulate active network management for a safe distribution network operation, calculating the flexibility request to avoid network reconfiguration and congestions problems such as overloads and voltage deviations. The associated flexibility activation costs are based on the costs of demand-response activation and its impact to grid reinforcement obtained from \cite{EUCommision-DGEnergy2016, Saygn2019}. The case study implements the previously defined mathematical formulation under the LV network detailed above, and also considers the following restrictions for a correct operation, based on the operational guidelines \cite{BAYER2020336, Giannelos2016}: 
 
 \begin{enumerate}
-\item All bus voltages have to be within $\pm 3$ \% of the rated voltage, 1.01 pu, based on the operational guidelines \cite{BAYER2020336, Giannelos2016}.
+\item All bus voltages have to be within $\pm 3$ \% of the rated voltage, 1.01 pu.
 \item All lines have a maximum loading percentage of 70 \%. 
 \end{enumerate}
 
@@ -369,7 +391,7 @@ At these time periods where the operation constraints are not fulfilled, a conge
 \section{Results}
 The results of the flexibility request under certain scenarios are detailed in this section. The defined scenario consider an increase of the residental load in some of the nodes, and a surplus of DERs generation in some of the nodes. The results section is structured into two main subsections, first for detailing the specific results under a single period of study (e.g 1 hour), whereas the second section draws the results for a day-ahead simulation, split into hourly time periods. While the single period section aims to detail the effect of the flexibility request under a specific time period, the day-ahead or multiperiod section aims to detail the evolution of the flexibility requests for a given day and a given scenario of load and generation profiles in the LV network. 
 \subsection{Single period}
-The congestion caused by a high load scenario in node 10 is an overload of line 6-10 \ref{fig:congestion_pq_pre}. After the flexibility-based AC-OPF calculation, the flexibility requested are located in two different nodes, requesting both flexibility upwards and downwards, for boh active and reactive power, as shown in Table \ref{tab:FR_case1}. For the sake of simplicity of the results explanation, the variables related to flexibility request $\phi_{i,t}^{P^{UP}},\phi_{i,t}^{P^{DOWN}}$ and $,\phi_{i,t}^{Q}$ are represented in the following tables as $\phi_{i,t}^{P}$; represented by positive values for $\phi_{i,t}^{P^{UP}}$, negative values for $\phi_{i,t}^{P^{DOWN}}$. In the case of $\phi_{i,t}^{Q}$, this variable can take either positive or negative values depending on the type of reactive power requested, inductive or capacitive. 
+The congestion caused by a high load scenario in node 10 is an overload of line 6-10, as shown in Figure \ref{fig:congestion_pq_pre}. After the flexibility-based AC-OPF calculation, the flexibility requests are located in two different nodes, requesting both flexibility upwards and downwards for active, and reactive power flexibility, as shown in Table \ref{tab:FR_case1}. For the sake of simplicity of the results explanation, the variables related to flexibility request $\phi_{i,t}^{P^{UP}},\phi_{i,t}^{P^{DOWN}}$ and $,\phi_{i,t}^{Q}$ are represented in the following tables as $\phi_{i,t}^{P}$; represented by positive values for $\phi_{i,t}^{P^{UP}}$, negative values for $\phi_{i,t}^{P^{DOWN}}$. In the case of $\phi_{i,t}^{Q}$, this variable can take either positive or negative values depending on the type of reactive power requested, inductive or capacitive. The network status after activating the flexibility requested is shown in Figure \ref{fig:congestion_pq_post}.
 
 \begin{table}[htbp]
 \centering
@@ -394,9 +416,18 @@ Node & $\phi_{i,t}^{P}$ [kW] & $\phi_{i,t}^{Q}$ [kvar]  \\
 \end{figure}
 
 
+\begin{figure}[htbp]
+\centering     %%% not \center
+\subfigure[Network status before the flexibility request activation]{\label{fig:congestion_pq_pre_2points}\includegraphics[width=90mm]{ChapterOPF_DSO/Figures/congestion_two_points_pre.png}}
+\subfigure[Network status after flexibility request being activated]{\label{fig:congestion_pq_post_2points}\includegraphics[width=90mm]{ChapterOPF_DSO/Figures/congestion_two_points_post_2.png}}
+\caption{Flexibility AC-OPF results comparison for two identified congestions}
+\label{fig:case2_fr}
+\end{figure}
+
+
 \subsubsection{Results for two congestions and two flexibility points}
 
-In this second scenario, two congestions were identified on the network, one caused by an surplus of generation and the other by an increase of the demand in one of the network nodes. In this case, congestions were characterized as overcurrent in line 8 (Nodes 6-10) with a load percentage of 91.5 \%, and in line 20 (Nodes 15-22), with a load percentage of 73.75\% (Figure \ref{fig:congestion_pq_pre_2points}). After computing the AC-OPF algorithm, flexibility is requested in three nodes, for both active and reactive power, as shown in Table \ref{tab:FR_case2}
+In this second scenario, two congestions were identified on the network, one caused by a surplus of generation, and the other by an increase of the demand in one of the network nodes. In this case, congestions were characterized as overcurrent in line 8 (Nodes 6-10) with a load percentage of 91.5 \%, and in line 20 (Nodes 15-22), with a load percentage of 73.75\% (Figure \ref{fig:congestion_pq_pre_2points}). After computing the AC-OPF algorithm, flexibility is requested in three nodes, for both active and reactive power, as shown in Table \ref{tab:FR_case2}
 
 \begin{table}[htbp]
 \centering
@@ -413,22 +444,15 @@ Node & $\phi_{i,t}^{P}$ [kW] & $\phi_{i,t}^{Q}$ [kvar]  \\
 \end{tabular}
 \end{table}
 
-By activating these flexibility requests, a new network status is achieved and validated by the Power Flow check at the end of the algorithm. As can be observed in Figure \ref{fig:case2_fr}, the previous network status with the indentified congestions showed that there are two lines over the constraint of 70 \% of loading percent \ref{fig:congestion_pq_pre_2points}. Once flexibility is activated, Figure \ref{fig:congestion_pq_post_2points} shows that the congested lines achieve a reduction of congestion around the 18 \%. In this case, a greater reduction in these lines lead to a congestion located in other lines of the network, and hence to an infeasibility of the AC-OPF algorithm. 
+By activating these flexibility requests, a new network status is achieved and validated by the Power Flow check at the end of the algorithm. As can be observed in Figure \ref{fig:case2_fr}, the previous network status with the indentified congestions showed that there are two lines with the loading percentage over the constraint of 70 \% (Figure \ref{fig:congestion_pq_pre_2points}). Once flexibility is activated, Figure \ref{fig:congestion_pq_post_2points} shows that the congested lines achieve a reduction of congestion around the 18 \%. In this case, a greater reduction in these lines lead to a congestion located in other lines of the network, and hence to an infeasibility of the AC-OPF algorithm. 
 
-\begin{figure}[htbp]
-\centering     %%% not \center
-\subfigure[Network status before the flexibility request activation]{\label{fig:congestion_pq_pre_2points}\includegraphics[width=90mm]{ChapterOPF_DSO/Figures/congestion_two_points_pre.png}}
-\subfigure[Network status after flexibility request being activated]{\label{fig:congestion_pq_post_2points}\includegraphics[width=90mm]{ChapterOPF_DSO/Figures/congestion_two_points_post_2.png}}
-\caption{Flexibility AC-OPF results comparison for two identified congestions}
-\label{fig:case2_fr}
-\end{figure}
 
 It is important to notice that are some network buses and network scenarios where a congestion cannot be completely avoided by activating flexibility, without creating a congestion in a different location of the same network. In this case, the objective is to decrease the overload or the overvoltage problem closer to the maximum operation constraints while ensuring the AC power flow equations are satisfied at any point. In all cases, though, the AC-OPF algorithm considers a maximum line overload of 70 \%, and the voltage magnitude within the $\pm$ 3 \% of the rated voltage. 
 
 \subsection{Multiperiod flexibility request}
 This section presents a time series simulation for evaluating the formulation and the flexibility request approach under a day-ahead scenario, where the DSO knows the load forecast and can calculate the flexibility request needed for operating the grid correctly. The time series load and generation profiles are shown in Figure \ref{fig:data_opf_multiperiod}. The goal is to operate the grid under the same constraints for a single period, but calculating the flexibility requests at each time period considering the load and generation for that specific time period. 
 
-\begin{figure}[htbp]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=0.8\columnwidth ]{ChapterOPF_DSO/Figures/p_q_profile_2.png}
 	   %\vspace*{-8cm}
@@ -436,7 +460,7 @@ This section presents a time series simulation for evaluating the formulation an
 	\label{fig:data_opf_multiperiod}  
 \end{figure}
 
-Figure \ref{fig:flex_requests} shows the flexibility requested at specific nodes of the LV network. For a better understanding of the results, only the nodes where flexibility has been requested in order to avoid violating the operational constraints. The most congested nodes have been the sames as in the single period scenario, being nodes 6, 10, 15 and 22 the congested with overcurrents and undervoltages at the end of the line. After the execution of the flexibility-based AC-OPF, flexibility is requested in nodes 4, 5 and 22, between 0.5 to 57.84 kW. In any case, the upward flexibility requests are always larger than the downwards flexibility requests. This can be explained because in these nodes the most common congestion detected has been undervoltage. Hence, upward flexibility provides active power in that node, and raises the voltage magnitude solving the congestion at that specific node. In a smaller scale, reactive power is requested as well in one of the network nodes. 
+Figure \ref{fig:flex_requests} shows the flexibility requested at specific nodes of the LV network. For a better understanding of the results, only the nodes where flexibility has been requested are shown in the figures. The most congested nodes have been nodes 6, 10, 15 and 22 the most congested ones, with overcurrents in the lines between them, and undervoltages at the end of the line. After the execution of the flexibility-based AC-OPF, flexibility is requested in nodes 4, 5 and 22, with request values between 0.5 to 57.84 kW. In any case, upward flexibility requests have always been greater than downwards flexibility requests. This can be explained because in these nodes the most common congestion detected has been undervoltage. Hence, upward flexibility provides active power in that node, and raises the voltage magnitude solving the congestion at that specific node. In a smaller scale, reactive power is requested as well in one of the network nodes. 
 
 \begin{figure}[htbp]
 	\centering
@@ -450,7 +474,7 @@ The results of the optimization problem are checked by means of the power flow e
 
 \begin{figure}[htbp]
 	\centering
-	\includegraphics[width=0.8\columnwidth ]{ChapterOPF_DSO/Figures/line_load.png}
+	\includegraphics[width=0.8\columnwidth ]{ChapterOPF_DSO/Figures/line_load_2.png}
 	\caption{Line loading percentage throughout the multiperiod simulation}
 	\label{fig:line_load}  
 \end{figure}
@@ -459,7 +483,7 @@ This correct operation of the network can also be checked by means of the voltag
  
 \begin{figure}[htbp]
 	\centering
-	\includegraphics[width=0.8\columnwidth ]{ChapterOPF_DSO/Figures/voltage_pu_nodes.png}
+	\includegraphics[width=0.8\columnwidth ]{ChapterOPF_DSO/Figures/voltage_pu_nodes_2.png}
 	\caption{Voltage magnitudes in network nodes}
 	\label{fig:voltage_magnitudes}  
 \end{figure}
@@ -468,10 +492,10 @@ Only a single period with overvoltage was detected in the day-ahead simulation d
 
 To sum up, some considerations must be made about the mathematical formulation and the solvability of the problem. While AC-OPF has the advantage that it considers the full AC power flow equations, being the best choice for optimization of control and operation actions, it has some challenges and disadvantages that have been faced in this chapter. AC-OPF is computationally expensive and troublesome for extensive networks. In some cases, the current and available solvers such as the interior point (ipopt) or knitro used in this formulation could not obtain a solution for the case study. That means that some efforts have to be made to decrease computation time and resources to avoid the infeasibility of the solution. One option has been to change the control variables' initial values to start the simulation with a power flow feasible solution. Despite this, this is not always possible when considering power system networks. Another option could be to use the DC approximation. However, DC approximations are more suitable for transmission systems, not being possible to implement and model the correct behavior of a distribution network because of the impedance associated with short lines as the ones in distribution networks. 
 
-Furthermore, in its original form, as the one being formulated in this chapter, the AC-OPF formulation is a non-linear and hence a non-convex problem. That means that there is no guarantee that the global optimum is found. Further research on this topic is mainly focused on implement convex relaxations into the problem to transform the OPF problem into a convex Semi-Definite Program (SDP). Under certain conditions, that can lead to obtaining a solution that is the global optimum to the original OPF problem, achieving a zero-duality gap. If this cannot be achieved, a convex relaxation could help determine how far the local minimum found is from the global minimum.  
+Furthermore, in its original form, as the one being formulated in this chapter, the AC-OPF formulation is a non-linear and hence a non-convex problem. That means that there is no guarantee that the global optimum is found. 
 
+Further research on this topic should focus on deriving convex relaxations into the problem to transform the OPF problem into a convex Semi-Definite Program (SDP). Under certain conditions, that can lead to obtaining a solution that is the global optimum to the original OPF problem, achieving a zero-duality gap. If this cannot be achieved, a convex relaxation could help determine how far the local minimum found is from the global minimum.  
 
-\newpage
 \section{Chapter remarks}
 This chapter aimed to evaluate the possibility of defining a model for calculating the flexibility requests under a distribution network to create a tool for DSO to know in advance the flexibility required for a correct active network operation. In recent years, electricity consumption is increasing faster than it could have been expected, and the distribution network is allocating more loads, more distributed generation, and controllable assets, creating a space for prosumers. However, the network is facing operational challenges. The DSO can operate the network without reconfiguring the network or reinforcing the network through the flexibility request calculation.
 

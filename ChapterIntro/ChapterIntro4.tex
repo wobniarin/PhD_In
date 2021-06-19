@@ -38,7 +38,7 @@ The physical infrastructure of the electricity network is composed by generators
 %\end{figure}
 
 Generators are the main agents feeding the grid downstream. Large generators can produce a grid voltage range from 6 kV to 20 kV \cite{Gomez-Exposito2008}, to then increase the voltage up to typically 220 kV or 400 kV in order to connect to the high voltage (HV) transmission lines. The transmission network is the responsible for the electricity transportation over long distances, and it is done at HV level. By doing this, the transmission losses are lower while using a cheaper infrastructure. The transmission network voltage level usually ranges from 200 kV to 1000 kV \cite{Erbach2016}, and both generators and transformers are the main elements connected to it. Due to their critical position in the system, connecting generation and consumption sides, transmission grids are meshed to avoid collapsing when there is any failure in on of the lines. On top of that, this layout allows the distribution of the loads through different tramission lines with the objective of reducing losses and avoiding congestions. Transmission networks are operated by the so-called Transmission System Operators (TSO). Similarly, distribution networks are responsible for the energy distribution and transportation for shorter distances. One could consider a distribution grid when its voltage levels are either medium-voltage (MV) and low-voltage (LV). By definition, the voltage levels considered for distribution networks are: 132 kV, 66 kV, 45 kV, 30 kV, 20 kV, 10 kV, 6 kV, 3 kV, 1 kV, 400 V and 230 V \cite{Gomez-Exposito2008, Erbach2016}. 
-
+\newpage
 Differently as seen in the transmission system, the assets connected at distribution level are mainly loads ranging from industrial loads, connected at MV, to residential loads, most usually connected at the LV level. However, generation units can also be connected  at the distribution level, usually only considering renewable sources. The configuration layout of distribution networks is commonly not redundant, meaning that they do not usually use meshed configurations. As a result, these networks are not as redundant as the transmission system. Hence, this could lead to problems when distributed energy resources (DERs) or distributed generators (DG) are connected to MV or LV connection points, leading to congestions  in distribution networks that were not expected when the network was implemented. Distribution networks are managed by Distribution System Operators (DSO), who connect consumers, install electricity meters and communicate the end-user consumption to energy suppliers or retailers \cite{Erbach2016}. An overview of the previously mentioned elements is shown in Figure \ref{fig:networkscheme}. 
 
 
@@ -131,7 +131,7 @@ According to the same institution, flexibility will enable all stakeholder and e
 
 \begin{figure}[h]
 	\centering 
-	\includegraphics[width=1\columnwidth ]{ChapterIntro/Figures/load_curve.pdf}
+	\includegraphics[width=0.9\columnwidth ]{ChapterIntro/Figures/load_curve.pdf}
 	   %\vspace*{-8cm}
 		\caption{Evolution of the demand curve when implementing flexibility actions.}  
 		\label{fig:load_shifting}
@@ -196,6 +196,7 @@ What are the possibilities to develop and activate flexibility in distribution n
 \end{tcolorbox}
 
 This can be considered a broad question, and hence the knowledge barriers should be found in order to establish the baseline for the PhD research. This thesis aims to answer this question focusing on the role of the demand-side and their flexible assets and what the benefits and consequences would be for distribution networks, managed by DSOs. Figure \ref{fig:objectives} provides an overview of the system under study, considering the demand-side by means of prosumers and flexible assets; the aggregator as the entity that collects all the available flexibility and provides this service to the DSO by controlling the end-user's assets; the DSO as the main client of this flexibility; the electricity market to understand which role plays the flexibility in a market-environment; and lastly the environment, to assess the global warming potential and other environmental impacts that flexibility could reduce or increase. Based on the previous discussion, more specific objectives can be outlined in order to set the basis for the research developed in this thesis. The research questions that led to the objectives of the thesis are outlined below: 
+\vspace*{2mm}
 
 %\begin{tcolorbox}
 %\begin{enumerate}
@@ -216,9 +217,10 @@ This can be considered a broad question, and hence the knowledge barriers should
 \item How this scenario of flexibility provision can be environmentally assessed, so as to know if these approaches can be included in each and every country? Should the current installed capacity and generation portfolio be taken into account before the deployment of flexibility services in smart grids?
 \end{RQ}
 \end{tcolorbox}
+\vspace*{2mm}
 
-Each of the objectives of the thesis, related to each of the research questions can be detailed and related to each of the chapters of this manuscript, as follows: 
 
+The previous research questions lead to the following objectives:
 \begin{enumerate}
 \item \textbf{Analysis of the market schemes for energy and flexibility for the development of smart grids.} The first step of the thesis has the objective of defining the framework where new products and services can be implemented, with the purpose of providing smart grids stakeholders such as retailers, network operators and end-users a set of benefits. Special focus is set in energy and flexibility services for balancing agents and distribution network operators, with the creation of new market agents like the aggregator and the local market operators. Different market mechanisms for providing these services are analyzed, considering peer-to-peer and peer-to-platform approaches. 
 \item \textbf{Definition of flexibility based on the main stakeholder, time horizon and business objective.} As a result of the previous state-of-the-art analysis, the research is focused on flexibility for the distribution network operator. The main research gap to address here is that distribution network operators require flexibility for the network operation, however current research still lacks a common definition for flexibility, and how can this flexibility be formulated based on the final user and the final approach of this flexibility. There are several differences to be considered if this flexibility is implemented for operation purposes or planning purposes. In this case, the role of the aggregator, the information exchange between these two agents as well as the regulation behind them are key for the development of successful flexibility services for the DSO.  
@@ -227,7 +229,7 @@ Each of the objectives of the thesis, related to each of the research questions 
 \item \textbf{Analysis of the environmental impact of the current electricity market generation scheme and evaluation of environmental savings by implementing flexibility.} The final step of the research aims to assess the whole idea and approach by evaluating potential savings in terms of CO$_2$ emissions in the generation profiles, based on a cradle-to-gate life cycle assessment methododology. This study defines a peak hourly LCA approach to highlight those time periods where flexibility could be activated and evaluate the environmental impact of these time periods. This methodology is implemented in five case studies in Europe to assess whether there are environmental savings or not. This approach can help policy makers to implement smart grids and energy transition initiatives not focusing only on the technical development, but also in terms of sustainability. 
 \end{enumerate} 
 
-Figure \ref{fig:objectives} depicts the different objectives covered in this thesis, as well as the relationship between the agents involved.
+Figure \ref{fig:objectives} depicts the different objectives covered in this thesis and the interaction between the agents involved. Lastly, Section \ref{sec:thesisoutline} defines the topics covered in each chapter and relates them to each of the objectives. 
 
 \begin{figure}[h]
 	\centering 
@@ -260,7 +262,7 @@ The author has collaborated with other entities and other researchers, resulting
 
 
 %\newpage 
-\section{Thesis outline}
+\section{Thesis outline}\label{sec:thesisoutline}
 The content of the thesis is organized in the following chapters as follows:
 \begin{itemize}
 \item \textbf{Chapter 2} presents the overall state-of-the-art in terms of local energy markets, in order to define the role of flexibility in a local market and to which extent this service can help energy transition, and more specifically, DSOs. This work corresponds to the first objective of the thesis \textit{(i)} detailed in Section \ref{sec:objectives}. 
