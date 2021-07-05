@@ -1,6 +1,6 @@
 \chapter{Flexibility-based AC-OPF for active network management in distribution grids}
 \label{ChapterOPFDSO}
-\chaptermark{Optimal Power Flow for Distribution System Operators}
+\chaptermark{Flexibility-based AC-OPF for active network management}
 
 \section{Objectives and contributions}
 
@@ -15,7 +15,7 @@ This chapter aims to develop an optimization tool for calculating the value and 
 	\label{fig:chapter_obj_iv}  
 \end{figure}
 
-These flexibility services could be provided by several demand-side flexible resources such as centralized energy storage, distributed energy storage, electric vehicles, PV panels, or Flexible Loads such as water boilers or space heaters. The aggregator gathers the flexibility from customers to provide these services to different stakeholders, like energy suppliers, BRPs, TSOs, DSOs, and final consumers \cite{USEFFoundation2015a, Olivella2018}. Then, the aggregator acts as a single entity when engaging in power system markets or selling services to the system operators \cite{BURGER2017}. Under the context of smart grids and flexibility services in place, distribution system operators could benefit by activating flexibility in distribution grids \cite{USEFFoundation2015a, spiliotis2016demand, esmat2016conf, hashemi2016}. First of all, DSOs could compensate grid congestions during high consumption or production periods and therefore reduce the network stress. At the same time, DSOs can increase their renewable generation hosting capacity by using behind-the-meter flexibility during peak production periods. 
+These flexibility services could be provided by several demand-side flexible resources such as centralized energy storage, distributed energy storage, electric vehicles, PV panels, or flexible loads such as water boilers or space heaters. The aggregator gathers the flexibility from customers to provide these services to different stakeholders, like energy suppliers, BRPs, TSOs, DSOs, and final consumers \cite{USEFFoundation2015a, Olivella2018}. Then, the aggregator acts as a single entity when engaging in power system markets or selling services to the system operators \cite{BURGER2017}. Under the context of smart grids and flexibility services in place, distribution system operators could benefit by activating flexibility in distribution grids \cite{USEFFoundation2015a, spiliotis2016demand, esmat2016conf, hashemi2016}. First of all, DSOs could compensate grid congestions during high consumption or production periods and therefore reduce the network stress. At the same time, DSOs can increase their renewable generation hosting capacity by using behind-the-meter flexibility during peak production periods. 
 
 The most common problems caused by the high penetration of distributed and renewable generation can be classified into four main categories. Figure \ref{fig:network_problems} provides an overview of the location of these potential problems in an arbitrary distribution network, also detailed in the following list:  
 
@@ -206,7 +206,7 @@ Where $P_{i,t}^{G}$ is the active power generated at node $i \in N$ and time $t 
 %\end{subequations}
 
 %The total active power at node $i \in K$ in period $t \in T$, $P_{i,t}$, considers the active power generated, the active power demanded and the active power injected by the flexibility source. Regarding the reactive power, Eq. XXXX also considers the reactive power generated at node  $i \in K$ in period $t \in T$ the reactive power consumed at node $i \in K$ in period $t \in T$ and the reactive power consumed or injected by the flexibility source.
-\newpage
+%\newpage
 Hence, from the power flow equations, it is possible to calculate the apparent flow injected depending on the voltages at all the grid nodes. 
 The line flow constraints follow the $\pi$-model of the grid, since both the longitudinal impedance and the transversal capacitance of the line have to be considered in the case of distribution networks (Figure \ref{fig:pimodel}). As a result,
 
@@ -255,9 +255,10 @@ Furthermore, with the aim to improve the solvability of the problem, the voltage
 \end{align*}
 \end{subequations}
 
+\vspace{-6mm}
 
 %The previously detailed flexibility-based optimization problem considering the AC power flow network equations and constraints is detailed below, with the objective to provide an overview of all the equations involved in the problem. 
-\newpage
+%\newpage
 By jointly considering all the equations and constraints, the optimization problem can be outlined as follows
 %\begin{subequations}
 %\begin{alignat}{2}
@@ -492,15 +493,12 @@ Only a single period with overvoltage was detected in the day-ahead simulation d
 
 To sum up, some considerations must be made about the mathematical formulation and the solvability of the problem. While AC-OPF has the advantage that it considers the full AC power flow equations, being the best choice for optimization of control and operation actions, it has some challenges and disadvantages that have been faced in this chapter. AC-OPF is computationally expensive and troublesome for extensive networks. In some cases, the current and available solvers such as the interior point (ipopt) or knitro used in this formulation could not obtain a solution for the case study. That means that some efforts have to be made to decrease computation time and resources to avoid the infeasibility of the solution. One option has been to change the control variables' initial values to start the simulation with a power flow feasible solution. Despite this, this is not always possible when considering power system networks. Another option could be to use the DC approximation. However, DC approximations are more suitable for transmission systems, not being possible to represent the correct behavior of a distribution network because of the impedance associated with short lines as the ones in distribution networks. 
 
-Furthermore, in its original form, as the one being formulated in this chapter, the AC-OPF formulation is a non-linear and hence a non-convex problem. That means that there is no guarantee that the global optimum is found. 
-
-Further research on this topic should focus on deriving convex relaxations into the problem to transform the OPF problem into a convex Semi-Definite Program (SDP). Under certain conditions, that can lead to obtaining a solution that is the global optimum to the original OPF problem, achieving a zero-duality gap. If this cannot be achieved, a convex relaxation could help determine how far the local minimum found is from the global minimum.  
+Furthermore, in its original form, as the one being formulated in this chapter, the AC-OPF formulation is a non-linear and hence a non-convex problem. Further research on this topic should focus on deriving convex relaxations into the problem to transform the OPF problem into a convex Semi-Definite Program (SDP). Under certain conditions, that can lead to obtaining a solution that is the global optimum to the original OPF problem, achieving a zero-duality gap. If this cannot be achieved, a convex relaxation could help determine the distance between solutions.  
 
 \section{Chapter remarks}
 This chapter aimed to evaluate the possibility of defining a model for calculating the flexibility requests under a distribution network to create a tool for DSO to know in advance the flexibility required for a correct active network operation. In recent years, electricity consumption is increasing faster than it could have been expected, and the distribution network is allocating more loads, more distributed generation, and controllable assets, creating a space for prosumers. However, the network is facing operational challenges. The DSO can operate the network without reconfiguring the network or reinforcing the network through the flexibility request calculation.
 
-This chapter proved that flexibility could be a valuable tool for DSOs while providing them with more knowledge about the distribution network and using demand-side flexibility to operate the grid correctly. 
-A mathematical formulation has confirmed this hypothesis considering the flexibility activation costs and the network constraints under the AC power flow formulation. Under the case study considered, a single period and a multiperiod simulation has been carried out. In both cases, some lines and nodes were more likely to experience congestions than others, based on the characteristics of the line components and the network layout. In all cases, active power has been the main request to solve congestions in the distribution network case study. In further studies, DSOs could base their active network management on requesting active power flexibility and let the reactive power request be provided automatically by distributed generators.  
+Flexibility can be a valuable tool for DSOs while providing them with more knowledge about the distribution network and using demand-side flexibility to operate the grid correctly. A mathematical formulation has confirmed this hypothesis considering the flexibility activation costs and the network constraints under the AC power flow formulation. Under the case study considered, a single period and a multiperiod simulation has been carried out. In both cases, some lines and nodes were more likely to experience congestions than others, based on the characteristics of the line components and the network layout. In all cases, active power has been the main request to solve congestions in the distribution network case study. In further studies, DSOs could base their active network management on requesting active power flexibility and let the reactive power request be provided automatically by distributed generators.  
 
 Furthermore, computational resources should be considered when evaluating more extensive distribution networks because it can compromise finding an optimal solution or the problem to converge. In these cases, either splitting the network into different feeders, using other non-linear solvers, or extracting the convex relaxation problem could help the solvability of the problem. With the objective of providing a more specific cost optimization objective function, a particular model of the flexibility activation costs should be developed to evaluate the benefits of activating flexibility compared to grid reinforcement. 
 

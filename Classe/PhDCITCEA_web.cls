@@ -136,13 +136,14 @@
         {\ifx\@partone\@empty\else\Large\@partone\par\fi} %\usekomafont{subtitle}
         {\ifx\@parttwo\@empty\else\Large\@parttwo\par\fi} %\usekomafont{subtitle}
         {\ifx\@subtitle\@empty\else\Large\par\fi} %\usekomafont{subtitle} %%%%%%%%%\@subtitle
-        \vfill
+%        \vfill
         {\ifx\@advisortwo\@empty
         \begin{tabular}[t]{ll}
             \Large Author: & \@author \\ \\
             \Large Adviser: & \Large\textbf{\@advisorone}
         \end{tabular}
         \else
+        \vspace{-20mm}
         \begin{tabular}[t]{c}
             \Large \titlefont \textbf{\@author}\\ $ $\\ $ $\\
    %         & \\
@@ -154,21 +155,21 @@
     \end{center}
         \vfill
         \begin{minipage}[b]{\textwidth}
-              	Thesis advisors:\\
+              	Supervisors:\\
               	{\@advisorone} {\@affone}\\
               	{\@advisortwo} {\@afftwo}\\
         \end{minipage}
-        \begin{minipage}[b]{\textwidth}
-        	Examination Commitee:\\
-        	{\@examinerone} {\@affthree}\\
-        	{\@examinertwo} {\@afffour}\\
-        	{\@examinerthree} {\@afffive}\\
-        \end{minipage}
-        \begin{minipage}[b]{\textwidth}
-           	Thesis reviewers:\\
-            {\@reviewerone} {\@affsix}\\
-            {\@reviewertwo} {\@affseven}\\
-        \end{minipage}
+%        \begin{minipage}[b]{\textwidth}
+%        	Examination Commitee:\\
+%        	{\@examinerone} {\@affthree}\\
+%        	{\@examinertwo} {\@afffour}\\
+%        	{\@examinerthree} {\@afffive}\\
+%        \end{minipage}
+%        \begin{minipage}[b]{\textwidth}
+%           	Thesis reviewers:\\
+%            {\@reviewerone} {\@affsix}\\
+%            {\@reviewertwo} {\@affseven}\\
+%        \end{minipage}
         \begin{minipage}[b]{\textwidth}
         	\@place, \@date
         \end{minipage}
